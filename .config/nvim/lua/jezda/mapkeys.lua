@@ -11,6 +11,7 @@ map("n", "<leader>q", ":bd<CR>")
 
 map("n", "ff", ":Telescope find_files <CR>")
 map("n", "fb", ":Telescope file_browser<cr>")
+map("n", "lg", ":Telescope live_grep<CR>")
 
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
