@@ -1,0 +1,63 @@
+-- local status, bufferline = pcall(require, "bufferline")
+-- if not status then
+-- 	return
+-- end
+--
+-- bufferline.setup({
+-- 	options = {
+--
+-- 		custom_areas = {
+-- 			right = function()
+-- 				local result = {}
+-- 				local seve = vim.diagnostic.severity
+-- 				local error = #vim.diagnostic.get(0, { severity = seve.ERROR })
+-- 				local warning = #vim.diagnostic.get(0, { severity = seve.WARN })
+-- 				local info = #vim.diagnostic.get(0, { severity = seve.INFO })
+-- 				local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
+--
+-- 				if error ~= 0 then
+-- 					table.insert(result, { text = "  " .. error, fg = "#EC5241" })
+-- 				end
+--
+-- 				if warning ~= 0 then
+-- 					table.insert(result, { text = "  " .. warning, fg = "#EFB839" })
+-- 				end
+--
+-- 				if hint ~= 0 then
+-- 					table.insert(result, { text = "  " .. hint, fg = "#A3BA5E" })
+-- 				end
+--
+-- 				if info ~= 0 then
+-- 					table.insert(result, { text = "  " .. info, fg = "#7EA9A7" })
+-- 				end
+-- 				return result
+-- 			end,
+-- 		},
+-- 		mode = "buffers",
+-- 		offsets = {
+-- 			{ filetype = "NvimTree" },
+-- 		},
+-- 		diagnostics = "nvim_lsp",
+-- 		diagnostics_indicator = function(count, level, diagnostics_dict, context)
+-- 			local icon = level:match("error") and " " or " "
+-- 			return " " .. icon .. count
+-- 		end,
+-- 		hover = {
+-- 			enabled = true,
+-- 			delay = 200,
+-- 			reveal = { "close" },
+-- 		},
+-- 		numbers = function(opts)
+-- 			return string.format("%s", opts.ordinal, opts.id)
+-- 		end,
+-- 	},
+-- 	highlights = {
+-- 		buffer_selected = {
+-- 			italic = false,
+-- 		},
+-- 		indicator_selected = {
+-- 			fg = { attribute = "fg", highlight = "Function" },
+-- 			italic = false,
+-- 		},
+-- 	},
+-- })

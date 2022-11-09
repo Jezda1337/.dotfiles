@@ -1,0 +1,86 @@
+-- local status, cmp = pcall(require, "cmp")
+-- if not status then
+-- 	return
+-- end
+--
+-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+-- -- local cmp_kinds = require("lua.jezda.utils.icons").icons.kind_icons
+-- local luasnip = require("luasnip")
+--
+-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+-- cmp.setup({
+-- 	view = {
+-- 		entries = "custom",
+-- 	},
+-- 	window = {
+-- 		-- completion = cmp.config.window.bordered(),
+-- 		-- documentation = cmp.config.window.bordered(),
+-- 	},
+-- 	snippet = {
+-- 		expand = function(args)
+-- 			luasnip.lsp_expand(args.body)
+-- 		end,
+-- 	},
+--
+-- 	formatting = {
+-- 		-- format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
+-- 		fields = { "kind", "abbr", "menu" },
+-- 		format = function(entry, vim_item)
+-- 			vim_item.kind = cmp_kinds[vim_item.kind] or ""
+-- 			vim_item.menu = ({
+-- 				nvim_lsp = "",
+-- 				nvim_lua = "",
+-- 				luasnip = "",
+-- 				buffer = "",
+-- 				path = "",
+-- 				emoji = "",
+-- 			})[entry.source.name]
+-- 			return vim_item
+-- 		end,
+-- 	},
+--
+-- 	mapping = {
+-- 		["<C-e>"] = cmp.mapping.abort(),
+-- 		["<CR>"] = cmp.mapping.confirm({
+-- 			behavior = cmp.ConfirmBehavior.Replace,
+-- 			select = true,
+-- 		}),
+-- 		["<Tab>"] = cmp.mapping(function(fallback)
+-- 			if cmp.visible() then
+-- 				cmp.select_next_item()
+-- 			elseif luasnip.expand_or_jumpable() then
+-- 				luasnip.expand_or_jump()
+-- 			else
+-- 				fallback()
+-- 			end
+-- 		end, { "i", "s" }),
+-- 		["<S-Tab>"] = cmp.mapping(function(fallback)
+-- 			if cmp.visible() then
+-- 				cmp.select_prev_item()
+-- 			elseif luasnip.jumpable(-1) then
+-- 				luasnip.jump(-1)
+-- 			else
+-- 				fallback()
+-- 			end
+-- 		end, { "i", "s" }),
+-- 	},
+-- 	sources = {
+-- 		{ name = "nvim_lsp", max_item_count = 30 },
+-- 		{ name = "nvim_lua" },
+-- 		{ name = "luasnip" },
+-- 		{ name = "nvim_lsp_signature_help" },
+-- 		{ name = "buffer" },
+-- 	},
+-- 	experimental = {
+-- 		ghost_text = false, -- still in bade shape :/
+-- 	},
+-- })
+--
+-- cmp.setup.cmdline(":", {
+-- 	mapping = cmp.mapping.preset.cmdline(),
+-- 	sources = cmp.config.sources({
+-- 		{ name = "path" },
+-- 	}, {
+-- 		{ name = "cmdline" },
+-- 	}),
+-- })
