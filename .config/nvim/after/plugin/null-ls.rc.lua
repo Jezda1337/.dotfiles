@@ -27,5 +27,7 @@ null_ls.setup({
 				end,
 			})
 		end
+		local lsp_format_modifications = require("lsp-format-modifications")
+		lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
 	end,
 })

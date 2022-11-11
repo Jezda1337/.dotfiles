@@ -6,7 +6,7 @@ local options = {
 	relativenumber = true,
 	hidden = true,
 	mouse = "a",
-	virtualedit = "all",
+	-- virtualedit = "all", -- make clicable to anywhere on the panel
 
 	tabstop = 2,
 	softtabstop = 2,

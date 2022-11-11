@@ -3,7 +3,7 @@ if not status then
 	return
 end
 local fb_actions = require("telescope").extensions.file_browser.actions
-telescope.load_extension("noice")
+-- telescope.load_extension("noice")
 
 telescope.setup({
 	defaults = {
