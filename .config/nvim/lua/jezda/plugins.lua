@@ -69,6 +69,25 @@ return require("packer").startup({
 
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use("nvim-treesitter/nvim-treesitter-context")
+
+    -- plugin for quick replace block/line of code
+    use({
+      "cshuaimin/ssr.nvim",
+      module = "ssr",
+      -- Calling setup is optional.
+      config = function()
+        require("ssr").setup({
+          min_width = 50,
+          min_height = 5,
+          keymaps = {
+            close = "q",
+            next_match = "n",
+            prev_match = "N",
+            replace_all = "<leader><cr>",
+          },
+        })
+      end,
+    })
     use("p00f/nvim-ts-rainbow")
     use({
       "nvim-lualine/lualine.nvim",

@@ -1,6 +1,7 @@
 require("jezda.options")
 require("jezda.plugins")
 require("jezda.mapkeys")
+require("jezda.lualine")
 
 -- LSP colors (error, warn, info && hint)
 vim.cmd("hi DiagnosticError ctermbg=NONE ctermfg=NONE guibg=NONE guifg=#F24B42")
