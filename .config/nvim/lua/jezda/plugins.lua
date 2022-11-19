@@ -120,11 +120,12 @@ return require("packer").startup({
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")
 		use("saadparwaiz1/cmp_luasnip")
-		use("L3MON4D3/LuaSnip")
 		use("hrsh7th/cmp-cmdline")
 		use("hrsh7th/cmp-path")
 		use("hrsh7th/cmp-nvim-lsp-signature-help")
 		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
+		use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
+		use("rafamadriz/friendly-snippets") -- vscode like snippets
 
 		if packer_bootstrap then
 			require("packer").sync()

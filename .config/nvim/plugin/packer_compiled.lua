@@ -129,6 +129,11 @@ _G.packer_plugins = {
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/editorconfig.nvim",
     url = "https://github.com/gpanders/editorconfig.nvim"
   },
+  ["friendly-snippets"] = {
+    loaded = true,
+    path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/friendly-snippets",
+    url = "https://github.com/rafamadriz/friendly-snippets"
+  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",
@@ -257,7 +262,7 @@ _G.packer_plugins = {
     url = "https://github.com/MunifTanjim/prettier.nvim"
   },
   ["ssr.nvim"] = {
-    config = { "\27LJ\2\nü\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\15prev_match\6N\nclose\6q\16replace_all\17<leader><cr>\15next_match\6n\1\0\2\15min_height\3\5\14min_width\0032\nsetup\bssr\frequire\0" },
+    config = { "\27LJ\2\nü\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\15next_match\6n\nclose\6q\16replace_all\17<leader><cr>\15prev_match\6N\1\0\2\14min_width\0032\15min_height\3\5\nsetup\bssr\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,

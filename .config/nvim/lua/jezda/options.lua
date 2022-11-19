@@ -39,6 +39,7 @@ local options = {
 	fileencoding = "utf-8",
 
 	completeopt = { "menu", "menuone", "noselect" },
+	fillchars = { eob = " " }, -- remove tilda from empty lines in buffer.
 }
 
 vim.opt.clipboard:append({ "unnamedplus" })
