@@ -17,7 +17,7 @@ map("n", "<leader>q", ":bd<CR>")
 
 map("n", "ff", ":Telescope find_files <CR>")
 map("n", "fb", ":Telescope file_browser<cr>")
-map("n", "<leader>lg", ":Telescope live_grep<CR>")
+map("n", "flg", ":Telescope live_grep<CR>")
 
 --move block of code up/down
 map("v", "J", ":m '>+1<CR>gv=gv")
