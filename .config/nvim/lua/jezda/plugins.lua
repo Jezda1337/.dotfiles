@@ -36,8 +36,9 @@ return require("packer").startup({
 		use("dstein64/vim-startuptime") -- mesure the startup time of your config
 		use("MunifTanjim/prettier.nvim") -- prettier code
 		use("ggandor/leap.nvim")
-		use("folke/neodev.nvim")
+		use("folke/neodev.nvim") -- neovim and lua development plugin w/ help, docs and completion for api
 		use("gpanders/editorconfig.nvim")
+    use("jose-elias-alvarez/typescript.nvim") -- typescript addons like import missing files, code actions etc...
 		use({
 			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },

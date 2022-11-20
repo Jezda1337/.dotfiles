@@ -14,6 +14,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.shfmt,
 		null_ls.builtins.code_actions.gitsigns,
+		require("typescript.extensions.null-ls.code-actions"),
 	},
 
 	on_attach = function(client, bufnr)
@@ -27,8 +28,8 @@ null_ls.setup({
 				end,
 			})
 		end
-    --commented coz don't recognize .astro extension and some other...
-		-- local lsp_format_modifications = require("lsp-format-modifications")
-		-- lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
+		--commented coz don't recognize .astro extension and some other...
+		local lsp_format_modifications = require("lsp-format-modifications")
+		lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
 	end,
 })
