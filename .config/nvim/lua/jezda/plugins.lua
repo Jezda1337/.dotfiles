@@ -38,7 +38,8 @@ return require("packer").startup({
 		use("ggandor/leap.nvim")
 		use("folke/neodev.nvim") -- neovim and lua development plugin w/ help, docs and completion for api
 		use("gpanders/editorconfig.nvim")
-    use("jose-elias-alvarez/typescript.nvim") -- typescript addons like import missing files, code actions etc...
+		use("jose-elias-alvarez/typescript.nvim") -- typescript addons like import missing files, code actions etc...
+		use("christoomey/vim-tmux-navigator") -- tmux and neovim navigations over the windows
 		use({
 			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },

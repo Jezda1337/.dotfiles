@@ -17,16 +17,19 @@ local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
 local source_mapping = {
-	buffer = "[Buffer]",
 	nvim_lsp = "[LSP]",
 	nvim_lua = "[Lua]",
 	cmp_tabnine = "[TN]",
-	path = "[Path]",
 	luasnip = "[Snippet]",
+	buffer = "[Buffer]",
+	path = "[Path]",
 }
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 cmp.setup({
+	completion = {
+		completeopt = "menu,noselect",
+	},
 	view = {
 		entries = "custom",
 	},
@@ -113,12 +116,12 @@ cmp.setup({
 		},
 	},
 	sources = {
-		{ name = "cmp_tabnine", max_item_count = 10 },
+		{ name = "cmp_tabnine", max_item_count = 10, keyword_length = 3 },
 		{ name = "nvim_lsp", max_item_count = 10 },
-		{ name = "nvim_lua" },
-		{ name = "luasnip" },
+		{ name = "nvim_lua", max_item_count = 10 },
+		{ name = "luasnip", max_item_count = 5, keyword_length = 2 },
 		{ name = "nvim_lsp_signature_help" },
-		{ name = "buffer" },
+		{ name = "buffer", keyword_length = 2 },
 	},
 	experimental = {
 		ghost_text = true, -- still in bade shape :/
@@ -133,3 +136,24 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
+
+--  see https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance#how-to-add-visual-studio-code-dark-theme-colors-to-the-menu
+vim.cmd([[
+  highlight! link CmpItemMenu Comment
+  " gray
+  highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+  " blue
+  highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+  highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+  " light blue
+  highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+  " pink
+  highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+  highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+  " front
+  highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+]])

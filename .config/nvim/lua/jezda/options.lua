@@ -11,7 +11,7 @@ local options = {
 	tabstop = 2,
 	softtabstop = 2,
 	shiftwidth = 2,
-	expandtab = true,
+	expandtab = false, -- use tabs instead of spaces
 	smartindent = true,
 	autoindent = true,
 
