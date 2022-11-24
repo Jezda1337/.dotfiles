@@ -11,6 +11,10 @@ end
 context.setup({})
 
 treesitter.setup({
+	context_commentstring = {
+		enable = true,
+		enable_autocmd = false,
+	},
 	highlight = {
 		enable = true,
 	},

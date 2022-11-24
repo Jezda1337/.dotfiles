@@ -105,6 +105,7 @@ return require("packer").startup({
 		})
 
 		use("numToStr/Comment.nvim")
+		use("JoosepAlviste/nvim-ts-context-commentstring") -- comment plugin for jsx tsx and more
 
 		-- LSP
 		use({
@@ -128,6 +129,7 @@ return require("packer").startup({
 		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
 		use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
 		use("rafamadriz/friendly-snippets") -- vscode like snippets
+		use("HiPhish/nvim-cmp-vlime")
 
 		if packer_bootstrap then
 			require("packer").sync()

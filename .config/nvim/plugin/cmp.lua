@@ -10,6 +10,12 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+cmp.setup.filetype({ "lips" }, {
+	sources = {
+		name = "vlime",
+	},
+})
+
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 -- local cmp_kinds = require("jezda.utils.icons").icons -- custom icons
 local compare = require("cmp.config.compare")
@@ -23,6 +29,7 @@ local source_mapping = {
 	luasnip = "[Snippet]",
 	buffer = "[Buffer]",
 	path = "[Path]",
+	-- vlime = "[Vlime]",
 }
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

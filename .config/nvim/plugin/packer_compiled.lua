@@ -211,6 +211,11 @@ _G.packer_plugins = {
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-cmp-vlime"] = {
+    loaded = true,
+    path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-cmp-vlime",
+    url = "https://github.com/HiPhish/nvim-cmp-vlime"
+  },
   ["nvim-highlight-colors"] = {
     loaded = true,
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-highlight-colors",
@@ -235,6 +240,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-treesitter-context",
     url = "https://github.com/nvim-treesitter/nvim-treesitter-context"
+  },
+  ["nvim-ts-context-commentstring"] = {
+    loaded = true,
+    path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-ts-context-commentstring",
+    url = "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
   },
   ["nvim-ts-rainbow"] = {
     loaded = true,
