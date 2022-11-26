@@ -29,7 +29,6 @@ local source_mapping = {
 	luasnip = "[Snippet]",
 	buffer = "[Buffer]",
 	path = "[Path]",
-	-- vlime = "[Vlime]",
 }
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
@@ -85,7 +84,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
+			select = false,
 		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -123,8 +122,8 @@ cmp.setup({
 		},
 	},
 	sources = {
-		{ name = "cmp_tabnine", max_item_count = 10, keyword_length = 3 },
 		{ name = "nvim_lsp", max_item_count = 10 },
+		{ name = "cmp_tabnine", max_item_count = 10, keyword_length = 3 },
 		{ name = "nvim_lua", max_item_count = 10 },
 		{ name = "luasnip", max_item_count = 5, keyword_length = 2 },
 		{ name = "nvim_lsp_signature_help" },

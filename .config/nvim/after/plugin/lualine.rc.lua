@@ -1,57 +1,10 @@
--- local status, lualine = pcall(require, "lualine")
--- if not status then
--- 	return
--- end
---
--- local function ins_left(component)
--- 	table.insert(config.sections.lualine_c, component)
--- end
---
--- local config = {
--- 	options = {
--- 		theme = "gruvbox_dark",
--- 	},
--- 	sections = {
--- 		-- these are to remove the defaults
--- 		lualine_a = {},
--- 		lualine_b = {},
--- 		lualine_y = {},
--- 		lualine_z = {},
--- 		-- These will be filled later
--- 		lualine_c = {},
--- 		lualine_x = {},
--- 	},
--- 	inactive_sections = {
--- 		-- these are to remove the defaults
--- 		lualine_a = {},
--- 		lualine_b = {},
--- 		lualine_y = {},
--- 		lualine_z = {},
--- 		lualine_c = {},
--- 		lualine_x = {},
--- 	},
--- }
--- ins_left({
--- 	function()
--- 		local msg = "No Active Lsp"
--- 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
--- 		local clients = vim.lsp.get_active_clients()
--- 		if next(clients) == nil then
--- 			return msg
--- 		end
--- 		for _, client in ipairs(clients) do
--- 			local filetypes = client.config.filetypes
--- 			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
--- 				return client.name
--- 			end
--- 		end
--- 		return msg
--- 	end,
--- 	icon = " LSP:",
--- 	color = { fg = "#ffffff", gui = "bold" },
--- })
---
--- lualine.setup(config)
---
+local status, lualine = pcall(require, "lualine")
+if not status then
+	return
+end
+
+local config = {}
+
+lualine.setup(config)
 -- -- this line fix flickering while makeing new lines and moving up and down rly fast
 -- vim.api.nvim_create_autocmd("CursorMoved", { callback = require("lualine").refresh })

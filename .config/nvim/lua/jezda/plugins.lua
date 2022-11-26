@@ -37,15 +37,14 @@ return require("packer").startup({
 		use("MunifTanjim/prettier.nvim") -- prettier code
 		use("ggandor/leap.nvim")
 		use("folke/neodev.nvim") -- neovim and lua development plugin w/ help, docs and completion for api
-		use("gpanders/editorconfig.nvim")
 		use("jose-elias-alvarez/typescript.nvim") -- typescript addons like import missing files, code actions etc...
 		use("christoomey/vim-tmux-navigator") -- tmux and neovim navigations over the windows
+
+		-- files as tabs
 		use({
 			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },
 		})
-		-- use({ "akinsho/bufferline.nvim", tag = "v2.*", requires = "kyazdani42/nvim-web-devicons" })
-		-- codewindow is in testing
 		use({
 			"iamcco/markdown-preview.nvim",
 			run = "cd app && npm install",
@@ -55,13 +54,8 @@ return require("packer").startup({
 			ft = { "markdown" },
 		})
 
-		-- use({
-		-- 	"folke/noice.nvim",
-		-- 	requires = {
-		-- 		"MunifTanjim/nui.nvim",
-		-- 		"rcarriga/nvim-notify",
-		-- 	},
-		-- })
+		-- testing plugins
+		use("yioneko/nvim-type-fmt")
 
 		use({
 			"nvim-telescope/telescope.nvim",
@@ -70,32 +64,17 @@ return require("packer").startup({
 		})
 		use({ "nvim-telescope/telescope-file-browser.nvim" }) -- telescope extension for create, delete and move files and folders
 
+		-- treesitter plugins
 		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 		use("nvim-treesitter/nvim-treesitter-context")
 
-		-- plugin for quick replace block/line of code
-		use({
-			"cshuaimin/ssr.nvim",
-			module = "ssr",
-			-- Calling setup is optional.
-			config = function()
-				require("ssr").setup({
-					min_width = 50,
-					min_height = 5,
-					keymaps = {
-						close = "q",
-						next_match = "n",
-						prev_match = "N",
-						replace_all = "<leader><cr>",
-					},
-				})
-			end,
-		})
 		use("p00f/nvim-ts-rainbow")
 		use({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 		})
+
+		-- neovim tree explorer
 		use({
 			"kyazdani42/nvim-tree.lua",
 			requires = {
@@ -104,10 +83,11 @@ return require("packer").startup({
 			tag = "nightly", -- optional, updated every week. (see issue #1193)
 		})
 
+		-- comments plugins
 		use("numToStr/Comment.nvim")
 		use("JoosepAlviste/nvim-ts-context-commentstring") -- comment plugin for jsx tsx and more
 
-		-- LSP
+		-- LSP plugins
 		use({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -118,7 +98,7 @@ return require("packer").startup({
 		use("onsails/lspkind.nvim")
 		use("joechrisellis/lsp-format-modifications.nvim")
 
-		-- CMP and LuaSnip
+		-- CMP and LuaSnip plugins
 		use("hrsh7th/nvim-cmp")
 		use("hrsh7th/cmp-nvim-lsp")
 		use("hrsh7th/cmp-nvim-lua")

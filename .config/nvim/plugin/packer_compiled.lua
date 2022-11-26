@@ -124,11 +124,6 @@ _G.packer_plugins = {
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
-  ["editorconfig.nvim"] = {
-    loaded = true,
-    path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/editorconfig.nvim",
-    url = "https://github.com/gpanders/editorconfig.nvim"
-  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -251,6 +246,11 @@ _G.packer_plugins = {
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
     url = "https://github.com/p00f/nvim-ts-rainbow"
   },
+  ["nvim-type-fmt"] = {
+    loaded = true,
+    path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-type-fmt",
+    url = "https://github.com/yioneko/nvim-type-fmt"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -270,14 +270,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/start/prettier.nvim",
     url = "https://github.com/MunifTanjim/prettier.nvim"
-  },
-  ["ssr.nvim"] = {
-    config = { "\27LJ\2\nü\1\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0005\3\4\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\4\15next_match\6n\nclose\6q\16replace_all\17<leader><cr>\15prev_match\6N\1\0\2\14min_width\0032\15min_height\3\5\nsetup\bssr\frequire\0" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/radojejezdic/.local/share/nvim/site/pack/packer/opt/ssr.nvim",
-    url = "https://github.com/cshuaimin/ssr.nvim"
   },
   ["telescope-file-browser.nvim"] = {
     loaded = true,
@@ -312,34 +304,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
-local module_lazy_loads = {
-  ["^ssr"] = "ssr.nvim"
-}
-local lazy_load_called = {['packer.load'] = true}
-local function lazy_load_module(module_name)
-  local to_load = {}
-  if lazy_load_called[module_name] then return nil end
-  lazy_load_called[module_name] = true
-  for module_pat, plugin_name in pairs(module_lazy_loads) do
-    if not _G.packer_plugins[plugin_name].loaded and string.match(module_name, module_pat) then
-      to_load[#to_load + 1] = plugin_name
-    end
-  end
-
-  if #to_load > 0 then
-    require('packer.load')(to_load, {module = module_name}, _G.packer_plugins)
-    local loaded_mod = package.loaded[module_name]
-    if loaded_mod then
-      return function(modname) return loaded_mod end
-    end
-  end
-end
-
-if not vim.g.packer_custom_loader_enabled then
-  table.insert(package.loaders, 1, lazy_load_module)
-  vim.g.packer_custom_loader_enabled = true
-end
-
 -- Setup for: markdown-preview.nvim
 time([[Setup for markdown-preview.nvim]], true)
 try_loadstring("\27LJ\2\n=\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\rmarkdown\19mkdp_filetypes\6g\bvim\0", "setup", "markdown-preview.nvim")

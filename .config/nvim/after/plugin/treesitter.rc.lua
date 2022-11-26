@@ -24,7 +24,7 @@ treesitter.setup({
 	auto_install = true,
 	rainbow = {
 		enable = true,
-		extended_mode = false,
+		extended_mode = true,
 		max_file_lines = nil,
 	},
 
