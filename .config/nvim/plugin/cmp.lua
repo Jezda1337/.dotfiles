@@ -18,18 +18,8 @@ cmp.setup.filetype({ "lips" }, {
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 -- local cmp_kinds = require("jezda.utils.icons").icons -- custom icons
-local compare = require("cmp.config.compare")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
-
-local source_mapping = {
-	nvim_lsp = "[LSP]",
-	nvim_lua = "[Lua]",
-	cmp_tabnine = "[TN]",
-	luasnip = "[Snippet]",
-	buffer = "[Buffer]",
-	path = "[Path]",
-}
 
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 cmp.setup({
@@ -54,30 +44,16 @@ cmp.setup({
 		end,
 	},
 	formatting = {
-		-- format = lspkind.cmp_format({ with_text = false, maxwidth = 50 }),
-		-- format = function(_, vim_item)
-		--   vim_item.kind = cmp_kinds.kind_icons[vim_item.kind] or ""
-		--   return vim_item
-		-- end,
 		format = function(entry, vim_item)
-			-- if you have lspkind installed, you can use it like
-			-- in the following line:
-			vim_item.kind = lspkind.symbolic(vim_item.kind, { mode = "symbol" })
-			vim_item.menu = source_mapping[entry.source.name]
-			if entry.source.name == "cmp_tabnine" then
-				local detail = (entry.completion_item.data or {}).detail
-				vim_item.kind = ""
-				if detail and detail:find(".*%%.*") then
-					vim_item.kind = vim_item.kind .. " " .. detail
-				end
-
-				if (entry.completion_item.data or {}).multiline then
-					vim_item.kind = vim_item.kind .. " " .. "[ML]"
+			if vim.tbl_contains({ "path" }, entry.source.name) then
+				local icon, hl_group = require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+				if icon then
+					vim_item.kind = icon
+					vim_item.kind_hl_group = hl_group
+					return vim_item
 				end
 			end
-			local maxwidth = 80
-			vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-			return vim_item
+			return lspkind.cmp_format({ with_text = false })(entry, vim_item)
 		end,
 	},
 	mapping = {
@@ -86,7 +62,7 @@ cmp.setup({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
 		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
+		["<C-p>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			elseif luasnip.expand_or_locally_jumpable() then
@@ -97,7 +73,7 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
+		["<C-n>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif luasnip.jumpable(-1) then
@@ -106,20 +82,6 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
-	},
-	sorting = {
-		priority_weight = 2,
-		comparators = {
-			require("cmp_tabnine.compare"),
-			compare.offset,
-			compare.exact,
-			compare.score,
-			compare.recently_used,
-			compare.kind,
-			compare.sort_text,
-			compare.length,
-			compare.order,
-		},
 	},
 	sources = {
 		{ name = "nvim_lsp", max_item_count = 10 },

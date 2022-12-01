@@ -39,7 +39,8 @@ return require("packer").startup({
 		use("folke/neodev.nvim") -- neovim and lua development plugin w/ help, docs and completion for api
 		use("jose-elias-alvarez/typescript.nvim") -- typescript addons like import missing files, code actions etc...
 		use("christoomey/vim-tmux-navigator") -- tmux and neovim navigations over the windows
-
+		use("windwp/nvim-ts-autotag")
+		use("lukas-reineke/indent-blankline.nvim")
 		-- files as tabs
 		use({
 			"romgrk/barbar.nvim",
@@ -55,7 +56,16 @@ return require("packer").startup({
 		})
 
 		-- testing plugins
-		use("yioneko/nvim-type-fmt")
+		use("yioneko/nvim-type-fmt") -- LSP handler of textDocument/onTypeFormatting for nvim.
+		use({
+			"nmac427/guess-indent.nvim",
+			config = function()
+				require("guess-indent").setup({})
+			end,
+		})
+		use({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
+
+		--------------------------------
 
 		use({
 			"nvim-telescope/telescope.nvim",

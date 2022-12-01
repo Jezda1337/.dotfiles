@@ -15,11 +15,19 @@ treesitter.setup({
 		enable = true,
 		enable_autocmd = false,
 	},
+	yati = {
+		enable = true,
+		default_lazy = true,
+		default_fallback = "auto",
+	},
+	autotag = {
+		enable = true,
+	},
 	highlight = {
 		enable = true,
 	},
 	indent = {
-		enable = true,
+		enable = false,
 	},
 	auto_install = true,
 	rainbow = {
