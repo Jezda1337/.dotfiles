@@ -17,3 +17,5 @@ alias python=/usr/bin/python3
 alias ls="exa --no-user --icons --long --grid"
 alias ls-t="exa --icons --long --tree --level=2"
 alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree=$HOME'
+
+alias vim=nvim

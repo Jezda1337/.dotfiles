@@ -1,135 +1,89 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+local status, packer = pcall(require, "packer")
+if not status then
+	return
 end
 
---on every save it's gonna run PackerSync
-vim.api.nvim_exec(
-	[[
-  augroup packer_ide_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]],
-	false
-)
+packer.startup(function(use)
+	-- CORE --
+	use("wbthomason/packer.nvim")
+	use("nvim-lua/plenary.nvim")
+	use("christoomey/vim-tmux-navigator") -- tmux integration shortcuts
+	use("wakatime/vim-wakatime") -- wakatime
 
-local packer_bootstrap = ensure_packer()
-
-return require("packer").startup({
-	function(use)
-		use("wbthomason/packer.nvim")
-		use("nvim-lua/plenary.nvim")
-		use("wakatime/vim-wakatime") -- plugin for tracking code time
-		use("brenoprata10/nvim-highlight-colors") -- side boxes with colors
-		use("kyazdani42/nvim-web-devicons")
-		use("lewis6991/gitsigns.nvim")
-		use({ "luisiacc/gruvbox-baby", branch = "main" }) -- the best colorscheme for neovim
-		use({ "ellisonleao/gruvbox.nvim" })
-		use("windwp/nvim-autopairs")
-		use("dstein64/vim-startuptime") -- mesure the startup time of your config
-		use("MunifTanjim/prettier.nvim") -- prettier code
-		use("ggandor/leap.nvim")
-		use("folke/neodev.nvim") -- neovim and lua development plugin w/ help, docs and completion for api
-		use("jose-elias-alvarez/typescript.nvim") -- typescript addons like import missing files, code actions etc...
-		use("christoomey/vim-tmux-navigator") -- tmux and neovim navigations over the windows
-		use("windwp/nvim-ts-autotag")
-		use("lukas-reineke/indent-blankline.nvim")
-		-- files as tabs
-		use({
-			"romgrk/barbar.nvim",
-			requires = { "kyazdani42/nvim-web-devicons" },
-		})
-		use({
-			"iamcco/markdown-preview.nvim",
-			run = "cd app && npm install",
-			setup = function()
-				vim.g.mkdp_filetypes = { "markdown" }
-			end,
-			ft = { "markdown" },
-		})
-
-		-- testing plugins
-		use("yioneko/nvim-type-fmt") -- LSP handler of textDocument/onTypeFormatting for nvim.
-		use({
-			"nmac427/guess-indent.nvim",
-			config = function()
-				require("guess-indent").setup({})
-			end,
-		})
-		use({ "yioneko/nvim-yati", tag = "*", requires = "nvim-treesitter/nvim-treesitter" })
-
-		--------------------------------
-
-		use({
-			"nvim-telescope/telescope.nvim",
-			tag = "0.1.0",
-			requires = { { "nvim-lua/plenary.nvim" } },
-		})
-		use({ "nvim-telescope/telescope-file-browser.nvim" }) -- telescope extension for create, delete and move files and folders
-
-		-- treesitter plugins
-		use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-		use("nvim-treesitter/nvim-treesitter-context")
-
-		use("p00f/nvim-ts-rainbow")
-		use({
-			"nvim-lualine/lualine.nvim",
-			requires = { "kyazdani42/nvim-web-devicons", opt = true },
-		})
-
-		-- neovim tree explorer
-		use({
-			"kyazdani42/nvim-tree.lua",
-			requires = {
-				"kyazdani42/nvim-web-devicons", -- optional, for file icons
-			},
-			tag = "nightly", -- optional, updated every week. (see issue #1193)
-		})
-
-		-- comments plugins
-		use("numToStr/Comment.nvim")
-		use("JoosepAlviste/nvim-ts-context-commentstring") -- comment plugin for jsx tsx and more
-
-		-- LSP plugins
-		use({
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		})
-		use("neovim/nvim-lspconfig")
-		use("jose-elias-alvarez/null-ls.nvim")
-		use({ "glepnir/lspsaga.nvim", branch = "main" })
-		use("onsails/lspkind.nvim")
-		use("joechrisellis/lsp-format-modifications.nvim")
-
-		-- CMP and LuaSnip plugins
-		use("hrsh7th/nvim-cmp")
-		use("hrsh7th/cmp-nvim-lsp")
-		use("hrsh7th/cmp-nvim-lua")
-		use("saadparwaiz1/cmp_luasnip")
-		use("hrsh7th/cmp-cmdline")
-		use("hrsh7th/cmp-path")
-		use("hrsh7th/cmp-nvim-lsp-signature-help")
-		use({ "tzachar/cmp-tabnine", run = "./install.sh", requires = "hrsh7th/nvim-cmp" })
-		use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
-		use("rafamadriz/friendly-snippets") -- vscode like snippets
-		use("HiPhish/nvim-cmp-vlime")
-
-		if packer_bootstrap then
-			require("packer").sync()
-		end
-	end,
-	config = {
-		display = {
-			open_fn = function()
-				return require("packer.util").float({ border = "single" })
-			end,
+	-- File Explorer --
+	use({
+		"nvim-tree/nvim-tree.lua",
+		requires = {
+			"nvim-tree/nvim-web-devicons",
 		},
-	},
-})
+		tag = "nightly",
+	})
+
+	-- use "lewpoly/sherbet.nvim" -- colorscheme
+	use("rebelot/kanagawa.nvim")
+	use({
+		"rose-pine/neovim",
+		as = "rose-pine",
+		config = function()
+			--			vim.cmd("colorscheme rose-pine")
+		end,
+	})
+
+	use("kyazdani42/nvim-web-devicons")
+
+	-- Comment --
+	use("numToStr/Comment.nvim")
+
+	-- GIT --
+	use("lewis6991/gitsigns.nvim")
+
+	-- Status Line --
+	use("nvim-lualine/lualine.nvim")
+
+	-- BarBar --
+	use({ "romgrk/barbar.nvim", wants = "nvim-web-devicons" })
+
+	-- Autopairs --
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup({})
+		end,
+	})
+
+	-- FZF --
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = function()
+			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+			ts_update()
+		end,
+	})
+
+	-- Treesitter --
+	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x", requires = { "nvim-lua/plenary.nvim" } })
+	use({ "nvim-telescope/telescope-file-browser.nvim" })
+	use("JoosepAlviste/nvim-ts-context-commentstring")
+
+	-- LSP --
+	use({
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+		"jose-elias-alvarez/null-ls.nvim",
+		"jayp0521/mason-null-ls.nvim",
+		"jose-elias-alvarez/typescript.nvim",
+		"lukas-reineke/lsp-format.nvim",
+	})
+
+	-- CMP --
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-path")
+	use("hrsh7th/cmp-cmdline")
+	use("hrsh7th/nvim-cmp")
+
+	-- LuaSnip --
+	use("L3MON4D3/LuaSnip")
+	use("saadparwaiz1/cmp_luasnip")
+end)

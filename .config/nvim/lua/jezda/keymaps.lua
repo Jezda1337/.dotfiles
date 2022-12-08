@@ -5,32 +5,25 @@ end
 
 vim.g.mapleader = " "
 
-map("n", "<leader>e", ":NvimTreeToggle<CR>")
-
--- keymaps for quick replace block/line of code
-map({ "n", "x" }, "<leader>sr", function()
-	require("ssr").open()
-end)
-
---close buffer
+-- Close buffer --
 map("n", "<leader>q", ":bd<CR>")
 
-map("n", "ff", ":Telescope find_files <CR>")
-map("n", "fb", ":Telescope file_browser<cr>")
-map("n", "flg", ":Telescope live_grep<CR>")
+map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
---move block of code up/down
+-- Telescope --
+map("n", "<leader>ff", ":Telescope find_files <CR>")
+map("n", "<leader>fb", ":Telescope file_browser <CR>")
+map("n", "<leader>fg", ":Telescope live_grep <CR>")
+
+-- move block of code up/down --
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
--- select all
-map("n", "<C-a>", "gg<S-v>G")
-
--- split buffer
+-- Split buffer --
 map("n", "<C-s>", ":split<Return><C-w>w")
 map("n", "<C-v>", ":vsplit<Return><C-w>w")
 
--- resizing buffers
+-- Resizing buffers --
 map("n", "<S-h>", "<C-w><2")
 map("n", "<S-l>", "<C-w>>2")
 map("n", "<S-j>", "<C-w>+")
@@ -41,7 +34,7 @@ map("n", "c'w", "cw''<ESC>P")
 map("v", "'", "c''<ESC>P")
 map("v", '"', 'c""<ESC>P')
 
--- select buffer
+-- Select buffer --
 map("n", "<leader>k", "<c-w>k")
 map("n", "<leader>j", "<c-w>j")
 map("n", "<leader>l", "<c-w>l")

@@ -1,50 +1,53 @@
 local options = {
-	-- guicursor = "",
-	syntax = "enable",
-	cursorline = true,
 	number = true,
 	relativenumber = true,
-	hidden = true,
-	mouse = "a",
-	-- virtualedit = "all", -- make clicable to anywhere on the panel
-
-	tabstop = 2,
 	softtabstop = 2,
+	tabstop = 2,
 	shiftwidth = 2,
-	expandtab = false, -- use tabs instead of spaces
-	smartindent = true,
+	smartindent = true, -- Insert indents automatically
 	autoindent = true,
-
-	wrap = true,
-	list = false,
-	linebreak = true,
-	breakindent = true,
-
-	swapfile = false,
+	swapfile = false, -- disable swapfile (anoying thing)
 	backup = false,
-	hlsearch = false,
-	incsearch = true,
-	termguicolors = true,
-	scrolloff = 5, -- 999 if you want to be always in the middle
-	signcolumn = "yes",
-	cmdheight = 1,
-	winblend = 0,
-	wildoptions = "pum",
-	pumblend = 5,
-	background = "dark",
-	shell = "zsh",
-	-- clipboard = "unnamedplus",
+	winblend = 0, -- Enables pseudo-transparency for a floating window.
 
-	encoding = "utf-8",
-	fileencoding = "utf-8",
+	background = "light",
+	backspace = { "indent", "eol", "start" },
+	clipboard = "unnamedplus", -- mac
+	completeopt = "menu,menuone,noselect",
 
-	completeopt = { "menu", "menuone", "noselect" },
-	fillchars = { eob = " " }, -- remove tilda from empty lines in buffer.
+	cursorcolumn = false, -- disable vertical cursror highlight line
+	cursorline = true, -- highlight cursorline
+	encoding = "utf-8", -- set default encoding
+	guicursor = "", -- makes insert cursor as ablock
+
+	wrap = true, -- wrap lines
+	breakindent = true, -- break lines are not start from begining line
+	hidden = true, -- Enable background buffers
+	hlsearch = false, -- Highlight found searches
+	ignorecase = true, -- Ignore case
+	inccommand = "split", -- Get a preview of replacements
+	incsearch = true, -- Shows the match while typing
+	joinspaces = false, -- No double spaces with join
+	linebreak = true, -- Stop words being broken on wrap
+	list = false, -- Show some invisible characters
+	-- listchars = { tab = " ", trail = "·", eol = "↴", space = "·" },
+	scrolloff = 4, -- Lines of context
+	shiftround = true, -- Round indent
+	sidescrolloff = 8, -- Columns of context
+	signcolumn = "yes:1", -- always show signcolumns
+	smartcase = true, -- Do not ignore case with capitals
+
+	splitbelow = true, -- Put new windows below current
+	splitright = true, -- Put new windows right of current
+	title = true, -- Allows neovom to send the Terminal details of the current window, instead of just getting 'v'
+
+	updatetime = 250,
+	mouse = "a", -- use mouse
+	foldenable = true,
+	foldmethod = "manual",
+	formatoptions = "l",
 }
 
-vim.opt.clipboard:append({ "unnamedplus" })
-vim.scriptencoding = "utf-8"
-
-for option, value in pairs(options) do
-	vim.opt[option] = value
+for key, value in pairs(options) do
+	vim.opt[key] = value
 end
