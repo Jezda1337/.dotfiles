@@ -12,19 +12,24 @@ if not status then
 	return
 end
 
-local luasnip = require("luasnip")
-
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			if not luasnip then
-				return
-			end
-			luasnip.lsp_expand(args.body)
+			require("luasnip").lsp_expand(args.body)
 		end,
 	},
 
 	formatting = formatting,
+
+	window = {
+		completion = {
+			winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+		},
+
+		documentation = {
+			winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+		},
+	},
 
 	mapping = {
 		["<C-e>"] = cmp.mapping.abort(),
@@ -35,8 +40,6 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
 			elseif has_words_before() then
 				cmp.complete()
 			else
@@ -47,8 +50,6 @@ cmp.setup({
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
 			else
 				fallback()
 			end

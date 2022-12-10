@@ -22,11 +22,7 @@ packer.startup(function(use)
 	-- use "lewpoly/sherbet.nvim" -- colorscheme
 	use("rebelot/kanagawa.nvim")
 	use({
-		"rose-pine/neovim",
-		as = "rose-pine",
-		config = function()
-			--			vim.cmd("colorscheme rose-pine")
-		end,
+		"rose-pine/neovim", as = "rose-pine",
 	})
 
 	use("kyazdani42/nvim-web-devicons")

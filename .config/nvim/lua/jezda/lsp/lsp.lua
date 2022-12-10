@@ -4,7 +4,10 @@ if not status then
 end
 
 require("jezda.lsp.diagnostics")
+require("jezda.lsp.goto_definition")
 local on_attach = require("jezda.lsp.on_attach").on_attach
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local prettier = {
 	formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
@@ -14,6 +17,7 @@ local prettier = {
 -- Servers --
 lsp.sumneko_lua.setup({
 	on_attach = on_attach,
+	capabilities = capabilities,
 	settings = {
 		Lua = {
 			completion = {
@@ -41,6 +45,7 @@ lsp.sumneko_lua.setup({
 
 lsp.tsserver.setup({
 	on_attach = on_attach,
+	capabilities = capabilities,
 	root_dir = function()
 		return vim.loop.cwd()
 	end,
@@ -55,6 +60,7 @@ lsp.tsserver.setup({
 
 lsp.emmet_ls.setup({
 	on_attach = on_attach,
+	capabilities = capabilities,
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 	init_options = {
 		html = {
@@ -67,65 +73,81 @@ lsp.emmet_ls.setup({
 })
 
 lsp.cssls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.html.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.tailwindcss.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.tsserver.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.gopls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.astro.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.bashls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.dockerls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.eslint.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.jsonls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.marksman.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.prismals.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.pyright.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.svelte.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.vuels.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 lsp.yamlls.setup({
+	capabilities = capabilities,
 	on_attach = on_attach,
 })
