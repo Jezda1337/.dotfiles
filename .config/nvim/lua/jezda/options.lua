@@ -22,6 +22,10 @@ local options = {
 
 	wrap = true, -- wrap lines
 	breakindent = true, -- break lines are not start from begining line
+	textwidth = 78,
+	tw = 78,
+	wrapmargin = 30,
+	showbreak = "+++",
 	hidden = true, -- Enable background buffers
 	hlsearch = false, -- Highlight found searches
 	ignorecase = true, -- Ignore case
@@ -45,7 +49,8 @@ local options = {
 	mouse = "a", -- use mouse
 	foldenable = true,
 	foldmethod = "manual",
-	formatoptions = "l",
+	-- formatoptions = "l",
+	formatoptions = "t",
 }
 
 for key, value in pairs(options) do
