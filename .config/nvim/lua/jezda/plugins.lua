@@ -19,10 +19,25 @@ packer.startup(function(use)
 		tag = "nightly",
 	})
 
+	-- ChatGPT -- TSTING --
+	use({
+		"jackMort/ChatGPT.nvim",
+		config = function()
+			require("chatgpt").setup({
+				question_sign = "🐧",
+			})
+		end,
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	})
 	-- use "lewpoly/sherbet.nvim" -- colorscheme
 	use("rebelot/kanagawa.nvim")
 	use({
-		"rose-pine/neovim", as = "rose-pine",
+		"rose-pine/neovim",
+		as = "rose-pine",
 	})
 
 	use("kyazdani42/nvim-web-devicons")
