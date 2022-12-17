@@ -14,6 +14,31 @@ local prettier = {
 	formatStdin = true,
 }
 
+local servers = {
+	"cssls",
+	"html",
+	"tailwindcss",
+	"gopls",
+	"astro",
+	"bashls",
+	"dockerls",
+	"eslint",
+	"jsonls",
+	"marksman",
+	"prismals",
+	"pyright",
+	"svelte",
+	"vuels",
+	"yamlls",
+}
+
+for _, server in ipairs(servers) do
+	require("lspconfig")[server].setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
+	})
+end
+
 -- Servers --
 lsp.sumneko_lua.setup({
 	on_attach = on_attach,
@@ -70,84 +95,4 @@ lsp.emmet_ls.setup({
 			},
 		},
 	},
-})
-
-lsp.cssls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.html.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.tailwindcss.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.tsserver.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.gopls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.astro.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.bashls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.dockerls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.eslint.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.jsonls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.marksman.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.prismals.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.pyright.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.svelte.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.vuels.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
-
-lsp.yamlls.setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
 })

@@ -9,6 +9,12 @@ packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 	use("christoomey/vim-tmux-navigator") -- tmux integration shortcuts
 	use("wakatime/vim-wakatime") -- wakatime
+	use({
+		"j-hui/fidget.nvim",
+		config = function()
+			require("fidget").setup()
+		end,
+	}) -- lsp spinner
 
 	-- File Explorer --
 	use({
