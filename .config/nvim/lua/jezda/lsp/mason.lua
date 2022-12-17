@@ -5,7 +5,17 @@ end
 
 mason.setup({})
 require("mason-null-ls").setup({
-	ensure_installed = { "stylua", "prettier", "eslint_d", "goimports", "shfmt" },
+	ensure_installed = {
+		"stylua",
+		"prettier",
+		"eslint_d",
+		"goimports",
+		"shfmt",
+		"clangd",
+		"sumneko_lua",
+		"tsserver",
+		"pyright",
+	},
 	automatic_setup = true,
 })
 

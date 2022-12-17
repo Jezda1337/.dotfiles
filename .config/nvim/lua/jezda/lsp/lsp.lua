@@ -15,6 +15,7 @@ local prettier = {
 }
 
 local servers = {
+	"clangd",
 	"cssls",
 	"html",
 	"tailwindcss",

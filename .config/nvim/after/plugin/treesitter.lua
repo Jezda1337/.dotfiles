@@ -26,6 +26,7 @@ treesitter.setup({
 		"dockerfile",
 		"rust",
 		"markdown",
+		"c",
 	},
 	autotag = { enable = true },
 	highlight = { enable = true },

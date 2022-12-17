@@ -21,6 +21,7 @@ null_ls.setup({
 		b.formatting.prettier,
 		b.formatting.stylua,
 		b.formatting.shfmt,
+		b.formatting.clang_format,
 		require("typescript.extensions.null-ls.code-actions"), -- typescript code actions
 		b.diagnostics.eslint_d.with({
 			diagnostics_format = "[eslint] #{m}\n(#{c})",
