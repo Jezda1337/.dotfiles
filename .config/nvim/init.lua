@@ -1,8 +1,8 @@
-require("jezda.plugins")
-require("jezda.options")
-require("jezda.keymaps")
-require("jezda.lsp")
-require("jezda.cmp")
+require("me.plugins")
+require("me.options")
+require("me.keymaps")
+require("me.lsp")
+require("me.cmp")
 
 --vim.cmd("colorscheme kanagawa") -- colorscheme
 require("rose-pine").setup({
@@ -10,7 +10,7 @@ require("rose-pine").setup({
 	dark_variant = "moon",
 	bold_vert_split = true,
 	dim_nc_background = false,
-	disable_background = false,
+	disable_background = true,
 	disable_float_background = false,
 	disable_italics = false,
 
@@ -48,3 +48,7 @@ require("rose-pine").setup({
 
 -- set colorscheme after options
 vim.cmd("colorscheme rose-pine")
+
+-- commands for disable background
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })

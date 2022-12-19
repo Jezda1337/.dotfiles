@@ -4,8 +4,8 @@ local has_words_before = function()
 end
 
 require("luasnip.loaders.from_vscode").lazy_load() -- using vscode like snippets.
-local sources = require("jezda.cmp.sources").sources -- sources
-local formatting = require("jezda.cmp.formatting").formatting --formatting
+local sources = require("me.cmp.sources").sources -- sources
+local formatting = require("me.cmp.formatting").formatting --formatting
 
 local status, cmp = pcall(require, "cmp")
 if not status then

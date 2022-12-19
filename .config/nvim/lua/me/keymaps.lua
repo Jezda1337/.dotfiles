@@ -19,6 +19,9 @@ map("n", "<leader>fg", ":Telescope live_grep <CR>")
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
+-- almost the same as multiple cursos
+map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
 -- Split buffer --
 map("n", "<C-s>", ":split<Return><C-w>w")
 map("n", "<C-v>", ":vsplit<Return><C-w>w")
