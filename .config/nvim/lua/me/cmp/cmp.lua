@@ -3,7 +3,7 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-require("luasnip.loaders.from_vscode").lazy_load() -- using vscode like snippets.
+-- require("luasnip.loaders.from_vscode").lazy_load() -- using vscode like snippets.
 local sources = require("me.cmp.sources").sources -- sources
 local formatting = require("me.cmp.formatting").formatting --formatting
 
@@ -44,6 +44,7 @@ cmp.setup({
 				cmp.complete()
 			else
 				fallback()
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
 			end
 		end, { "i", "s" }),
 
@@ -57,7 +58,7 @@ cmp.setup({
 	},
 	sources = sources,
 	experimental = {
-		ghost_text = true, -- still in bade shape :/
+		ghost_text = false, -- still in bade shape :/
 	},
 })
 
