@@ -44,7 +44,7 @@ cmp.setup({
 				cmp.complete()
 			else
 				fallback()
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false)
+				-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
 			end
 		end, { "i", "s" }),
 
