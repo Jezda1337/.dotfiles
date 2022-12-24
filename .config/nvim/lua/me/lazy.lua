@@ -46,7 +46,7 @@ require("lazy").setup({
 		"rose-pine/neovim",
 		as = "rose-pine",
 	},
-	"kyazdani42/nvim-web-devicons",
+	-- "kyazdani42/nvim-web-devicons",
 	"numToStr/Comment.nvim",
 	"lewis6991/gitsigns.nvim",
 	"nvim-lualine/lualine.nvim",
@@ -76,6 +76,7 @@ require("lazy").setup({
 		"jose-elias-alvarez/typescript.nvim",
 		"lukas-reineke/lsp-format.nvim",
 	},
+
 	"hrsh7th/cmp-nvim-lsp",
 	"hrsh7th/cmp-buffer",
 	"hrsh7th/cmp-path",
