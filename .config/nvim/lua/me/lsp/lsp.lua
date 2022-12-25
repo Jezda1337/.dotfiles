@@ -14,6 +14,7 @@ local prettier = {
 	formatStdin = true,
 }
 
+
 local servers = {
 	"clangd",
 	"cssls",
@@ -68,6 +69,7 @@ lsp.sumneko_lua.setup({
 		},
 	},
 })
+
 
 lsp.tsserver.setup({
 	on_attach = on_attach,
