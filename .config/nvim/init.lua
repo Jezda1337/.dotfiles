@@ -5,8 +5,6 @@ require("me.keymaps")
 require("me.lsp")
 require("me.cmp")
 
-vim.cmd("echo has('lua')")
-
 --vim.cmd("colorscheme kanagawa") -- colorscheme
 require("rose-pine").setup({
 	--- @usage 'main' | 'moon'
