@@ -58,7 +58,7 @@ cmp.setup({
 	},
 	sources = sources,
 	experimental = {
-		ghost_text = true, -- still in bade shape :/
+		ghost_text = false, -- still in bade shape :/
 	},
 })
 

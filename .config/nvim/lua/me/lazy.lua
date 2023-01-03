@@ -51,6 +51,12 @@ require("lazy").setup({
 	"nvim-lualine/lualine.nvim",
 	{ "romgrk/barbar.nvim", dependencies = "nvim-web-devicons" },
 	{
+		"iamcco/markdown-preview.nvim",
+		config = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	},
+	{
 		"windwp/nvim-autopairs",
 		config = function()
 			require("nvim-autopairs").setup({})
