@@ -5,6 +5,8 @@ require("me.keymaps")
 require("me.lsp")
 require("me.cmp")
 
+require("leap").add_default_mappings()
+
 --vim.cmd("colorscheme kanagawa") -- colorscheme
 require("rose-pine").setup({
 	--- @usage 'main' | 'moon'

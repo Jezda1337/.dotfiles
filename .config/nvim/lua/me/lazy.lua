@@ -15,7 +15,7 @@ require("lazy").setup({
 	"nvim-lua/plenary.nvim",
 	"christoomey/vim-tmux-navigator",
 	"wakatime/vim-wakatime",
-
+	"ggandor/leap.nvim",
 	{
 		"j-hui/fidget.nvim",
 		config = function()
