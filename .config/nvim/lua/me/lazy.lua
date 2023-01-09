@@ -17,6 +17,13 @@ require("lazy").setup({
 	"wakatime/vim-wakatime",
 	"ggandor/leap.nvim",
 	{
+		"barrett-ruth/import-cost.nvim",
+		build = "sh install.sh yarn",
+		config = function()
+			require("import-cost").setup()
+		end,
+	},
+	{
 		"j-hui/fidget.nvim",
 		config = function()
 			require("fidget").setup()
