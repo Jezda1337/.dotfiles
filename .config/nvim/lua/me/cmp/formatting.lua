@@ -23,15 +23,26 @@ local icons = {
 	EnumMember = "  ",
 	Constant = "  ",
 	Struct = "  ",
-	Event = "  ",
+	Event = " ",
 	Operator = "  ",
-	TypeParameter = "  ",
+	TypeParameter = " ",
 }
 
+-- M.formatting = {
+-- 	fields = { "kind", "abbr", "menu" },
+-- 	format = function(_, vim_item)
+-- 		vim_item.kind = icons[vim_item.kind] or ""
+-- 		return vim_item
+-- 	end,
+-- }
+
 M.formatting = {
-	fields = { "kind", "abbr" },
+	fields = { "kind", "abbr", "menu" },
 	format = function(_, vim_item)
-		vim_item.kind = icons[vim_item.kind] or ""
+		local kind = vim_item.kind
+
+		vim_item.kind = (icons[kind] or "?") .. " "
+		vim_item.menu = " (" .. kind .. ")"
 		return vim_item
 	end,
 }

@@ -16,13 +16,7 @@ require("lazy").setup({
 	"christoomey/vim-tmux-navigator",
 	"wakatime/vim-wakatime",
 	"ggandor/leap.nvim",
-	{
-		"barrett-ruth/import-cost.nvim",
-		build = "sh install.sh yarn",
-		config = function()
-			require("import-cost").setup()
-		end,
-	},
+
 	{
 		"j-hui/fidget.nvim",
 		config = function()
@@ -88,6 +82,7 @@ require("lazy").setup({
 		"jayp0521/mason-null-ls.nvim",
 		"jose-elias-alvarez/typescript.nvim",
 		"lukas-reineke/lsp-format.nvim",
+		"glepnir/lspsaga.nvim",
 	},
 
 	"hrsh7th/cmp-nvim-lsp",

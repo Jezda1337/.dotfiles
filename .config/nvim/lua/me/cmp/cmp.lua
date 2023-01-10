@@ -22,13 +22,16 @@ cmp.setup({
 	formatting = formatting,
 
 	window = {
-		completion = {
-			winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-		},
+		-- completion = {
+		-- 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+		-- },
+		completion = cmp.config.window.bordered({ border = "double" }),
 
-		documentation = {
-			winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-		},
+		-- documentation = {
+		-- 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+		-- },
+
+		documentation = cmp.config.window.bordered({ border = "double" }),
 	},
 
 	mapping = {
