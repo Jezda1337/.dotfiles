@@ -38,11 +38,17 @@ local icons = {
 
 M.formatting = {
 	fields = { "kind", "abbr", "menu" },
-	format = function(_, vim_item)
+	format = function(entry, vim_item)
+		local source = entry.source.name
 		local kind = vim_item.kind
 
 		vim_item.kind = (icons[kind] or "?") .. " "
 		vim_item.menu = " (" .. kind .. ")"
+
+		if source == "nvim_lsp" then
+			vim_item.dup = 0
+		end
+
 		return vim_item
 	end,
 }
