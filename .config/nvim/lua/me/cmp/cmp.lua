@@ -25,13 +25,13 @@ cmp.setup({
 		-- completion = {
 		-- 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
 		-- },
-		completion = cmp.config.window.bordered({ border = "double" }),
+		completion = cmp.config.window.bordered({ border = "single" }),
 
 		-- documentation = {
 		-- 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
 		-- },
 
-		documentation = cmp.config.window.bordered({ border = "double" }),
+		documentation = cmp.config.window.bordered({ border = "single" }),
 	},
 
 	mapping = {

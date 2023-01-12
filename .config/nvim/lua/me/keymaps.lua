@@ -43,6 +43,8 @@ map("n", "<leader>j", "<c-w>j")
 map("n", "<leader>l", "<c-w>l")
 map("n", "<leader>h", "<c-w>h")
 
+map("n", "<A-,>", ":BufferPrevious<CR>")
+map("n", "<A-.>", ":BufferNext<CR>")
 map("n", "<leader>1", ":BufferGoto 1<CR>")
 map("n", "<leader>2", ":BufferGoto 2<CR>")
 map("n", "<leader>3", ":BufferGoto 3<CR>")

@@ -38,7 +38,7 @@ local servers = {
 	"clangd",
 	"cssls",
 	"html",
-	"tailwindcss",
+	-- "tailwindcss",
 	"gopls",
 	"astro",
 	"bashls",

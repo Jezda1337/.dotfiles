@@ -25,10 +25,10 @@ barbar.setup({
 	diagnostics = {
 		-- you can use a list
 		-- sec parameter is icon = "E"
-		{ enabled = true }, -- ERROR
-		{ enabled = false }, -- WARN
-		{ enabled = false }, -- INFO
-		{ enabled = true }, -- HINT
+		{ enabled = true, icon = "🚗" }, -- ERROR
+		{ enabled = false, icon = "🚕" }, -- WARN
+		{ enabled = false, icon = "ℹ" }, -- INFO
+		{ enabled = true, icon = "⛩" }, -- HINT
 	},
 
 	-- Hide inactive buffers and file extensions. Other options are `current` and `visible`

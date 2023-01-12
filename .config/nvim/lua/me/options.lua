@@ -15,17 +15,17 @@ local options = {
 	clipboard = "unnamedplus", -- mac
 	completeopt = "menu,menuone,noselect",
 
-	cursorcolumn = false, -- disable vertical cursror highlight line
+	cursorcolumn = true, -- disable vertical cursror highlight line
 	cursorline = true, -- highlight cursorline
 	encoding = "utf-8", -- set default encoding
 	guicursor = "", -- makes insert cursor as ablock
 
 	wrap = true, -- wrap lines
 	breakindent = true, -- break lines are not start from begining line
-	textwidth = 78,
-	tw = 78,
+	textwidth = 80,
+	tw = 80,
 	wrapmargin = 30,
-	showbreak = "+++",
+	showbreak = "++",
 	hidden = true, -- Enable background buffers
 	hlsearch = false, -- Highlight found searches
 	ignorecase = true, -- Ignore case
@@ -34,8 +34,8 @@ local options = {
 	joinspaces = false, -- No double spaces with join
 	linebreak = true, -- Stop words being broken on wrap
 	list = false, -- Show some invisible characters
-	-- listchars = { tab = " ", trail = "·", eol = "↴", space = "·" },
-	scrolloff = 4, -- Lines of context
+	listchars = { tab = " ", trail = "·", eol = "↴", space = "·" },
+	scrolloff = 5, -- Lines of context
 	shiftround = true, -- Round indent
 	sidescrolloff = 8, -- Columns of context
 	signcolumn = "yes:1", -- always show signcolumns

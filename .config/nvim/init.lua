@@ -23,14 +23,14 @@ end
 
 vim.on_key(toggle_hlsearch, ns)
 
---vim.cmd("colorscheme kanagawa") -- colorscheme
+-- vim.cmd("colorscheme kanagawa") -- colorscheme
 require("rose-pine").setup({
 	--- @usage 'main' | 'moon'
-	dark_variant = "moon",
+	dark_variant = "main",
 	bold_vert_split = true,
 	dim_nc_background = false,
-	disable_background = false,
-	disable_float_background = false,
+	disable_background = true,
+	disable_float_background = true,
 	disable_italics = false,
 
 	--- @usage string hex value or named color from rosepinetheme.com/palette

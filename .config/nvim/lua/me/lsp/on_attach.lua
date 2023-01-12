@@ -6,6 +6,11 @@ function M.on_attach(client, bufnr)
 
 	if client.name == "tsserver" then
 		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.semanticTokensProvider = nil
+	end
+
+	if client.name == "sumneko_lua" then
+		client.server_capabilities.semanticTokensProvider = nil
 	end
 
 	-- Enable completion triggered by <c-x><c-o>
