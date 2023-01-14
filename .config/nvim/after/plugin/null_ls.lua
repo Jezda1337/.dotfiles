@@ -18,6 +18,8 @@ local b = null_ls.builtins
 
 null_ls.setup({
 	sources = {
+		b.formatting.gofmt,
+		b.formatting.goimports,
 		b.formatting.prettier,
 		b.formatting.stylua,
 		b.formatting.shfmt,

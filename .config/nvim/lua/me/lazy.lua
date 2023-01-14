@@ -16,6 +16,10 @@ require("lazy").setup({
 	"christoomey/vim-tmux-navigator",
 	"wakatime/vim-wakatime",
 	"ggandor/leap.nvim",
+	-- {
+	-- 	"roobert/tailwindcss-colorizer-cmp.nvim",
+	-- },
+	"NvChad/nvim-colorizer.lua",
 	{
 		"j-hui/fidget.nvim",
 		config = function()
@@ -81,7 +85,14 @@ require("lazy").setup({
 		"jayp0521/mason-null-ls.nvim",
 		"jose-elias-alvarez/typescript.nvim",
 		"lukas-reineke/lsp-format.nvim",
+	},
+
+	{
 		"glepnir/lspsaga.nvim",
+		event = "BufRead",
+		config = function()
+			require("lspsaga").setup({})
+		end,
 	},
 
 	"hrsh7th/cmp-nvim-lsp",

@@ -10,7 +10,7 @@ local options = {
 	backup = false,
 	winblend = 0, -- Enables pseudo-transparency for a floating window.
 
-	background = "light",
+	background = "dark",
 	backspace = { "indent", "eol", "start" },
 	clipboard = "unnamedplus", -- mac
 	completeopt = "menu,menuone,noselect",

@@ -20,6 +20,9 @@ cmp.setup({
 	},
 
 	formatting = formatting,
+	-- formatting = {
+	-- 	format = require("tailwindcss-colorizer-cmp").formatter,
+	-- },
 
 	window = {
 		-- completion = {

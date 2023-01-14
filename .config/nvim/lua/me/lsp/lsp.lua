@@ -4,7 +4,8 @@ if not status then
 end
 
 require("me.lsp.diagnostics")
-require("me.lsp.goto_definition")
+-- require("me.lsp.goto_definition") -- go to def in a split buffer
+
 local on_attach = require("me.lsp.on_attach").on_attach
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -38,7 +39,7 @@ local servers = {
 	"clangd",
 	"cssls",
 	"html",
-	-- "tailwindcss",
+	"tailwindcss",
 	"gopls",
 	"astro",
 	"bashls",

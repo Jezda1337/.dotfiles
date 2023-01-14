@@ -1,5 +1,10 @@
 local M = {}
 
+local config = {
+	color_hint_width = 2,
+	color_square_width = 2,
+}
+
 local icons = {
 	Text = "  ",
 	Method = "  ",
@@ -49,36 +54,66 @@ M.formatting = {
 			vim_item.dup = 0
 		end
 
+		-- tailwind code
+		-- https://github.com/roobert/tailwindcss-colorizer-cmp.nvim code coming
+		-- from here, copy the code and slightly modife some settings to be able to
+		-- use icons and colors.
+		if vim.tbl_contains({ "nvim_lsp" }, entry.source.name) then
+			local words = {}
+			for word in string.gmatch(vim_item.word, "[^-]+") do
+				table.insert(words, word)
+			end
+
+			if #words < 3 or #words > 4 then
+				return vim_item
+			end
+
+			local color_name, color_number
+			if
+				words[2] == "x"
+				or words[2] == "y"
+				or words[2] == "t"
+				or words[2] == "b"
+				or words[2] == "l"
+				or words[2] == "r"
+			then
+				color_name = words[3]
+				color_number = words[4]
+			else
+				color_name = words[2]
+				color_number = words[3]
+			end
+
+			if not color_name or not color_number then
+				return vim_item
+			end
+
+			local color_index = tonumber(color_number)
+			local tailwindcss_colors = require("me.cmp.tailwind_colors").TailwindcssColors
+
+			if not tailwindcss_colors[color_name] then
+				return vim_item
+			end
+
+			if not tailwindcss_colors[color_name][color_index] then
+				return vim_item
+			end
+
+			local color = tailwindcss_colors[color_name][color_index]
+
+			local hl_group = "lsp_documentColor_mf_" .. color
+			vim.api.nvim_set_hl(0, hl_group, { fg = "#" .. color, bg = "#" .. color })
+
+			vim_item.kind_hl_group = hl_group
+
+			-- make the color square 2 chars wide
+			vim_item.kind = string.rep("X", config.color_square_width)
+
+			return vim_item
+		end
+
 		return vim_item
 	end,
 }
-
--- Tailwindcss color idicators almost like in vscode
--- local blackOrWhiteFg = function(r, g, b)
--- 	return ((r * 0.299 + g * 0.587 + b * 0.114) > 186) and "#000000" or "#ffffff"
--- end
---
--- M.formatting = {
--- 	fields = { "kind", "abbr" },
--- 	format = function(entry, vim_item)
--- 		if vim_item.kind == "Color" and entry.completion_item.documentation then
--- 			local _, _, r, g, b = string.find(entry.completion_item.documentation, "^rgb%((%d+), (%d+), (%d+)")
--- 			if r then
--- 				local color = string.format("%02x", r) .. string.format("%02x", g) .. string.format("%02x", b)
--- 				local group = "Tw_" .. color
--- 				if vim.fn.hlID(group) < 1 then
--- 					vim.api.nvim_set_hl(0, group, { fg = blackOrWhiteFg(r, g, b), bg = "#" .. color })
--- 				end
--- 				vim_item.kind = " " .. icons[vim_item.kind] .. " "
--- 				vim_item.kind_hl_group = group
--- 				return vim_item
--- 			end
--- 		end
--- 		-- vim_item.kind = icons[vim_item.kind] and (icons[vim_item.kind] .. vim_item.kind) or vim_item.kind
--- 		-- or just show the icon
--- 		vim_item.kind = icons[vim_item.kind] and icons[vim_item.kind] or vim_item.kind
--- 		return vim_item
--- 	end,
--- }
 
 return M
