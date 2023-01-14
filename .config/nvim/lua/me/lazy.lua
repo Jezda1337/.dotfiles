@@ -16,9 +16,6 @@ require("lazy").setup({
 	"christoomey/vim-tmux-navigator",
 	"wakatime/vim-wakatime",
 	"ggandor/leap.nvim",
-	-- {
-	-- 	"roobert/tailwindcss-colorizer-cmp.nvim",
-	-- },
 	"NvChad/nvim-colorizer.lua",
 	{
 		"j-hui/fidget.nvim",
