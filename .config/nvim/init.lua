@@ -7,6 +7,7 @@ require("me.cmp")
 require("me.plugins.colorizer")
 require("me.utils")
 require("me.theme")
+require("me.autocmd")
 
 -- leap plugin for jumping around buffer
 require("leap").add_default_mappings()

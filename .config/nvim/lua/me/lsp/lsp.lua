@@ -51,6 +51,7 @@ local servers = {
 	"pyright",
 	"svelte",
 	"yamlls",
+	"diagnosticls",
 }
 
 for _, server in ipairs(servers) do

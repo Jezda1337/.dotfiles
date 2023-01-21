@@ -49,8 +49,8 @@ local options = {
 	mouse = "a", -- use mouse
 	foldenable = true,
 	foldmethod = "manual",
-	-- formatoptions = "l",
-	formatoptions = "t",
+	formatoptions = "l",
+	-- formatoptions = "cro", -- auto comment next line after commnet
 }
 
 for key, value in pairs(options) do

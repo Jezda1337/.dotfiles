@@ -4,10 +4,11 @@ M.sources = {
 	{
 		name = "nvim_lsp",
 
-		-- filtering completion when we jump inside some property that have
-		-- methods for example obj1.(something) wont
-		-- show nonsense's
+		-- filtering completion example in js [1,2,3,4]. after dot will show only
+		-- methods that can be used like forEach, map...
+		-- wont bothering with text from buffer or any other stuff
 		entry_filter = function(entry, context)
+			print(entry)
 			local kind = entry:get_kind()
 
 			local line = context.cursor_line
@@ -29,7 +30,6 @@ M.sources = {
 					end
 				end
 			end
-
 			return true
 		end,
 

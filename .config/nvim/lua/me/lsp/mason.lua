@@ -9,6 +9,7 @@ require("mason-null-ls").setup({
 		"stylua",
 		"prettier",
 		"eslint_d",
+		"gopls",
 		"goimports",
 		"shfmt",
 		"clangd",
