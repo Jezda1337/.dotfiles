@@ -14,4 +14,5 @@ end
 vim.on_key(toggle_hlsearch, ns)
 
 -- arrow that follow cursos
-vim.o.statuscolumn = '%s%=%l %C%#Yellow#%{v:relnum == 0 ? ">" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
+vim.o.statuscolumn =
+	'%s%=%l %C%#Yellow#%{v:relnum == 0 ? "" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
