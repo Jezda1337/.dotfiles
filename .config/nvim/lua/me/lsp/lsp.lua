@@ -6,9 +6,25 @@ end
 require("me.lsp.diagnostics")
 -- require("me.lsp.goto_definition") -- go to def in a split buffer
 
+-- LSP Prevents inline buffer annotations
+vim.diagnostic.open_float()
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = false,
+	signs = true,
+	underline = true,
+	update_on_insert = false,
+})
+
 local on_attach = require("me.lsp.on_attach").on_attach
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = {
+		"documentation",
+		"detail",
+		"additionalTextEdits",
+	},
+}
 
 local prettier = {
 	formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
