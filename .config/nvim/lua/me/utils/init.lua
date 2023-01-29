@@ -13,6 +13,24 @@ end
 
 vim.on_key(toggle_hlsearch, ns)
 
--- arrow that follow cursos
-vim.o.statuscolumn =
-	'%s%=%l %C%#Yellow#%{v:relnum == 0 ? "" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
+-- arrow that follow cursos only work on nightly version of neovim
+-- vim.o.statuscolumn =
+-- 	'%s%=%l %C%#Yellow#%{v:relnum == 0 ? "" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
+
+-- Correct indentation when inserting on blank line
+vim.keymap.set("n", "i", function()
+	local line = vim.fn.getline(".")
+	if #line == 0 or line:match("^%s+$") then
+		return "cc"
+	else
+		return "i"
+	end
+end, { expr = true })
+vim.keymap.set("n", "a", function()
+	local line = vim.fn.getline(".")
+	if #line == 0 or line:match("^%s+$") then
+		return "cc"
+	else
+		return "a"
+	end
+end, { expr = true })

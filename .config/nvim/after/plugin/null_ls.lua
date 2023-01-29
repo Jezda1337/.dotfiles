@@ -1,6 +1,9 @@
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local lsp_formatting = function(bufnr)
+	require("typescript").actions.organizeImports()
+	require("typescript").actions.removeUnused()
+
 	vim.lsp.buf.format({
 		filter = function(client)
 			return client.name == "null-ls"

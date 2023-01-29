@@ -72,7 +72,7 @@ function M.on_attach(client, bufnr)
 	keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>")
 
 	-- Hover Doc
-	keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+	keymap("n", "K", ":Lspsaga hover_doc<CR>")
 
 	-- Callhierarchy
 	keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")

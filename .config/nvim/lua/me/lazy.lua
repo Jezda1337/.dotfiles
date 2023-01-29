@@ -17,6 +17,7 @@ require("lazy").setup({
 	"wakatime/vim-wakatime",
 	"ggandor/leap.nvim",
 	"NvChad/nvim-colorizer.lua",
+	"ellisonleao/gruvbox.nvim",
 	{
 		"j-hui/fidget.nvim",
 		config = function()
@@ -90,6 +91,7 @@ require("lazy").setup({
 		config = function()
 			require("lspsaga").setup({})
 		end,
+		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
 
 	"hrsh7th/cmp-nvim-lsp",

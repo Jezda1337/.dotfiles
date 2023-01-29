@@ -8,7 +8,6 @@ M.sources = {
 		-- methods that can be used like forEach, map...
 		-- wont bothering with text from buffer or any other stuff
 		entry_filter = function(entry, context)
-			print(entry)
 			local kind = entry:get_kind()
 
 			local line = context.cursor_line

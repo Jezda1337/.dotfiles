@@ -1,6 +1,6 @@
-local function map(mode, lhs, rhs)
+local function map(mode, lhs, rhs, desc)
 	local opts = { noremap = true, silent = true }
-	vim.keymap.set(mode, lhs, rhs, opts)
+	vim.keymap.set(mode, lhs, rhs, opts, desc)
 end
 
 vim.g.mapleader = " "
@@ -8,10 +8,16 @@ vim.g.mapleader = " "
 -- Close buffer --
 map("n", "<leader>q", ":bd<CR>")
 
+-- adding new line using = nad _ withot getting in insert mode
+map("n", "=", "mzO<Esc>`z", { desc = "add blank line above" })
+map("n", "_", "mzo<Esc>`z", { desc = "add blank line below" })
+
+-- Toggle file tree
 map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 -- Telescope --
 map("n", "<leader>ff", ":Telescope find_files <CR>")
+
 map("n", "<leader>fb", ":Telescope file_browser <CR>")
 map("n", "<leader>fg", ":Telescope live_grep <CR>")
 

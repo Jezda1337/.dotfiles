@@ -122,20 +122,20 @@ lsp.volar.setup({
 	end,
 })
 
-lsp.tsserver.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	root_dir = function()
-		return vim.loop.cwd()
-	end,
-	init_options = { documentFormatting = true },
-	settings = {
-		languages = {
-			typescript = { prettier },
-			yaml = { prettier },
-		},
-	},
-})
+-- lsp.tsserver.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	root_dir = function()
+-- 		return vim.loop.cwd()
+-- 	end,
+-- 	init_options = { documentFormatting = true },
+-- 	settings = {
+-- 		languages = {
+-- 			typescript = { prettier },
+-- 			yaml = { prettier },
+-- 		},
+-- 	},
+-- })
 
 lsp.emmet_ls.setup({
 	on_attach = on_attach,

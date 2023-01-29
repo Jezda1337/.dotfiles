@@ -3,11 +3,12 @@ require("kanagawa").setup({
 })
 
 -- vim.cmd("colorscheme kanagawa") -- colorscheme
+vim.cmd("colorscheme gruvbox")
 
 require("rose-pine").setup({
 	--- @usage 'main' | 'moon'
 
-	dark_variant = "moon",
+	dark_variant = "main",
 	bold_vert_split = true,
 	dim_nc_background = false,
 	disable_background = false,
@@ -47,7 +48,7 @@ require("rose-pine").setup({
 })
 
 -- set colorscheme after options
-vim.cmd("colorscheme rose-pine") -- rose-pine theme
+-- vim.cmd("colorscheme rose-pine") -- rose-pine theme
 
 -- commands for disable background
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
