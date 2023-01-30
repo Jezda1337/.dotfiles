@@ -3,6 +3,8 @@ if not status then
 	return
 end
 
+local on_attach = require("me.lsp.on_attach").on_attach
+local capabilities = require("me.cmp.capabilities").capabilities
 require("me.lsp.diagnostics")
 -- require("me.lsp.goto_definition") -- go to def in a split buffer
 
@@ -15,8 +17,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	update_on_insert = false,
 })
 
-local on_attach = require("me.lsp.on_attach").on_attach
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()) --nvim-cmp
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = {
@@ -26,14 +26,14 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 	},
 }
 
-local prettier = {
-	formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
-	formatStdin = true,
-}
+-- local prettier = {
+-- 	formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
+-- 	formatStdin = true,
+-- }
 
 local util = require("lspconfig.util")
 local function get_typescript_server_path(root_dir)
-	local global_ts = "/home/[yourusernamehere]/.npm/lib/node_modules/typescript/lib"
+	local global_ts = "/Users/radojejezdic/.nvm/versions/node/v18.9.1/lib/node_modules/typescript/bin"
 	-- Alternative location if installed as root:
 	-- local global_ts = '/usr/local/lib/node_modules/typescript/lib'
 	local found_ts = ""
@@ -57,7 +57,7 @@ local servers = {
 	"html",
 	"tailwindcss",
 	"gopls",
-	"astro",
+	-- "astro",
 	"bashls",
 	"dockerls",
 	"eslint",
@@ -65,7 +65,7 @@ local servers = {
 	"marksman",
 	"prismals",
 	"pyright",
-	"svelte",
+	-- "svelte",
 	"yamlls",
 	"diagnosticls",
 }
@@ -106,13 +106,14 @@ lsp.sumneko_lua.setup({
 	},
 })
 
+-- volar makes problem with tsserver
 lsp.volar.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+	-- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" }, -- this line makes hover_dock to stack
 	init_options = {
 		typescript = {
-			tsdk = "/path/to/.npm/lib/node_modules/typescript/lib",
+			tsdk = "/Users/radojejezdic/.nvm/versions/node/v18.9.1/lib/node_modules/typescript/bin",
 			-- Alternative location if installed as root:
 			-- tsdk = '/usr/local/lib/node_modules/typescript/lib'
 		},

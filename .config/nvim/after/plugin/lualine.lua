@@ -4,5 +4,5 @@ if not status then
 end
 
 lualine.setup({
-	theme = "rose-pine-alt",
+	-- theme = "rose-pine-alt",
 })

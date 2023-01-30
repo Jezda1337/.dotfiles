@@ -4,6 +4,7 @@ if not status then
 end
 
 mason.setup({})
+
 require("mason-null-ls").setup({
 	ensure_installed = {
 		"stylua",

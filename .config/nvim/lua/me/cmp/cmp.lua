@@ -12,6 +12,10 @@ if not status then
 	return
 end
 
+-- dosn't work :/
+local cmp_autopairs = require("nvim-autopairs.completion.cmp") -- connect autopairs with cmp
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
 cmp.setup({
 	snippet = {
 		expand = function(args)

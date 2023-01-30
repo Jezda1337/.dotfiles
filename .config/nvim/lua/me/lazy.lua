@@ -81,16 +81,16 @@ require("lazy").setup({
 		"neovim/nvim-lspconfig",
 		"jose-elias-alvarez/null-ls.nvim",
 		"jayp0521/mason-null-ls.nvim",
-		"jose-elias-alvarez/typescript.nvim",
 		"lukas-reineke/lsp-format.nvim",
+		"jose-elias-alvarez/typescript.nvim",
 	},
 
 	{
 		"glepnir/lspsaga.nvim",
 		event = "BufRead",
-		config = function()
-			-- require("me.lsp.lsp_saga")
-		end,
+		-- config = function()
+		-- 	require("lspsaga").setup()
+		-- end,
 		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
 

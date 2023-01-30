@@ -19,9 +19,9 @@ function M.on_attach(client, bufnr)
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "<space>f", function()
-		vim.lsp.buf.format({ async = true })
-	end, bufopts)
+	-- vim.keymap.set("n", "<space>f", function()
+	-- 	vim.lsp.buf.format({ async = true })
+	-- end, bufopts)
 
 	local keymap = vim.keymap.set
 	-- Lsp finder find the symbol definition implement reference

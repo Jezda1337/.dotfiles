@@ -10,11 +10,10 @@ require("me.utils")
 require("me.theme")
 require("me.autocmd")
 
--- leap plugin for jumping around buffer
-require("leap").add_default_mappings()
+require("leap").add_default_mappings() -- leap plugin for jumping around buffer
 
 -- ICONS
 -- https://unicopy.cc/?ref=producthunt
 -- ICONS
 
--- require("me.min")
+-- require("me.min") -- min config
