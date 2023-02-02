@@ -7,9 +7,11 @@ autocmd("FileType", {
 	callback = function()
 		autocmd("BufWritePost", {
 			callback = function()
-				vim.cmd("TypescriptOrganizeImports") -- organize imports in ts files on save
-				vim.cmd("TypescriptRemoveUnused") -- remove unused vars/fun interface or what ever on save
-				vim.cmd("TypescriptAddMissingImports") -- add missing imports on save
+				-- organize imports are disabled coz make some problem with tabs, shows
+				-- error if there is no erro!
+				-- vim.cmd("TypescriptOrganizeImports") -- organize imports in ts files on save
+				-- vim.cmd("TypescriptRemoveUnused") -- remove unused vars/fun interface or what ever on save
+				-- vim.cmd("TypescriptAddMissingImports") -- add missing imports on save
 			end,
 		})
 	end,

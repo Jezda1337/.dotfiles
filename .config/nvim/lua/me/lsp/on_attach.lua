@@ -43,7 +43,7 @@ function M.on_attach(client, bufnr)
 	keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
 
 	-- Go to Definition
-	keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
+	-- keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 
 	-- Show line diagnostics you can pass arugment ++unfocus to make
 	-- show_line_diagnsotic float window unfocus

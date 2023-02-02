@@ -33,14 +33,6 @@ local icons = {
 	TypeParameter = " ",
 }
 
--- M.formatting = {
--- 	fields = { "kind", "abbr", "menu" },
--- 	format = function(_, vim_item)
--- 		vim_item.kind = icons[vim_item.kind] or ""
--- 		return vim_item
--- 	end,
--- }
-
 M.formatting = {
 	fields = { "kind", "abbr", "menu" },
 	format = function(entry, vim_item)

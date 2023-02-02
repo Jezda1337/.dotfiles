@@ -1,5 +1,6 @@
 local on_attach = require("me.lsp.on_attach").on_attach
-local capabilities = require("me.cmp.capabilities").capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local prettier = {
 	formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],

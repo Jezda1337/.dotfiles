@@ -3,7 +3,8 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
--- require("luasnip.loaders.from_vscode").lazy_load() -- using vscode like snippets.
+require("luasnip.loaders.from_vscode").lazy_load() -- using vscode like snippets.
+
 local sources = require("me.cmp.sources").sources -- sources
 local formatting = require("me.cmp.formatting").formatting --formatting
 
@@ -11,10 +12,6 @@ local status, cmp = pcall(require, "cmp")
 if not status then
 	return
 end
-
--- dosn't work :/
-local cmp_autopairs = require("nvim-autopairs.completion.cmp") -- connect autopairs with cmp
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 cmp.setup({
 	snippet = {
@@ -24,21 +21,17 @@ cmp.setup({
 	},
 
 	formatting = formatting,
-	-- formatting = {
-	-- 	format = require("tailwindcss-colorizer-cmp").formatter,
-	-- },
 
 	window = {
-		-- completion = {
-		-- 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-		-- },
 		completion = cmp.config.window.bordered({ border = "single" }),
-
-		-- documentation = {
-		-- 	winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-		-- },
-
 		documentation = cmp.config.window.bordered({ border = "single" }),
+	},
+
+	duplicates = {
+		nvim_lsp = 1,
+		luasnip = 1,
+		buffer = 1,
+		path = 1,
 	},
 
 	mapping = {
@@ -75,7 +68,7 @@ cmp.setup({
 			cmp.config.compare.offset,
 			cmp.config.compare.exact,
 			cmp.config.compare.score,
-			require("cmp-under-comparator").under,
+			require("cmp-under-comparator").under, -- better cmp sorting
 			cmp.config.compare.kind,
 			cmp.config.compare.sort_text,
 			cmp.config.compare.length,
@@ -92,3 +85,7 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
+
+-- dosn't work :/
+local cmp_autopairs = require("nvim-autopairs.completion.cmp") -- connect autopairs with cmp
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())

@@ -18,6 +18,14 @@ require("lazy").setup({
 	"ggandor/leap.nvim",
 	"NvChad/nvim-colorizer.lua",
 	"ellisonleao/gruvbox.nvim",
+	"nanozuki/tabby.nvim",
+	{
+		"rebelot/heirline.nvim",
+		event = "UiEnter",
+		config = function()
+			require("heirline").setup({})
+		end,
+	},
 	{
 		"j-hui/fidget.nvim",
 		config = function()
@@ -83,14 +91,13 @@ require("lazy").setup({
 		"jayp0521/mason-null-ls.nvim",
 		"lukas-reineke/lsp-format.nvim",
 		"jose-elias-alvarez/typescript.nvim",
+		"folke/lsp-colors.nvim",
+		"folke/neodev.nvim",
 	},
 
 	{
 		"glepnir/lspsaga.nvim",
 		event = "BufRead",
-		-- config = function()
-		-- 	require("lspsaga").setup()
-		-- end,
 		dependencies = { { "nvim-tree/nvim-web-devicons" } },
 	},
 
@@ -100,6 +107,9 @@ require("lazy").setup({
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
 	{ "lukas-reineke/cmp-under-comparator" },
+	"dcampos/nvim-snippy",
+	"honza/vim-snippets",
+	"dcampos/cmp-snippy",
 
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",

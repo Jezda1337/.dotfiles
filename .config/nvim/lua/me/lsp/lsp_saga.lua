@@ -4,6 +4,9 @@ if not status then
 end
 
 lsp_saga.setup({
+	ui = {
+		border = "rounded",
+	},
 	outline = {
 		win_position = "right",
 		win_with = "",
