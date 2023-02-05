@@ -3,6 +3,11 @@
 -- })
 
 -- vim.cmd("colorscheme kanagawa") -- colorscheme
+
+require("gruvbox").setup({
+	contrast = "hard",
+})
+
 vim.cmd("colorscheme gruvbox")
 
 -- require("rose-pine").setup({

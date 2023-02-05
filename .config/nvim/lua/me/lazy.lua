@@ -107,9 +107,6 @@ require("lazy").setup({
 	"hrsh7th/cmp-cmdline",
 	"hrsh7th/nvim-cmp",
 	{ "lukas-reineke/cmp-under-comparator" },
-	"dcampos/nvim-snippy",
-	"honza/vim-snippets",
-	"dcampos/cmp-snippy",
 
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
