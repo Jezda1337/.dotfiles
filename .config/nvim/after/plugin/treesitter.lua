@@ -28,6 +28,7 @@ treesitter.setup({
 		"rust",
 		"markdown",
 		"c",
+		"markdown_inline",
 	},
 	autotag = { enable = true },
 	highlight = { enable = true },

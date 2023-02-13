@@ -18,13 +18,18 @@ require("lazy").setup({
 	"ggandor/leap.nvim",
 	"NvChad/nvim-colorizer.lua",
 	"ellisonleao/gruvbox.nvim",
-	"nanozuki/tabby.nvim",
+	"luisiacc/gruvbox-baby",
 	{
-		"rebelot/heirline.nvim",
-		event = "UiEnter",
+		"arturgoms/moonbow.nvim",
+		install = { colorscheme = { "moonbow" } },
 		config = function()
-			require("heirline").setup({})
+			vim.cmd("colorscheme moonbow")
 		end,
+	},
+	{
+		"laytan/tailwind-sorter.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
+		build = "cd formatter && npm i && npm run build", -- this dosn't work for me, I have to run this commands manualy
 	},
 	{
 		"j-hui/fidget.nvim",
@@ -80,7 +85,11 @@ require("lazy").setup({
 			ts_update()
 		end,
 	},
-	{ "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 	{ "nvim-telescope/telescope-file-browser.nvim" },
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	{

@@ -39,6 +39,6 @@ for _, server in ipairs(servers) do
 end
 
 -- Custom servers configuration --
-lsp.sumneko_lua.setup(sumneko_lua.config)
+lsp.lua_ls.setup(sumneko_lua.config)
 lsp.emmet_ls.setup(emmet_ls.config)
 lsp.cssls.setup(cssls.config)

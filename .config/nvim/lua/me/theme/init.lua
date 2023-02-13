@@ -4,11 +4,11 @@
 
 -- vim.cmd("colorscheme kanagawa") -- colorscheme
 
-require("gruvbox").setup({
-	contrast = "hard",
-})
+-- require("gruvbox").setup({
+-- 	contrast = "hard",
+-- })
 
-vim.cmd("colorscheme gruvbox")
+-- vim.cmd("colorscheme gruvbox-baby")
 
 -- require("rose-pine").setup({
 --- @usage 'main' | 'moon'
