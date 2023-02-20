@@ -21,9 +21,9 @@ require("lazy").setup({
 	"luisiacc/gruvbox-baby",
 	{
 		"arturgoms/moonbow.nvim",
-		install = { colorscheme = { "moonbow" } },
+		-- install = { colorscheme = { "moonbow" } },
 		config = function()
-			vim.cmd("colorscheme moonbow")
+			-- vim.cmd("colorscheme moonbow")
 		end,
 	},
 	{
@@ -119,4 +119,21 @@ require("lazy").setup({
 
 	"L3MON4D3/LuaSnip",
 	"saadparwaiz1/cmp_luasnip",
+
+	{
+		"folke/noice.nvim",
+		config = function()
+			require("noice").setup({
+				-- add any options here
+			})
+		end,
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+			-- OPTIONAL:
+			--   `nvim-notify` is only needed, if you want to use the notification view.
+			--   If not available, we use `mini` as the fallback
+			"rcarriga/nvim-notify",
+		},
+	},
 })

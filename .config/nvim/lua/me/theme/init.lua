@@ -8,7 +8,10 @@
 -- 	contrast = "hard",
 -- })
 
--- vim.cmd("colorscheme gruvbox-baby")
+-- vim.cmd("colorscheme gruvbox")
+
+vim.g.gruvbox_baby_background_color = "dark"
+vim.cmd("colorscheme gruvbox-baby")
 
 -- require("rose-pine").setup({
 --- @usage 'main' | 'moon'
