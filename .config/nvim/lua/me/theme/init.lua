@@ -2,6 +2,8 @@
 -- 	theme = "default",
 -- })
 
+-- vim.cmd.colorscheme("bluloco-dark")
+
 -- vim.cmd("colorscheme kanagawa") -- colorscheme
 
 -- require("gruvbox").setup({

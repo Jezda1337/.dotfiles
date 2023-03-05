@@ -19,21 +19,17 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
-
 	formatting = formatting,
-
 	window = {
 		completion = cmp.config.window.bordered({ border = "single" }),
 		documentation = cmp.config.window.bordered({ border = "single" }),
 	},
-
 	duplicates = {
 		nvim_lsp = 1,
 		luasnip = 1,
 		buffer = 1,
 		path = 1,
 	},
-
 	mapping = {
 		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({

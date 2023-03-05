@@ -23,9 +23,27 @@ require("lazy").setup({
 		"arturgoms/moonbow.nvim",
 		-- install = { colorscheme = { "moonbow" } },
 		config = function()
-			-- vim.cmd("colorscheme moonbow")
+			vim.cmd("colorscheme moonbow")
 		end,
 	},
+
+	{
+		"uloco/bluloco.nvim",
+		lazy = true,
+		priority = 1000,
+		dependencies = { "rktjmp/lush.nvim" },
+		config = function()
+			require("bluloco").setup({
+				-- your optional config goes here, see below.
+				style = "dark", -- "auto" | "dark" | "light"
+				transparent = false,
+				italics = false,
+				terminal = vim.fn.has("gui_running") == 1, -- bluoco colors are enabled in gui terminals per default.
+				guicursor = true,
+			})
+		end,
+	},
+
 	{
 		"laytan/tailwind-sorter.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
