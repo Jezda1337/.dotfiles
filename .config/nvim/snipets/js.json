@@ -1,0 +1,8 @@
+{
+	"log": {
+		"body": "console.log(${1})",
+		"description": "console.log",
+		"prefix": "log",
+		"scope": ""
+	}
+}
