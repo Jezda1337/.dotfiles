@@ -180,9 +180,9 @@ function config.typescript()
 	}
 	require("typescript").setup({
 		disable_commands = false, -- prevent the plugin from creating Vim commands
-		debug = false,          -- enable debug logging for commands
+		debug = false, -- enable debug logging for commands
 		go_to_source_definition = {
-			fallback = true,      -- fall back to standard LSP definition on failure
+			fallback = true, -- fall back to standard LSP definition on failure
 		},
 		server = {
 			-- pass options to lspconfig's setup method
@@ -271,7 +271,11 @@ function config.prettier()
 end
 
 function config.lspsaga()
-	require("lspsaga").setup()
+	require("lspsaga").setup({
+		diagnostic = {
+			on_insert = false,
+		},
+	})
 end
 
 return config

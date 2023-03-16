@@ -5,41 +5,41 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		config = config.theme
+		config = config.theme,
 	},
 
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VeryLazy",
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "auto" -- "rose-pine"
-				}
+					theme = "auto", -- "rose-pine"
+				},
 			})
-		end
+		end,
 	},
 
 	{
-		'akinsho/nvim-bufferline.lua',
+		"akinsho/nvim-bufferline.lua",
 		config = config.bufferline,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 
 	{
-		'NvChad/nvim-colorizer.lua',
+		"NvChad/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup({
-				user_default_options = { tailwind = true }
+				user_default_options = { tailwind = true },
 			})
-		end
+		end,
 	},
 
 	{
-		'glepnir/dashboard-nvim',
-		event = 'VimEnter',
+		"glepnir/dashboard-nvim",
+		event = "VimEnter",
 		config = config.dashboard,
-		dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-
 }
