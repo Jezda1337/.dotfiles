@@ -1,26 +1,38 @@
-local on_attach = require "plugins.lsp.on_attach"
+local on_attach = require("plugins.lsp.on_attach")
 local config = {}
 
+function config.neodev()
+	require("neodev").setup({})
+end
+
 function config.mason()
-	require("mason").setup({})
+	require("mason").setup({
+		ui = {
+			icons = {
+				package_installed = "✓",
+				package_pending = "➜",
+				package_uninstalled = "✗",
+			},
+		},
+	})
 end
 
 function config.mason_lsp()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "prismals", "tailwindcss", "html", "cssls", "astro", "emmet_ls" }
+		ensure_installed = { "lua_ls", "prismals", "tailwindcss", "html", "cssls", "astro", "emmet_ls", "eslint" },
 	})
 end
 
 function config.lsp()
 	local signs = {
-		Error = ' ',
-		Warn = ' ',
-		Info = ' ',
-		Hint = ' ',
+		Error = " ",
+		Warn = " ",
+		Info = " ",
+		Hint = " ",
 	}
 
 	for type, icon in pairs(signs) do
-		local hl = 'DiagnosticSign' .. type
+		local hl = "DiagnosticSign" .. type
 		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 	end
 
@@ -28,9 +40,9 @@ function config.lsp()
 		signs = true,
 		severity_sort = true,
 		virtual_text = {
-			prefix = '🔥',
+			prefix = "🔥",
 			source = true,
-		}
+		},
 	})
 
 	local lsp = require("lspconfig")
@@ -45,6 +57,7 @@ function config.lsp()
 		"astro",
 		"prismals",
 		"dockerls",
+		"eslint",
 	}
 
 	for _, server in ipairs(servers) do
@@ -139,24 +152,24 @@ function config.cmp()
 end
 
 function config.lua_snip()
-	local ls = require('luasnip')
-	local types = require('luasnip.util.types')
+	local ls = require("luasnip")
+	local types = require("luasnip.util.types")
 	ls.config.set_config({
 		history = true,
 		enable_autosnippets = true,
-		updateevents = 'TextChanged,TextChangedI',
+		updateevents = "TextChanged,TextChangedI",
 		ext_opts = {
 			[types.choiceNode] = {
 				active = {
-					virt_text = { { '<- choiceNode', 'Comment' } },
+					virt_text = { { "<- choiceNode", "Comment" } },
 				},
 			},
 		},
 	})
-	require('luasnip.loaders.from_lua').lazy_load({ paths = vim.fn.stdpath('config') .. '/snippets' })
-	require('luasnip.loaders.from_vscode').lazy_load()
-	require('luasnip.loaders.from_vscode').lazy_load({
-		paths = { './snippets/' },
+	require("luasnip.loaders.from_lua").lazy_load({ paths = vim.fn.stdpath("config") .. "/snippets" })
+	require("luasnip.loaders.from_vscode").lazy_load()
+	require("luasnip.loaders.from_vscode").lazy_load({
+		paths = { "./snippets/" },
 	})
 end
 
@@ -184,6 +197,75 @@ function config.typescript()
 					yaml = { prettier },
 				},
 			},
+		},
+	})
+end
+
+function config.mason_null_ls()
+	require("mason-null-ls").setup({
+		ensure_installed = { "stylua", "prettier", "eslint", "shfmt" },
+		automatic_installation = true,
+		automatic_setup = true,
+	})
+end
+
+function config.null_ls()
+	local null_ls = require("null-ls")
+
+	local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+	local event = "BufWritePre" -- or "BufWritePost"
+	local async = event == "BufWritePost"
+
+	null_ls.setup({
+		sources = {
+			null_ls.builtins.formatting.stylua,
+			null_ls.builtins.diagnostics.eslint,
+			null_ls.builtins.formatting.prettier,
+		},
+		on_attach = function(client, bufnr)
+			if client.supports_method("textDocument/formatting") then
+				vim.keymap.set("n", "<Leader>f", function()
+					vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+				end, { buffer = bufnr, desc = "[lsp] format" })
+
+				-- format on save
+				vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+				vim.api.nvim_create_autocmd(event, {
+					buffer = bufnr,
+					group = group,
+					callback = function()
+						vim.lsp.buf.format({ bufnr = bufnr, async = async })
+					end,
+					desc = "[lsp] format on save",
+				})
+			end
+
+			if client.supports_method("textDocument/rangeFormatting") then
+				vim.keymap.set("x", "<Leader>f", function()
+					vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+				end, { buffer = bufnr, desc = "[lsp] format" })
+			end
+		end,
+	})
+end
+
+function config.prettier()
+	local prettier = require("prettier")
+
+	prettier.setup({
+		bin = "prettier", -- or `'prettierd'` (v0.23.3+)
+		filetypes = {
+			"css",
+			"html",
+			"javascript",
+			"javascriptreact",
+			"json",
+			"less",
+			"markdown",
+			"scss",
+			"typescript",
+			"typescriptreact",
+			"yaml",
 		},
 	})
 end

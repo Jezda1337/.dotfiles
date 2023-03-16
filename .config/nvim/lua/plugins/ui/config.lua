@@ -35,7 +35,8 @@ function config.dashboard()
 					{ desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
 					{
 						desc = ' Files',
-						group = 'Label',
+						-- group = 'Label',
+						group = '@number',
 						action = 'Telescope find_files',
 						key = 'f',
 					},

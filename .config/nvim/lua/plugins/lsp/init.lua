@@ -2,43 +2,56 @@ local config = require("plugins.lsp.config")
 
 return {
 	-- LSP
-	{ "williamboman/mason.nvim",            config = config.mason },
-	{ "williamboman/mason-lspconfig",       config = config.mason_lsp },
-	{ "neovim/nvim-lspconfig",              config = config.lsp },
+	{ "williamboman/mason.nvim", config = config.mason },
+	{ "williamboman/mason-lspconfig", config = config.mason_lsp },
+	{ "neovim/nvim-lspconfig", config = config.lsp },
 	{ "jose-elias-alvarez/typescript.nvim", config = config.typescript },
+	{
+		"jay-babu/mason-null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+		config = config.mason_null_ls,
+	},
+
+	-- Formating
+	{ "jose-elias-alvarez/null-ls.nvim", config = config.null_ls },
+	{ "MunifTanjim/prettier.nvim", config = config.prettier },
 
 	-- Autocompletion
 	{
-		'hrsh7th/nvim-cmp',
+		"hrsh7th/nvim-cmp",
 		config = config.cmp,
 		dependencies = {
-			{ 'hrsh7th/cmp-nvim-lsp' },
-			{ 'hrsh7th/cmp-buffer' },
-			{ 'hrsh7th/cmp-path' },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-path" },
 			{ "hrsh7th/cmp-cmdline" },
-			{ 'saadparwaiz1/cmp_luasnip' },
-			{ 'hrsh7th/cmp-nvim-lua' },
-			{ "lukas-reineke/cmp-under-comparator" }
-		}
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "hrsh7th/cmp-nvim-lua" },
+			{ "lukas-reineke/cmp-under-comparator" },
+		},
 	},
 	{
-		'L3MON4D3/LuaSnip',
+		"L3MON4D3/LuaSnip",
 		confog = config.lua_snip,
 		event = "InsertCharPre",
 	},
-	{ 'rafamadriz/friendly-snippets' },
+	{ "rafamadriz/friendly-snippets" },
 
 	{
-		'glepnir/lspsaga.nvim',
-		event = 'BufRead',
+		"glepnir/lspsaga.nvim",
+		event = "BufRead",
 		dev = false,
 		config = config.lspsaga,
 	},
 
-	{ "windwp/nvim-ts-autotag",        config = true },
+	{ "windwp/nvim-ts-autotag", config = true },
 
-	{ "windwp/nvim-autopairs",         config = true },
+	{ "windwp/nvim-autopairs", config = true },
 
-	{ "lukas-reineke/lsp-format.nvim", config = true }
-
+	{ "lukas-reineke/lsp-format.nvim", config = true },
+	{ "folke/neodev.nvim", config = config.neodev },
 }

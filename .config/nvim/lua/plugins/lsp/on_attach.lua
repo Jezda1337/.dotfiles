@@ -1,7 +1,7 @@
 local M = {}
 
 function M.on_attach(client, bufnr)
-	require("lsp-format").on_attach(client) -- async format
+	--	require("lsp-format").on_attach(client) -- async format
 
 	-- if client.name == "tsserver" then
 	-- 	client.server_capabilities.documentFormattingProvider = false
