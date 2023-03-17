@@ -122,13 +122,13 @@ function config.cmp()
 				end
 			end, { "i", "s" }),
 		},
-		sources = require("plugins.lsp.sources"),
+		sources = require("plugins.lsp.cmp_sources"),
 		sorting = {
 			comparators = {
+				require("cmp-under-comparator").under, -- better cmp sorting
 				cmp.config.compare.offset,
 				cmp.config.compare.exact,
 				cmp.config.compare.score,
-				require("cmp-under-comparator").under, -- better cmp sorting
 				cmp.config.compare.kind,
 				cmp.config.compare.sort_text,
 				cmp.config.compare.length,
@@ -139,6 +139,13 @@ function config.cmp()
 
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp") -- connect autopairs with cmp
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
 
 	cmp.setup(cmp_config)
 	cmp.setup.cmdline(":", {
