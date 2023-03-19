@@ -2,9 +2,9 @@ local config = require("plugins.lsp.config")
 
 return {
 	-- LSP
-	{ "williamboman/mason.nvim",            cmd = "Mason",             build = ":Mason", config = config.mason },
-	{ "williamboman/mason-lspconfig",       config = config.mason_lsp },
-	{ "neovim/nvim-lspconfig",              config = config.lsp },
+	{ "williamboman/mason.nvim", cmd = "Mason", build = ":Mason", config = config.mason },
+	{ "williamboman/mason-lspconfig", config = config.mason_lsp },
+	{ "neovim/nvim-lspconfig", config = config.lsp },
 	{ "jose-elias-alvarez/typescript.nvim", config = config.typescript },
 	{
 		"jay-babu/mason-null-ls.nvim",
@@ -18,7 +18,7 @@ return {
 
 	-- Formating
 	{ "jose-elias-alvarez/null-ls.nvim", config = config.null_ls },
-	{ "MunifTanjim/prettier.nvim",       config = config.prettier },
+	{ "MunifTanjim/prettier.nvim", config = config.prettier },
 
 	-- Autocompletion
 	{
@@ -35,6 +35,7 @@ return {
 			{ "lukas-reineke/cmp-under-comparator" },
 		},
 	},
+
 	{
 		"L3MON4D3/LuaSnip",
 		confog = config.lua_snip,
@@ -49,11 +50,9 @@ return {
 		config = config.lspsaga,
 	},
 
-	{ "windwp/nvim-ts-autotag",        config = true },
-
-	{ "windwp/nvim-autopairs",         event = "VeryLazy",    config = true },
-	{ "lukas-reineke/lsp-format.nvim", config = true },
-	{ "folke/neodev.nvim",             config = config.neodev },
+	{ "windwp/nvim-ts-autotag", config = true },
+	{ "windwp/nvim-autopairs", event = "VeryLazy", config = true },
+	{ "folke/neodev.nvim", config = config.neodev },
 	{
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",

@@ -47,11 +47,12 @@ function config.lsp()
 
 	local lsp = require("lspconfig")
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 	local servers = {
 		"html",
 		"cssls",
-		"emmet_ls",
+		-- "emmet_ls", -- have some wierd completion
 		"tailwindcss",
 		"jsonls",
 		"astro",
@@ -126,6 +127,18 @@ function config.cmp()
 		sorting = {
 			comparators = {
 				require("cmp-under-comparator").under, -- better cmp sorting
+				require("cmp-under-comparator").under, -- better cmp sorting
+				function(entry1, entry2)
+					local _, entry1_under = entry1.completion_item.label:find("^_+")
+					local _, entry2_under = entry2.completion_item.label:find("^_+")
+					entry1_under = entry1_under or 0
+					entry2_under = entry2_under or 0
+					if entry1_under > entry2_under then
+						return false
+					elseif entry1_under < entry2_under then
+						return true
+					end
+				end,
 				cmp.config.compare.offset,
 				cmp.config.compare.exact,
 				cmp.config.compare.score,
@@ -181,6 +194,9 @@ function config.lua_snip()
 end
 
 function config.typescript()
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 	local prettier = {
 		formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
 		formatStdin = true,
@@ -194,6 +210,7 @@ function config.typescript()
 		server = {
 			-- pass options to lspconfig's setup method
 			on_attach = on_attach.on_attach,
+			capabilities = capabilities,
 			root_dir = function()
 				return vim.loop.cwd()
 			end,
@@ -228,6 +245,8 @@ function config.null_ls()
 			null_ls.builtins.formatting.stylua,
 			null_ls.builtins.diagnostics.eslint,
 			null_ls.builtins.formatting.prettier,
+			null_ls.builtins.formatting.prismaFmt,
+			null_ls.builtins.completion.luasnip,
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then

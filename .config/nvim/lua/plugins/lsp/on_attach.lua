@@ -1,12 +1,10 @@
 local M = {}
 
 function M.on_attach(client, bufnr)
-	--	require("lsp-format").on_attach(client) -- async format
-
-	-- if client.name == "tsserver" then
-	-- 	client.server_capabilities.documentFormattingProvider = false
-	-- 	client.server_capabilities.semanticTokensProvider = nil -- disable flickering on save (the problem with cash)
-	-- end
+	if client.name == "tsserver" then
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.semanticTokensProvider = nil -- disable flickering on save (the problem with cash)
+	end
 
 	if client.name == "lua_ls" then
 		client.server_capabilities.semanticTokensProvider = nil
