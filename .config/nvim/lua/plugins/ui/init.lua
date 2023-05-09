@@ -2,10 +2,11 @@ local config = require("plugins.ui.config")
 
 return {
 	{ "luisiacc/gruvbox-baby", config = config.theme },
+	{ "rktjmp/lush.nvim" },
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		config = config.theme,
+		config = config.thme,
 	},
 
 	{
@@ -41,5 +42,11 @@ return {
 		event = "VimEnter",
 		config = config.dashboard,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+
+	{
+		"HiPhish/nvim-ts-rainbow2",
+		event = "VimEnter",
+		config = config.ts_rainbow,
 	},
 }

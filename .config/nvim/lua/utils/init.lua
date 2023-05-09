@@ -1,6 +1,5 @@
 require("utils.autocmd")
 
-
 -- disable hlsearch automatically when your search done and enable on next searching without extra plugins
 local ns = vim.api.nvim_create_namespace("toggle_hlsearch")
 local function toggle_hlsearch(char)
@@ -18,7 +17,7 @@ vim.on_key(toggle_hlsearch, ns)
 
 -- arrow that follow cursos only work on nightly version of neovim
 vim.o.statuscolumn =
-	'%s%=%l %C%#Yellow#%{v:relnum == 0 ? "" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
+'%s%=%l %C%#Yellow#%{v:relnum == 0 ? "" : ""}%#IndentBlankLineChar#%{v:relnum == 0 ? "" : "│"} '
 
 -- Correct indentation when inserting on blank line
 vim.keymap.set("n", "i", function()

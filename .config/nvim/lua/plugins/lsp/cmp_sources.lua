@@ -32,7 +32,7 @@ return {
 		group_index = 1,
 	},
 	{ name = "nvim_lua", max_item_count = 10 },
-	{ name = "luasnip", max_item_count = 5, keyword_length = 5 },
+	{ name = "luasnip", max_item_count = 5, keyword_length = 1 },
 	{ name = "buffer", keyword_length = 5 },
 	{ name = "nvim_lsp_signature_help" },
 }

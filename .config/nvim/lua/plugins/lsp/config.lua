@@ -19,7 +19,17 @@ end
 
 function config.mason_lsp()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "lua_ls", "prismals", "tailwindcss", "html", "cssls", "astro", "emmet_ls", "eslint" },
+		ensure_installed = {
+			"lua_ls",
+			"prismals",
+			"tailwindcss",
+			"html",
+			"cssls",
+			"astro",
+			"emmet_ls",
+			"eslint",
+			"marksman",
+		},
 	})
 end
 
@@ -52,13 +62,14 @@ function config.lsp()
 	local servers = {
 		"html",
 		"cssls",
-		-- "emmet_ls", -- have some wierd completion
+		"emmet_ls", -- have some wierd completion
 		"tailwindcss",
 		"jsonls",
 		"astro",
 		"prismals",
 		"dockerls",
 		"eslint",
+		"marksman",
 	}
 
 	for _, server in ipairs(servers) do
@@ -79,6 +90,7 @@ function config.cmp()
 		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 	end
+	local luasnip = require("luasnip")
 	local cmp = require("cmp")
 
 	local cmp_config = {
@@ -88,10 +100,10 @@ function config.cmp()
 			end,
 		},
 		preselect = cmp.PreselectMode.Item,
-		-- window = {
-		-- 	completion = cmp.config.window.bordered(),
-		-- 	documentation = cmp.config.window.bordered(),
-		-- },
+		window = {
+			completion = cmp.config.window.bordered(),
+			documentation = cmp.config.window.bordered(),
+		},
 		formatting = require("plugins.lsp.formatting").formatting,
 		duplicates = {
 			nvim_lsp = 1,
@@ -99,25 +111,51 @@ function config.cmp()
 			buffer = 1,
 			path = 1,
 		},
+		experimental = {
+			ghost_text = false,
+		},
 		mapping = {
 			["<C-e>"] = cmp.mapping.abort(),
 			["<CR>"] = cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = false,
 			}),
+			-- ["<Tab>"] = cmp.mapping(function(fallback)
+			-- 	if cmp.visible() then
+			-- 		cmp.select_next_item()
+			-- 	elseif has_words_before() then
+			-- 		cmp.complete()
+			-- 	else
+			-- 		fallback()
+			-- 		-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
+			-- 	end
+			-- end, { "i", "s" }),
+			-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+			-- 	if cmp.visible() then
+			-- 		cmp.select_prev_item()
+			-- 	else
+			-- 		fallback()
+			-- 	end
+			-- end, { "i", "s" }),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
+					-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+					-- they way you will only jump inside the snippet region
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
 				elseif has_words_before() then
 					cmp.complete()
 				else
 					fallback()
-					-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
 				end
 			end, { "i", "s" }),
+
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
+				elseif luasnip.jumpable(-1) then
+					luasnip.jump(-1)
 				else
 					fallback()
 				end
@@ -186,11 +224,53 @@ function config.lua_snip()
 			},
 		},
 	})
-	require("luasnip.loaders.from_lua").lazy_load({ paths = vim.fn.stdpath("config") .. "/snippets" })
-	require("luasnip.loaders.from_vscode").lazy_load()
-	require("luasnip.loaders.from_vscode").lazy_load({
-		paths = { "./snippets/" },
-	})
+
+	-- ls.config.set_config({
+	-- 	history = true,
+	-- 	updateevents = { "TextChanged", "TextChangedI" },
+	-- 	enable_autosnippets = true,
+	-- 	ext_opts = {
+	-- 		[types.choiceNode] = {
+	-- 			active = {
+	-- 				virt_text = { { "●", "LuasnipChoice" } },
+	-- 			},
+	-- 		},
+	-- 		[types.insertNode] = {
+	-- 			active = {
+	-- 				virt_text = { { "●", "LuasnipInsert" } },
+	-- 			},
+	-- 		},
+	-- 	},
+	-- })
+
+	-- -- Mappings
+	-- _G.tab_complete = function()
+	-- 	if ls and ls.expand_or_jumpable() then
+	-- 		return "<Plug>luasnip-expand-or-jump"
+	-- 	else
+	-- 		return "<tab>"
+	-- 	end
+	-- end
+	-- vim.keymap.set({ "i", "s" }, "<tab>", "v:lua.tab_complete()", { expr = true })
+
+	-- _G.shift_tab_jump = function()
+	-- 	if ls.jumpable(-1) then
+	-- 		return "<Plug>luasnip-jump-prev"
+	-- 	else
+	-- 		return "<s-tab>"
+	-- 	end
+	-- end
+	-- vim.keymap.set({ "i", "s" }, "<s-tab>", "v:lua.shift_tab_jump()", { expr = true })
+
+	-- vim.keymap.set({ "i", "s" }, "<c-k>", function()
+	-- 	if ls.choice_active() then
+	-- 		ls.change_choice(1)
+	-- 	end
+	-- end, { silent = true })
+
+	-- Snippets
+	-- require("luasnip.loaders.from_vscode").load({ path = { "./snippets" } })
+	require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
 end
 
 function config.typescript()
@@ -203,9 +283,9 @@ function config.typescript()
 	}
 	require("typescript").setup({
 		disable_commands = false, -- prevent the plugin from creating Vim commands
-		debug = false, -- enable debug logging for commands
+		debug = false,          -- enable debug logging for commands
 		go_to_source_definition = {
-			fallback = true, -- fall back to standard LSP definition on failure
+			fallback = true,      -- fall back to standard LSP definition on failure
 		},
 		server = {
 			-- pass options to lspconfig's setup method
@@ -242,11 +322,19 @@ function config.null_ls()
 
 	null_ls.setup({
 		sources = {
+			-- null_ls.builtins.diagnostics.cspell,
+			-- null_ls.builtins.code_actions.cspell,
 			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.diagnostics.eslint,
 			null_ls.builtins.formatting.prettier,
 			null_ls.builtins.formatting.prismaFmt,
 			null_ls.builtins.completion.luasnip,
+			null_ls.builtins.diagnostics.eslint.with({
+				diagnostics_format = "[eslint] #{m}\n(#{c})",
+				-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
+				condition = function(utils)
+					return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
+				end,
+			}),
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
@@ -301,6 +389,34 @@ function config.lspsaga()
 		diagnostic = {
 			on_insert = false,
 		},
+	})
+end
+
+function config.autopairs()
+	local autopairs = require("nvim-autopairs")
+	local Rule = require("nvim-autopairs.rule")
+	local ts_conds = require("nvim-autopairs.ts-conds")
+
+	autopairs.setup({
+		check_ts = true,
+		enable_moveright = true,
+	})
+
+	autopairs.add_rules({
+		-- Typing { when {| -> {{ | }} in Vue files
+		Rule("{", "  }", { "typescriptreact", "tsx", "javascript", "typescript" })
+				:set_end_pair_length(2)
+				:with_pair(ts_conds.is_ts_node("text")),
+
+		-- Typing = when () -> () => {|}
+		Rule("%(.*%)%s*%=$", "> {}", { "typescript", "typescriptreact", "javascript", "vue" })
+				:use_regex(true)
+				:set_end_pair_length(1),
+
+		-- Typing n when the| -> then|end
+		Rule("then", "end", "lua"):end_wise(function(opts)
+			return string.match(opts.line, "^%s*if") ~= nil
+		end),
 	})
 end
 

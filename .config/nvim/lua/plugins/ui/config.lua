@@ -8,6 +8,7 @@ function config.theme()
 	-- 	dark_variant = "dawn"
 	-- })
 	-- vim.cmd("colorscheme rose-pine")
+	vim.g.gruvbox_baby_transparent_mode = 0
 	vim.cmd("colorscheme gruvbox-baby")
 end
 
@@ -54,6 +55,10 @@ function config.dashboard()
 			},
 		},
 	})
+end
+
+function config.rain_bow2()
+	return {}
 end
 
 return config

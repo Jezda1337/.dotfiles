@@ -54,10 +54,6 @@ local options = {
 	foldmethod = "manual",
 	formatoptions = "l",
 	-- formatoptions = "cro", -- auto comment next line after commnet
-
-	foldcolumn = "1", -- '0' is not bad
-	foldlevel = 99, -- Using ufo provider need a large value, feel free to decrease the value
-	foldlevelstart = 99,
 }
 
 for key, value in pairs(options) do

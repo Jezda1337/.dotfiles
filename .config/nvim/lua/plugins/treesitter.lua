@@ -24,6 +24,11 @@ return {
 			highlight = { enable = true },
 			indent = { enable = true },
 			auto_install = true,
+			rainbow = {
+				enable = false,
+				query = "rainbow-parens",
+				strategy = require("ts-rainbow").strategy.global,
+			},
 			context_commentstring = {
 				elable = true,
 				enable_autocmd = false,
