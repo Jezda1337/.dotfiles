@@ -2,7 +2,7 @@
 	"console.log": {
 		"prefix": "log",
 		"body": [
-			"console.log(${1})"
+			"console.log(${1});"
 		]
 	}
 }

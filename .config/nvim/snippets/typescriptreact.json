@@ -42,7 +42,7 @@
 		"key": "consoleLog",
 		"prefix": "log",
 		"body": [
-			"console.log(${1:first})"
+			"console.log(${1:first});"
 		],
 		"description": "Displays a message in the console",
 		"scope": "typescript,typescriptreact,javascript,javascriptreact"
