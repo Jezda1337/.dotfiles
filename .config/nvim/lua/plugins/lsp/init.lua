@@ -2,9 +2,9 @@ local config = require("plugins.lsp.config")
 
 return {
 	-- LSP
-	{ "williamboman/mason.nvim",            cmd = "Mason",             build = ":Mason", config = config.mason },
-	{ "williamboman/mason-lspconfig",       config = config.mason_lsp },
-	{ "neovim/nvim-lspconfig",              config = config.lsp },
+	{ "williamboman/mason.nvim", cmd = "Mason", build = ":Mason", config = config.mason },
+	{ "williamboman/mason-lspconfig", config = config.mason_lsp },
+	{ "neovim/nvim-lspconfig", config = config.lsp },
 	{ "jose-elias-alvarez/typescript.nvim", config = config.typescript },
 	{
 		"jay-babu/mason-null-ls.nvim",
@@ -18,7 +18,7 @@ return {
 
 	-- Formating
 	{ "jose-elias-alvarez/null-ls.nvim", config = config.null_ls },
-	{ "MunifTanjim/prettier.nvim",       config = config.prettier },
+	{ "MunifTanjim/prettier.nvim", config = config.prettier },
 
 	-- Autocompletion
 	{
@@ -42,9 +42,9 @@ return {
 		build = "make install_jsregexp",
 		config = config.lua_snip,
 		-- event = "InsertCharPre",
-		-- dependencies = {
-		-- 	"rafamadriz/friendly-snippets",
-		-- },
+		dependencies = {
+			"rafamadriz/friendly-snippets",
+		},
 	},
 	-- { "rafamadriz/friendly-snippets" },
 
@@ -56,8 +56,8 @@ return {
 	},
 
 	{ "windwp/nvim-ts-autotag", config = true },
-	{ "windwp/nvim-autopairs",  event = "VeryLazy",    config = config.autopairs },
-	{ "folke/neodev.nvim",      config = config.neodev },
+	{ "windwp/nvim-autopairs", event = "VeryLazy", config = config.autopairs },
+	{ "folke/neodev.nvim", config = config.neodev },
 	{
 		"iamcco/markdown-preview.nvim",
 		ft = "markdown",

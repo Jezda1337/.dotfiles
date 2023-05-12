@@ -23,6 +23,7 @@ function config.mason_lsp()
 			"lua_ls",
 			"prismals",
 			"tailwindcss",
+			"gopls",
 			"html",
 			"cssls",
 			"astro",
@@ -62,7 +63,7 @@ function config.lsp()
 	local servers = {
 		"html",
 		"cssls",
-		"emmet_ls", -- have some wierd completion
+		-- "emmet_ls", -- have some wierd completion
 		"tailwindcss",
 		"jsonls",
 		"astro",
@@ -70,6 +71,7 @@ function config.lsp()
 		"dockerls",
 		"eslint",
 		"marksman",
+		"gopls",
 	}
 
 	for _, server in ipairs(servers) do
@@ -165,7 +167,6 @@ function config.cmp()
 		sorting = {
 			comparators = {
 				require("cmp-under-comparator").under, -- better cmp sorting
-				require("cmp-under-comparator").under, -- better cmp sorting
 				function(entry1, entry2)
 					local _, entry1_under = entry1.completion_item.label:find("^_+")
 					local _, entry2_under = entry2.completion_item.label:find("^_+")
@@ -213,64 +214,26 @@ function config.lua_snip()
 	local ls = require("luasnip")
 	local types = require("luasnip.util.types")
 	ls.config.set_config({
-		history = true,
+		history = false,
 		enable_autosnippets = true,
-		updateevents = "TextChanged,TextChangedI",
-		ext_opts = {
-			[types.choiceNode] = {
-				active = {
-					virt_text = { { "<- choiceNode", "Comment" } },
-				},
-			},
-		},
+		-- updateevents = "TextChanged,TextChangedI",
+		-- ext_opts = {
+		-- 	[types.choiceNode] = {
+		-- 		active = {
+		-- 			virt_text = { { "<- choiceNode", "Comment" } },
+		-- 		},
+		-- 	},
+		-- 	[types.insertNode] = {
+		-- 		active = {
+		-- 			virt_text = { { "●", "LuasnipInsert" } },
+		-- 		},
+		-- 	},
+		-- },
 	})
 
-	-- ls.config.set_config({
-	-- 	history = true,
-	-- 	updateevents = { "TextChanged", "TextChangedI" },
-	-- 	enable_autosnippets = true,
-	-- 	ext_opts = {
-	-- 		[types.choiceNode] = {
-	-- 			active = {
-	-- 				virt_text = { { "●", "LuasnipChoice" } },
-	-- 			},
-	-- 		},
-	-- 		[types.insertNode] = {
-	-- 			active = {
-	-- 				virt_text = { { "●", "LuasnipInsert" } },
-	-- 			},
-	-- 		},
-	-- 	},
-	-- })
-
-	-- -- Mappings
-	-- _G.tab_complete = function()
-	-- 	if ls and ls.expand_or_jumpable() then
-	-- 		return "<Plug>luasnip-expand-or-jump"
-	-- 	else
-	-- 		return "<tab>"
-	-- 	end
-	-- end
-	-- vim.keymap.set({ "i", "s" }, "<tab>", "v:lua.tab_complete()", { expr = true })
-
-	-- _G.shift_tab_jump = function()
-	-- 	if ls.jumpable(-1) then
-	-- 		return "<Plug>luasnip-jump-prev"
-	-- 	else
-	-- 		return "<s-tab>"
-	-- 	end
-	-- end
-	-- vim.keymap.set({ "i", "s" }, "<s-tab>", "v:lua.shift_tab_jump()", { expr = true })
-
-	-- vim.keymap.set({ "i", "s" }, "<c-k>", function()
-	-- 	if ls.choice_active() then
-	-- 		ls.change_choice(1)
-	-- 	end
-	-- end, { silent = true })
-
 	-- Snippets
-	-- require("luasnip.loaders.from_vscode").load({ path = { "./snippets" } })
-	require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
+	-- work but on save or any change duplicate the snippet in file
+	-- require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
 end
 
 function config.typescript()
@@ -307,7 +270,7 @@ end
 
 function config.mason_null_ls()
 	require("mason-null-ls").setup({
-		ensure_installed = { "stylua", "prettier", "eslint", "shfmt" },
+		ensure_installed = { "stylua", "prettier", "eslint", "shfmt", "goimports" },
 		automatic_installation = true,
 		automatic_setup = true,
 	})
@@ -335,6 +298,8 @@ function config.null_ls()
 					return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
 				end,
 			}),
+			null_ls.builtins.formatting.gofmt,
+			null_ls.builtins.formatting.goimports,
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then

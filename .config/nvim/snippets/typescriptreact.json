@@ -1,6 +1,5 @@
 {
 	"typescriptReactFunctionalComponent": {
-		"key": "typescriptReactFunctionalComponent",
 		"prefix": "tsrfc",
 		"body": [
 			"import React from 'react'",
@@ -13,8 +12,7 @@
 			"  )",
 			"}"
 		],
-		"description": "Creates a React Functional Component with ES7 module system and TypeScript interface",
-		"scope": "typescript,typescriptreact,javascript,javascriptreact"
+		"description": "Creates a React Functional Component with ES7 module system and TypeScript interface"
 	},
 	"useState": {
 		"prefix": "useState",
