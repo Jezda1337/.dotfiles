@@ -8,8 +8,9 @@ function config.theme()
 	-- 	dark_variant = "dawn"
 	-- })
 	-- vim.cmd("colorscheme rose-pine")
-	vim.g.gruvbox_baby_transparent_mode = 0
-	vim.cmd("colorscheme gruvbox-baby")
+	-- vim.g.gruvbox_baby_transparent_mode = 0
+	-- vim.cmd("colorscheme gruvbox-baby")
+	vim.cmd("colorscheme gruber-darker")
 end
 
 function config.bufferline()

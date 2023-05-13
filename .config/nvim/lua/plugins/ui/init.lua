@@ -8,6 +8,16 @@ return {
 		name = "rose-pine",
 		config = config.thme,
 	},
+	{
+		"blazkowolf/gruber-darker.nvim",
+		config = true,
+		-- opts = {
+		-- 	bold = false,
+		-- 	italic = {
+		-- 		strings = false,
+		-- 	},
+		-- },
+	},
 
 	{
 		"nvim-lualine/lualine.nvim",
