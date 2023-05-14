@@ -19,6 +19,7 @@ return {
 				"json",
 				"dockerfile",
 				"markdown_inline",
+				"vue",
 			},
 			autotag = { enable = true },
 			highlight = { enable = true },

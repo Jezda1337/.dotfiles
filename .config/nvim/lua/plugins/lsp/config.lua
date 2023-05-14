@@ -30,6 +30,7 @@ function config.mason_lsp()
 			"emmet_ls",
 			"eslint",
 			"marksman",
+			"volar",
 		},
 	})
 end
@@ -81,6 +82,7 @@ function config.lsp()
 		})
 	end
 	require("plugins.lsp.servers_config.lua_ls").lua_ls(capabilities, on_attach)
+	require("plugins.lsp.servers_config.vue_ls").vue_ls(capabilities, on_attach)
 end
 
 ---------
