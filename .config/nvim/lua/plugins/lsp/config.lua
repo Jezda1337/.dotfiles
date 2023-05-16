@@ -64,7 +64,7 @@ function config.lsp()
 	local servers = {
 		"html",
 		"cssls",
-		-- "emmet_ls", -- have some wierd completion
+		--"emmet_ls", -- have some wierd completion
 		"tailwindcss",
 		"jsonls",
 		"astro",
@@ -83,6 +83,7 @@ function config.lsp()
 	end
 	require("plugins.lsp.servers_config.lua_ls").lua_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.vue_ls").vue_ls(capabilities, on_attach)
+	require("plugins.lsp.servers_config.emmet_ls").emmet_ls(capabilities, on_attach)
 end
 
 ---------
@@ -118,43 +119,71 @@ function config.cmp()
 		experimental = {
 			ghost_text = false,
 		},
-		mapping = {
-			["<C-e>"] = cmp.mapping.abort(),
+		-- mapping = {
+		-- 	["<C-e>"] = cmp.mapping.abort(),
+		-- 	["<CR>"] = cmp.mapping.confirm({
+		-- 		behavior = cmp.ConfirmBehavior.Replace,
+		-- 		select = false,
+		-- 	}),
+		-- ["<Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_next_item()
+		-- 	elseif has_words_before() then
+		-- 		cmp.complete()
+		-- 	else
+		-- 		fallback()
+		-- 		-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
+		-- 	end
+		-- end, { "i", "s" }),
+		-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_prev_item()
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, { "i", "s" }),
+		-- ["<Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_next_item()
+		-- 		-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+		-- 		-- they way you will only jump inside the snippet region
+		-- 	elseif luasnip.expand_or_locally_jumpable() then
+		-- 		luasnip.expand_or_jump()
+		-- 	elseif has_words_before() then
+		-- 		cmp.complete()
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, { "i", "s" }),
+
+		-- ["<S-Tab>"] = cmp.mapping(function(fallback)
+		-- 	if cmp.visible() then
+		-- 		cmp.select_prev_item()
+		-- 	elseif luasnip.jumpable(-1) then
+		-- 		luasnip.jump(-1)
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end, { "i", "s" }),
+		-- },
+
+		mapping = cmp.mapping.preset.insert({
+			["<C-d>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-Space>"] = cmp.mapping.complete(),
 			["<CR>"] = cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Replace,
-				select = false,
+				select = true,
 			}),
-			-- ["<Tab>"] = cmp.mapping(function(fallback)
-			-- 	if cmp.visible() then
-			-- 		cmp.select_next_item()
-			-- 	elseif has_words_before() then
-			-- 		cmp.complete()
-			-- 	else
-			-- 		fallback()
-			-- 		-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
-			-- 	end
-			-- end, { "i", "s" }),
-			-- ["<S-Tab>"] = cmp.mapping(function(fallback)
-			-- 	if cmp.visible() then
-			-- 		cmp.select_prev_item()
-			-- 	else
-			-- 		fallback()
-			-- 	end
-			-- end, { "i", "s" }),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
-					-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-					-- they way you will only jump inside the snippet region
 				elseif luasnip.expand_or_jumpable() then
 					luasnip.expand_or_jump()
-				elseif has_words_before() then
-					cmp.complete()
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
-
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
@@ -164,7 +193,7 @@ function config.cmp()
 					fallback()
 				end
 			end, { "i", "s" }),
-		},
+		}),
 		sources = require("plugins.lsp.cmp_sources"),
 		sorting = {
 			comparators = {
@@ -212,6 +241,10 @@ function config.cmp()
 	})
 end
 
+---------------------
+-- LUA SNIP
+---------------------
+
 function config.lua_snip()
 	local ls = require("luasnip")
 	local types = require("luasnip.util.types")
@@ -236,6 +269,7 @@ function config.lua_snip()
 	-- Snippets
 	-- work but on save or any change duplicate the snippet in file
 	-- require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
+	-- require("luasnip.loaders.from_vscode").lazy_load() -- global snippets
 end
 
 function config.typescript()
@@ -285,7 +319,9 @@ function config.null_ls()
 	local event = "BufWritePre" -- or "BufWritePost"
 	local async = event == "BufWritePost"
 
+	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup({
+		border = "single",
 		sources = {
 			-- null_ls.builtins.diagnostics.cspell,
 			-- null_ls.builtins.code_actions.cspell,
@@ -303,28 +339,42 @@ function config.null_ls()
 			null_ls.builtins.formatting.gofmt,
 			null_ls.builtins.formatting.goimports,
 		},
+		-- on_attach = function(client, bufnr)
+		-- 	if client.supports_method("textDocument/formatting") then
+		-- 		vim.keymap.set("n", "<Leader>f", function()
+		-- 			vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+		-- 		end, { buffer = bufnr, desc = "[lsp] format" })
+
+		-- 		-- format on save
+		-- 		vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+		-- 		vim.api.nvim_create_autocmd(event, {
+		-- 			buffer = bufnr,
+		-- 			group = group,
+		-- 			callback = function()
+		-- 				vim.lsp.buf.format({ bufnr = bufnr, async = async })
+		-- 			end,
+		-- 			desc = "[lsp] format on save",
+		-- 		})
+		-- 	end
+
+		-- 	if client.supports_method("textDocument/rangeFormatting") then
+		-- 		vim.keymap.set("x", "<Leader>f", function()
+		-- 			vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+		-- 		end, { buffer = bufnr, desc = "[lsp] format" })
+		-- 	end
+		-- end,
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
-				vim.keymap.set("n", "<Leader>f", function()
-					vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-				end, { buffer = bufnr, desc = "[lsp] format" })
-
-				-- format on save
-				vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-				vim.api.nvim_create_autocmd(event, {
+				vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+				vim.api.nvim_create_autocmd("BufWritePre", {
+					group = augroup,
 					buffer = bufnr,
-					group = group,
 					callback = function()
-						vim.lsp.buf.format({ bufnr = bufnr, async = async })
+						-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+						-- vim.lsp.buf.formatting_sync()
+						vim.lsp.buf.format({ bufnr = bufnr })
 					end,
-					desc = "[lsp] format on save",
 				})
-			end
-
-			if client.supports_method("textDocument/rangeFormatting") then
-				vim.keymap.set("x", "<Leader>f", function()
-					vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-				end, { buffer = bufnr, desc = "[lsp] format" })
 			end
 		end,
 	})
@@ -347,6 +397,7 @@ function config.prettier()
 			"typescript",
 			"typescriptreact",
 			"yaml",
+			"vue",
 		},
 	})
 end

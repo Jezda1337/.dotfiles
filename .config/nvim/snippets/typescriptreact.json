@@ -1,6 +1,6 @@
 {
 	"typescriptReactFunctionalComponent": {
-		"prefix": "tsrfc",
+		"prefix": "tsrfcc",
 		"body": [
 			"import React from 'react'",
 			"",

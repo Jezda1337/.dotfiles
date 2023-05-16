@@ -1,4 +1,5 @@
 local config = require("plugins.lsp.config")
+local formatter = require("plugins.lsp.formatter")
 
 return {
 	-- LSP
@@ -19,6 +20,7 @@ return {
 	-- Formating
 	{ "jose-elias-alvarez/null-ls.nvim", config = config.null_ls },
 	{ "MunifTanjim/prettier.nvim", config = config.prettier },
+	-- { "mhartington/formatter.nvim", config = formatter.setup },
 
 	-- Autocompletion
 	{
