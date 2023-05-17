@@ -4,7 +4,7 @@ vim.cmd([[autocmd FileType * set formatoptions-=ro]]) -- fix problem with css an
 -- vim.cmd([[autocmd BufWritePost * FormatWrite]])
 
 local Format = vim.api.nvim_create_augroup("Format", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
 	group = Format,
 	pattern = "*.tsx,*.ts,*.jsx,*.js",
 	callback = function()
@@ -12,6 +12,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			vim.cmd("TypescriptFixAll!")
 			vim.cmd("TypescriptRemoveUnused!")
 			vim.cmd("TypescriptOrganizeImports!")
+			return nil
 		end
+		return {}
 	end,
 })
