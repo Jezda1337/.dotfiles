@@ -17,3 +17,10 @@ autocmd("BufWritePre", {
 		return {}
 	end,
 })
+
+-- open telescope on start use dot vim . to open in current directory
+-- autocmd("VimEnter", {
+-- 	callback = function()
+-- 		vim.cmd("silent! lua require('telescope.builtin').find_files()")
+-- 	end,
+-- })

@@ -60,6 +60,11 @@ for key, value in pairs(options) do
 	vim.opt[key] = value
 end
 
+-- this is special for deno_ls only, to appropriately highlight codefences returned from denols, you will need to augment vim.g.markdown_fenced languages
+vim.g.markdown_fenced_languages = {
+	"ts=typescript",
+}
+
 if vim.loop.os_uname().sysname == "Darwin" then
 	vim.g.clipboard = {
 		name = "macOS-clipboard",

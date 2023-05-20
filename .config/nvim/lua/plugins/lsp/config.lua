@@ -31,6 +31,7 @@ function config.mason_lsp()
 			"eslint",
 			"marksman",
 			"volar",
+			"denols",
 		},
 	})
 end
@@ -83,7 +84,8 @@ function config.lsp()
 	end
 	require("plugins.lsp.servers_config.lua_ls").lua_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.vue_ls").vue_ls(capabilities, on_attach)
-	require("plugins.lsp.servers_config.emmet_ls").emmet_ls(capabilities, on_attach)
+	-- require("plugins.lsp.servers_config.emmet_ls").emmet_ls(capabilities, on_attach)
+	require("plugins.lsp.servers_config.deno_ls").deno_ls(capabilities, on_attach)
 end
 
 ---------
@@ -282,9 +284,9 @@ function config.typescript()
 	}
 	require("typescript").setup({
 		disable_commands = false, -- prevent the plugin from creating Vim commands
-		debug = false,          -- enable debug logging for commands
+		debug = false, -- enable debug logging for commands
 		go_to_source_definition = {
-			fallback = true,      -- fall back to standard LSP definition on failure
+			fallback = true, -- fall back to standard LSP definition on failure
 		},
 		server = {
 			-- pass options to lspconfig's setup method
@@ -423,13 +425,13 @@ function config.autopairs()
 	autopairs.add_rules({
 		-- Typing { when {| -> {{ | }} in Vue files
 		Rule("{", "  }", { "typescriptreact", "tsx", "javascript", "typescript" })
-				:set_end_pair_length(2)
-				:with_pair(ts_conds.is_ts_node("text")),
+			:set_end_pair_length(2)
+			:with_pair(ts_conds.is_ts_node("text")),
 
 		-- Typing = when () -> () => {|}
 		Rule("%(.*%)%s*%=$", "> {}", { "typescript", "typescriptreact", "javascript", "vue" })
-				:use_regex(true)
-				:set_end_pair_length(1),
+			:use_regex(true)
+			:set_end_pair_length(1),
 
 		-- Typing n when the| -> then|end
 		Rule("then", "end", "lua"):end_wise(function(opts)
