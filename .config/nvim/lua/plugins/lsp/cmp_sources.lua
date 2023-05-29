@@ -1,4 +1,5 @@
-return {
+local M = {}
+M.config = {
 	{
 		name = "nvim_lsp",
 		-- filtering completion example in js [1,2,3,4]. after dot will show only
@@ -31,8 +32,10 @@ return {
 		max_item_count = 20,
 		group_index = 1,
 	},
-	{ name = "nvim_lua",               max_item_count = 10 },
-	{ name = "luasnip",                max_item_count = 5, keyword_length = 3 },
+	{ name = "nvim_lua" },
+	{ name = "luasnip",                keyword_length = 3 },
 	{ name = "buffer",                 keyword_length = 5 },
 	{ name = "nvim_lsp_signature_help" },
 }
+
+return M

@@ -10,6 +10,8 @@ function M.on_attach(client, bufnr)
 		client.server_capabilities.semanticTokensProvider = nil
 	end
 
+	client.server_capabilities.completionProvider.triggerCharacters = { "." }
+
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 

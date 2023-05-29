@@ -32,6 +32,7 @@ function config.mason_lsp()
 			"marksman",
 			"volar",
 			"denols",
+			"angularls",
 		},
 	})
 end
@@ -59,14 +60,17 @@ function config.lsp()
 	})
 
 	local lsp = require("lspconfig")
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
+	-- old capabilities
+	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+	-- capabilities.textDocument.completion.completionItem.snippetSupport = true -- true
+
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 	local servers = {
 		"html",
 		"cssls",
-		--"emmet_ls", -- have some wierd completion
-		"tailwindcss",
+		-- "emmet_ls", -- have some wierd completion
+		-- "tailwindcss",
 		"jsonls",
 		"astro",
 		"prismals",
@@ -74,6 +78,7 @@ function config.lsp()
 		"eslint",
 		"marksman",
 		"gopls",
+		-- "angularls",
 	}
 
 	for _, server in ipairs(servers) do
@@ -86,6 +91,8 @@ function config.lsp()
 	require("plugins.lsp.servers_config.vue_ls").vue_ls(capabilities, on_attach)
 	-- require("plugins.lsp.servers_config.emmet_ls").emmet_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.deno_ls").deno_ls(capabilities, on_attach)
+	require("plugins.lsp.servers_config.angular_ls").angular_ls(capabilities, on_attach)
+	require("plugins.lsp.servers_config.tailwind_ls").tailwind_ls(capabilities, on_attach)
 end
 
 ---------
@@ -119,7 +126,7 @@ function config.cmp()
 			path = 1,
 		},
 		experimental = {
-			ghost_text = false,
+			ghost_text = true,
 		},
 		-- mapping = {
 		-- 	["<C-e>"] = cmp.mapping.abort(),
@@ -127,48 +134,17 @@ function config.cmp()
 		-- 		behavior = cmp.ConfirmBehavior.Replace,
 		-- 		select = false,
 		-- 	}),
-		-- ["<Tab>"] = cmp.mapping(function(fallback)
-		-- 	if cmp.visible() then
-		-- 		cmp.select_next_item()
-		-- 	elseif has_words_before() then
-		-- 		cmp.complete()
-		-- 	else
-		-- 		fallback()
-		-- 		-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
-		-- 	end
-		-- end, { "i", "s" }),
-		-- ["<S-Tab>"] = cmp.mapping(function(fallback)
-		-- 	if cmp.visible() then
-		-- 		cmp.select_prev_item()
-		-- 	else
-		-- 		fallback()
-		-- 	end
-		-- end, { "i", "s" }),
-		-- ["<Tab>"] = cmp.mapping(function(fallback)
-		-- 	if cmp.visible() then
-		-- 		cmp.select_next_item()
-		-- 		-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-		-- 		-- they way you will only jump inside the snippet region
-		-- 	elseif luasnip.expand_or_locally_jumpable() then
-		-- 		luasnip.expand_or_jump()
-		-- 	elseif has_words_before() then
-		-- 		cmp.complete()
-		-- 	else
-		-- 		fallback()
-		-- 	end
-		-- end, { "i", "s" }),
-
-		-- ["<S-Tab>"] = cmp.mapping(function(fallback)
-		-- 	if cmp.visible() then
-		-- 		cmp.select_prev_item()
-		-- 	elseif luasnip.jumpable(-1) then
-		-- 		luasnip.jump(-1)
-		-- 	else
-		-- 		fallback()
-		-- 	end
-		-- end, { "i", "s" }),
+		-- 	["<Tab>"] = cmp.mapping(function(fallback)
+		-- 		if cmp.visible() then
+		-- 			cmp.select_next_item()
+		-- 		elseif has_words_before() then
+		-- 			cmp.complete()
+		-- 		else
+		-- 			fallback()
+		-- 			-- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", false) -- code for restart tab key to be used for normal use
+		-- 		end
+		-- 	end, { "i", "s" }),
 		-- },
-
 		mapping = cmp.mapping.preset.insert({
 			["<C-d>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -196,7 +172,8 @@ function config.cmp()
 				end
 			end, { "i", "s" }),
 		}),
-		sources = require("plugins.lsp.cmp_sources"),
+
+		sources = cmp.config.sources(require("plugins.lsp.cmp_sources").config),
 		sorting = {
 			comparators = {
 				require("cmp-under-comparator").under, -- better cmp sorting
@@ -227,12 +204,15 @@ function config.cmp()
 
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
+		sources = cmp.config.sources({
+			{ name = "nvim_lsp_document_symbol" },
+		}, {
 			{ name = "buffer" },
-		},
+		}),
 	})
 
 	cmp.setup(cmp_config)
+
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
@@ -284,9 +264,9 @@ function config.typescript()
 	}
 	require("typescript").setup({
 		disable_commands = false, -- prevent the plugin from creating Vim commands
-		debug = false, -- enable debug logging for commands
+		debug = false,          -- enable debug logging for commands
 		go_to_source_definition = {
-			fallback = true, -- fall back to standard LSP definition on failure
+			fallback = true,      -- fall back to standard LSP definition on failure
 		},
 		server = {
 			-- pass options to lspconfig's setup method
@@ -425,13 +405,13 @@ function config.autopairs()
 	autopairs.add_rules({
 		-- Typing { when {| -> {{ | }} in Vue files
 		Rule("{", "  }", { "typescriptreact", "tsx", "javascript", "typescript" })
-			:set_end_pair_length(2)
-			:with_pair(ts_conds.is_ts_node("text")),
+				:set_end_pair_length(2)
+				:with_pair(ts_conds.is_ts_node("text")),
 
 		-- Typing = when () -> () => {|}
 		Rule("%(.*%)%s*%=$", "> {}", { "typescript", "typescriptreact", "javascript", "vue" })
-			:use_regex(true)
-			:set_end_pair_length(1),
+				:use_regex(true)
+				:set_end_pair_length(1),
 
 		-- Typing n when the| -> then|end
 		Rule("then", "end", "lua"):end_wise(function(opts)
