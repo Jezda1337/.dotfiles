@@ -100,12 +100,11 @@ end
 ---------
 
 function config.cmp()
-	local has_words_before = function()
-		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-	end
-	local luasnip = require("luasnip")
 	local cmp = require("cmp")
+	local cmp_mapping = require("cmp.config.mapping")
+	local cmp_types = require("cmp.types.cmp")
+	local utils = require("utils.cmp")
+	local luasnip = require("luasnip")
 
 	local cmp_config = {
 		snippet = {
@@ -145,24 +144,43 @@ function config.cmp()
 		-- 		end
 		-- 	end, { "i", "s" }),
 		-- },
-		mapping = cmp.mapping.preset.insert({
-			["<C-d>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete(),
-			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Replace,
-				select = true,
+
+		mapping = cmp_mapping.preset.insert({
+			["<C-k>"] = cmp_mapping(cmp_mapping.select_prev_item(), { "i", "c" }),
+			["<C-j>"] = cmp_mapping(cmp_mapping.select_next_item(), { "i", "c" }),
+			["<Down>"] = cmp_mapping(cmp_mapping.select_next_item({ behavior = cmp_types.SelectBehavior.Select }), {
+				"i",
 			}),
-			["<Tab>"] = cmp.mapping(function(fallback)
+			["<Up>"] = cmp_mapping(cmp_mapping.select_prev_item({ behavior = cmp_types.SelectBehavior.Select }), {
+				"i",
+			}),
+			["<C-d>"] = cmp_mapping.scroll_docs(-4),
+			["<C-f>"] = cmp_mapping.scroll_docs(4),
+			["<C-y>"] = cmp_mapping({
+				i = cmp_mapping.confirm({ behavior = cmp_types.ConfirmBehavior.Replace, select = false }),
+				c = function(fallback)
+					if cmp.visible() then
+						cmp.confirm({ behavior = cmp_types.ConfirmBehavior.Replace, select = false })
+					else
+						fallback()
+					end
+				end,
+			}),
+			["<Tab>"] = cmp_mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
-				elseif luasnip.expand_or_jumpable() then
+				elseif luasnip.expand_or_locally_jumpable() then
 					luasnip.expand_or_jump()
+				elseif utils.jumpable(1) then
+					luasnip.jump(1)
+				elseif utils.has_words_before() then
+					-- cmp.complete()
+					fallback()
 				else
 					fallback()
 				end
 			end, { "i", "s" }),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
+			["<S-Tab>"] = cmp_mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
 				elseif luasnip.jumpable(-1) then
@@ -171,6 +189,32 @@ function config.cmp()
 					fallback()
 				end
 			end, { "i", "s" }),
+			["<C-Space>"] = cmp_mapping.complete(),
+			["<C-e>"] = cmp_mapping.abort(),
+			["<CR>"] = cmp_mapping(function(fallback)
+				if cmp.visible() then
+					local confirm_opts = vim.deepcopy({
+						behavior = cmp_types.ConfirmBehavior.Replace,
+						select = false,
+					}) -- avoid mutating the original opts below
+					local is_insert_mode = function()
+						return vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
+					end
+					if is_insert_mode() then -- prevent overwriting brackets
+						confirm_opts.behavior = cmp_types.ConfirmBehavior.Insert
+					end
+					local entry = cmp.get_selected_entry()
+					local is_copilot = entry and entry.source.name == "copilot"
+					if is_copilot then
+						confirm_opts.behavior = cmp_types.ConfirmBehavior.Replace
+						confirm_opts.select = true
+					end
+					if cmp.confirm(confirm_opts) then
+						return -- success, exit early
+					end
+				end
+				fallback() -- if not exited early, always fallback
+			end),
 		}),
 
 		sources = cmp.config.sources(require("plugins.lsp.cmp_sources").config),

@@ -22,18 +22,16 @@ return {
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		event = "VeryLazy",
-		config = function()
-			require("lualine").setup({
-				options = {
-					theme = "auto", -- "rose-pine"
-				},
-			})
-		end,
+		enabled = true,
+		lazy = false,
+		event = { "BufReadPost", "BufNewFile", "VeryLazy" },
+		config = config.lualine,
 	},
 
 	{
 		"akinsho/nvim-bufferline.lua",
+		event = "VeryLazy",
+		version = "*",
 		config = config.bufferline,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
@@ -58,5 +56,34 @@ return {
 		"HiPhish/nvim-ts-rainbow2",
 		event = "VimEnter",
 		config = config.ts_rainbow,
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		event = { "BufReadPost", "BufNewFile" },
+		enabled = true,
+		opts = {
+			-- char = "▏",
+			char = "│",
+			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+			show_trailing_blankline_indent = false,
+			show_current_context = false,
+		},
+		config = function()
+			vim.cmd([[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]])
+			vim.cmd([[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]])
+
+			require("indent_blankline").setup({
+				char = "",
+				char_highlight_list = {
+					"IndentBlanklineIndent1",
+					"IndentBlanklineIndent2",
+				},
+				space_char_highlight_list = {
+					"IndentBlanklineIndent1",
+					"IndentBlanklineIndent2",
+				},
+				show_trailing_blankline_indent = false,
+			})
+		end,
 	},
 }
