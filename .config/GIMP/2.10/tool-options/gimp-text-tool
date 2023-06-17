@@ -1,0 +1,8 @@
+# GIMP gimp-text-tool options
+
+(palette "Standard")
+(font "Roboto")
+(font-size 24)
+(hint-style full)
+
+# end of gimp-text-tool options

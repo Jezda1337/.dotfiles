@@ -1,0 +1,11 @@
+# GIMP gimp-paintbrush-tool options
+
+(brush "2. Hardness 050")
+(dynamics "Dynamics Off")
+(gradient "FG to BG (RGB)")
+(palette "Standard")
+(brush-size 2)
+(brush-hardness 0.5)
+(gradient-reverse yes)
+
+# end of gimp-paintbrush-tool options

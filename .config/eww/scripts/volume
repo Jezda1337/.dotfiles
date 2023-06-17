@@ -1,0 +1,8 @@
+#! /bin/bash
+
+# Get Volume
+get_volume() {
+  status = "amixer get Master | tail -n1 | grrep -wo 'on'"
+  if [[ "$status" == "on" ]]; then
+    volume = "amixer get Master | tail -n1 | awk -F ' ' '{print $5}' | tr -d ']"
+}
