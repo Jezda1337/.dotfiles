@@ -2,15 +2,17 @@ local config = require("plugins.ui.config")
 
 return {
 	{ "luisiacc/gruvbox-baby", config = config.theme },
+	{ "josebalius/vim-light-chromeclipse" },
 	{ "rktjmp/lush.nvim" },
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		config = config.thme,
+		config = config.theme,
 	},
+	{ "rcarriga/nvim-notify", config = config.notify },
 	{
 		"blazkowolf/gruber-darker.nvim",
-		config = true,
+		-- config = true,
 		-- opts = {
 		-- 	bold = false,
 		-- 	italic = {
@@ -18,6 +20,8 @@ return {
 		-- 	},
 		-- },
 	},
+
+	{ "karb94/neoscroll.nvim", config = config.neoscroll },
 
 	{
 		"nvim-lualine/lualine.nvim",
@@ -66,11 +70,21 @@ return {
 			char = "│",
 			filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
 			show_trailing_blankline_indent = false,
-			show_current_context = false,
+			show_current_context = true,
 		},
 		config = function()
-			vim.cmd([[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]])
-			vim.cmd([[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]])
+			if vim.g.colors_name == "gruber-darker" then
+				vim.cmd([[highlight IndentBlanklineIndent1 guibg=#1f1f1f gui=nocombine]])
+				vim.cmd([[highlight IndentBlanklineIndent2 guibg=#1a1a1a gui=nocombine]])
+			elseif vim.g.colors_name == "rose-pine" then
+				-- vim.cmd([[highlight IndentBlanklineIndent1 guibg=#e0def4 gui=nocombine]])
+				-- vim.cmd([[highlight IndentBlanklineIndent2 guibg=#c4a7e7 gui=nocombine]])
+			end
+
+			vim.opt.list = true
+			vim.opt.listchars:append("space:⋅")
+			vim.opt.listchars:append("eol:↴")
+			vim.opt.listchars:append("tab:  ")
 
 			require("indent_blankline").setup({
 				char = "",
@@ -83,6 +97,10 @@ return {
 					"IndentBlanklineIndent2",
 				},
 				show_trailing_blankline_indent = false,
+
+				space_char_blankline = " ",
+				show_current_context = true,
+				show_current_context_start = true,
 			})
 		end,
 	},

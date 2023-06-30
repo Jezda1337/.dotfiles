@@ -61,10 +61,10 @@ function config.lsp()
 
 	local lsp = require("lspconfig")
 	-- old capabilities
-	-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-	-- capabilities.textDocument.completion.completionItem.snippetSupport = true -- true
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem.snippetSupport = true -- true
 
-	local capabilities = require("cmp_nvim_lsp").default_capabilities()
+	-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 	local servers = {
 		"html",
@@ -89,7 +89,7 @@ function config.lsp()
 	end
 	require("plugins.lsp.servers_config.lua_ls").lua_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.vue_ls").vue_ls(capabilities, on_attach)
-	-- require("plugins.lsp.servers_config.emmet_ls").emmet_ls(capabilities, on_attach)
+	require("plugins.lsp.servers_config.emmet_ls").emmet_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.deno_ls").deno_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.angular_ls").angular_ls(capabilities, on_attach)
 	require("plugins.lsp.servers_config.tailwind_ls").tailwind_ls(capabilities, on_attach)
@@ -105,6 +105,13 @@ function config.cmp()
 	local cmp_types = require("cmp.types.cmp")
 	local utils = require("utils.cmp")
 	local luasnip = require("luasnip")
+
+	-- require("bootstrap-cmp.config"):setup({
+	-- 	-- url = "nekitamotip.com",
+	-- 	file_types = {
+	-- 		"",
+	-- 	},
+	-- })
 
 	local cmp_config = {
 		snippet = {
@@ -136,7 +143,7 @@ function config.cmp()
 		-- 	["<Tab>"] = cmp.mapping(function(fallback)
 		-- 		if cmp.visible() then
 		-- 			cmp.select_next_item()
-		-- 		elseif has_words_before() then
+		-- 		elseif utils.has_words_before() then
 		-- 			cmp.complete()
 		-- 		else
 		-- 			fallback()
@@ -217,7 +224,31 @@ function config.cmp()
 			end),
 		}),
 
-		sources = cmp.config.sources(require("plugins.lsp.cmp_sources").config),
+		-- sources = cmp.config.sources(require("plugins.lsp.cmp_sources").config),
+		sources = cmp.config.sources({
+			{ name = "nvim_lsp" },
+			{ name = "nvim_lua" },
+			{ name = "luasnip",                keyword_length = 3 },
+			{ name = "buffer",                 keyword_length = 5 },
+			{ name = "nvim_lsp_signature_help" },
+			{
+				name = "html-css",
+				option = {
+					file_types = {
+						"html",
+						"typescriptreact",
+						"javascriptreact",
+					},
+					-- css_file_types = {},
+					style_sheets = {
+						"https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css",
+						"https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css",
+						"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+					},
+				},
+			},
+		}),
+
 		sorting = {
 			comparators = {
 				require("cmp-under-comparator").under, -- better cmp sorting
@@ -246,24 +277,22 @@ function config.cmp()
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp") -- connect autopairs with cmp
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
+	cmp.setup(cmp_config) -- call cmp setup
+
+	-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = "nvim_lsp_document_symbol" },
-		}, {
+		sources = {
 			{ name = "buffer" },
-		}),
+		},
 	})
 
-	cmp.setup(cmp_config)
-
+	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({
-			{ name = "path" },
-		}, {
+		sources = {
 			{ name = "cmdline" },
-		}),
+		},
 	})
 end
 
@@ -273,7 +302,7 @@ end
 
 function config.lua_snip()
 	local ls = require("luasnip")
-	local types = require("luasnip.util.types")
+	-- local types = require("luasnip.util.types")
 	ls.config.set_config({
 		history = false,
 		enable_autosnippets = true,
@@ -298,35 +327,41 @@ function config.lua_snip()
 	-- require("luasnip.loaders.from_vscode").lazy_load() -- global snippets
 end
 
-function config.typescript()
-	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- function config.typescript()
+-- 	local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- 	capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-	local prettier = {
-		formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
-		formatStdin = true,
-	}
-	require("typescript").setup({
-		disable_commands = false, -- prevent the plugin from creating Vim commands
-		debug = false,          -- enable debug logging for commands
-		go_to_source_definition = {
-			fallback = true,      -- fall back to standard LSP definition on failure
-		},
-		server = {
-			-- pass options to lspconfig's setup method
-			on_attach = on_attach.on_attach,
-			capabilities = capabilities,
-			root_dir = function()
-				return vim.loop.cwd()
-			end,
-			init_options = { documentFormatting = true },
-			settings = {
-				languages = {
-					typescript = { prettier },
-					yaml = { prettier },
-				},
-			},
-		},
+-- 	local prettier = {
+-- 		formatCommand = [[prettier --stdin-filepath ${INPUT} ${--tab-width:tab_width}]],
+-- 		formatStdin = true,
+-- 	}
+-- 	require("typescript").setup({
+-- 		disable_commands = false, -- prevent the plugin from creating Vim commands
+-- 		debug = false,          -- enable debug logging for commands
+-- 		go_to_source_definition = {
+-- 			fallback = true,      -- fall back to standard LSP definition on failure
+-- 		},
+-- 		server = {
+-- 			-- pass options to lspconfig's setup method
+-- 			on_attach = on_attach.on_attach,
+-- 			capabilities = capabilities,
+-- 			root_dir = function()
+-- 				return vim.loop.cwd()
+-- 			end,
+-- 			init_options = { documentFormatting = true },
+-- 			settings = {
+-- 				languages = {
+-- 					typescript = { prettier },
+-- 					yaml = { prettier },
+-- 				},
+-- 			},
+-- 		},
+-- 	})
+-- end
+
+function config.typescript_toos()
+	require("typescript-tools").setup({
+		on_attach = on_attach.on_attach,
 	})
 end
 
@@ -341,9 +376,9 @@ end
 function config.null_ls()
 	local null_ls = require("null-ls")
 
-	local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
-	local event = "BufWritePre" -- or "BufWritePost"
-	local async = event == "BufWritePost"
+	-- local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+	-- local event = "BufWritePre" -- or "BufWritePost"
+	-- local async = event == "BufWritePost"
 
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 	null_ls.setup({

@@ -10,3 +10,8 @@ vim.keymap.set("n", "o", function()
 		return "o"
 	end
 end, { buffer = true, expr = true })
+
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- set foldmethod=expr
+-- set foldexpr=nvim_treesitter#foldexpr()

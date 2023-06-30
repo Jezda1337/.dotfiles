@@ -19,7 +19,7 @@ local options = {
 	cursorline = true, -- highlight cursorline
 	encoding = "utf-8", -- set default encoding
 	guicursor = "", -- makes insert cursor as ablock
-	wrap = true, -- wrap lines
+	wrap = false, -- wrap lines
 	breakindent = true, -- break lines are not start from begining line
 	textwidth = 80,
 	tw = 80,
@@ -51,9 +51,12 @@ local options = {
 	updatetime = 250,
 	mouse = "a", -- use mouse
 	foldenable = true,
-	foldmethod = "manual",
+	foldmethod = "manual", -- manual, expr
+	foldexpr = "nvim_treesitter#foldexpr()",
 	formatoptions = "l",
 	-- formatoptions = "cro", -- auto comment next line after commnet
+	laststatus = 3,
+	cmdheight = 0,
 }
 
 for key, value in pairs(options) do

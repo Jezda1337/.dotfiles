@@ -7,8 +7,24 @@ return {
 			respect_buf_cwd = true,
 			disable_netrw = false,
 			view = {
-				width = 45,
+				centralize_selection = true,
+				adaptive_size = true,
 				side = "right",
+				preserve_window_proportions = true,
+				float = {
+					enable = true,
+					quit_on_focus_loss = false,
+					open_win_config = function()
+						return {
+							row = 0,
+							width = 30,
+							border = "rounded",
+							relative = "editor",
+							col = vim.o.columns,
+							height = vim.o.lines,
+						}
+					end,
+				},
 			},
 			update_focused_file = {
 				enable = true,

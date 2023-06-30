@@ -1,6 +1,32 @@
 require("core")
 require("utils")
 
+local ts = vim.treesitter
+local css_code = [[
+	.class-1 {}
+	.class-2 {}
+	.class-3.class-4 {}
+]]
+
+local qs = [[
+ (selectors . (class_selector . (class_name) @class-name))
+]]
+
+-- (selectors . (class_selector . (class_name) @class-name))
+
+local parser = ts.get_string_parser(css_code, "css", nil)
+local tree = parser:parse()[1]
+local root = tree:root()
+
+local query = ts.query.parse("css", qs)
+
+for _, matches, _ in query:iter_matches(root, css_code) do
+	local class = matches[1]
+	local class_name = ts.get_node_text(class, css_code)
+	print(class_name)
+end
+
+-- makes healtycheck happy
 vim.cmd("let g:loaded_python3_provider = 0")
 vim.cmd("let g:loaded_ruby_provider = 0")
 vim.cmd("let g:loaded_perl_provider = 0")

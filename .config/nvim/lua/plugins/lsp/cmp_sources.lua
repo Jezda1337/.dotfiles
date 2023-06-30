@@ -1,4 +1,5 @@
 local M = {}
+
 M.config = {
 	{
 		name = "nvim_lsp",
@@ -36,6 +37,20 @@ M.config = {
 	{ name = "luasnip",                keyword_length = 3 },
 	{ name = "buffer",                 keyword_length = 5 },
 	{ name = "nvim_lsp_signature_help" },
+	{
+		name = "html-css",
+		-- option = {
+		-- 	file_types = {
+		-- 		"html",
+		-- 	},
+		-- 	style_sheets = {
+		-- 		"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+		-- 		"style.css",
+		-- 		"test.css",
+		-- 	},
+		-- },
+	},
+	-- { name = "bootstrap" },
 }
 
 return M

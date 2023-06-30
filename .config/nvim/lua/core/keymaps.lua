@@ -27,8 +27,20 @@ map("n", "<leader>fb", ":Telescope file_browser <CR>")
 map("n", "<leader>fa", ":Telescope live_grep <CR>")
 
 -- move block of code up/down --
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
+-- map("v", "J", ":m '>+1<CR>gv=gv")
+-- map("v", "K", ":m '<-2<CR>gv=gv")
+
+-- random from reddit the same as above but with small modifications
+vim.keymap.set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlighted text down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
+vim.keymap.set(
+	"n",
+	";",
+	"<cmd>lua require('telescope.builtin').resume(require('telescope.themes').get_ivy({}))<cr>",
+	{ desc = "resume last search" }
+)
+
+map("n", "<BS>", "ci", {})
 
 -- almost the same as multiple cursos
 map("n", "<leader>w", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

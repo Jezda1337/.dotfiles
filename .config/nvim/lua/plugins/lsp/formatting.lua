@@ -37,7 +37,7 @@ local source_mapping = {
 	nvim_lua = "[Lua]",
 	buffer = "[Buffer]",
 	path = "[Path]",
-	luasnip = "[snip]",
+	luasnip = "[Snip]",
 }
 
 M.formatting = {
@@ -46,9 +46,13 @@ M.formatting = {
 		local source = entry.source.name
 		local kind = vim_item.kind
 
+		if source == "html-css" then
+			source_mapping["html-css"] = entry.completion_item.menu
+		end
+
 		vim_item.kind = (icons[kind] or "?") .. " "
-		vim_item.menu = " (" .. kind .. ")"
-		-- vim_item.menu = source_mapping[entry.source.name]
+		-- vim_item.menu = " (" .. kind .. ")" -- letting lsp to decite source naming
+		vim_item.menu = source_mapping[entry.source.name] -- my custom source_mapping
 
 		if source == "nvim_lsp" then
 			vim_item.dup = 1
@@ -66,12 +70,12 @@ M.formatting = {
 
 			local color_name, color_number
 			if
-				words[2] == "x"
-				or words[2] == "y"
-				or words[2] == "t"
-				or words[2] == "b"
-				or words[2] == "l"
-				or words[2] == "r"
+					words[2] == "x"
+					or words[2] == "y"
+					or words[2] == "t"
+					or words[2] == "b"
+					or words[2] == "l"
+					or words[2] == "r"
 			then
 				color_name = words[3]
 				color_number = words[4]

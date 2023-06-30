@@ -3,16 +3,21 @@ local autocmd = vim.api.nvim_create_autocmd
 vim.cmd([[autocmd FileType * set formatoptions-=ro]]) -- fix problem with css and ** * { ** }
 -- vim.cmd([[autocmd BufWritePost * FormatWrite]])
 
+-- this autocmd is related to typescript.nvim
 local Format = vim.api.nvim_create_augroup("Format", { clear = true })
-autocmd("BufWritePre", {
+autocmd("BufWritePost", {
 	group = Format,
-	pattern = "*.tsx,*.ts,*.jsx,*.js",
+	pattern = "*.ts,*.tsx,*.jsx,*.js",
 	callback = function()
-		if vim.fn.exists(":TypescriptFixAll") then
-			vim.cmd("TypescriptFixAll!")
-			vim.cmd("TypescriptRemoveUnused!")
-			vim.cmd("TypescriptOrganizeImports!")
-			return nil
+		-- if vim.fn.exists(":TypescriptFixAll") then
+		-- 	vim.cmd("TypescriptFixAll!")
+		-- 	vim.cmd("TypescriptRemoveUnused!")
+		-- 	vim.cmd("TypescriptOrganizeImports!")
+		-- 	return nil
+		-- end
+		if vim.fn.exists(":TSToolsOrganizeImports") then
+			vim.cmd("TSToolsOrganizeImports")
+			return {}
 		end
 		return {}
 	end,

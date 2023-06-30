@@ -5,12 +5,20 @@ function config.theme()
 	-- 	--- @usage 'auto'|'main'|'moon'|'dawn'
 	-- 	variant = "dawn",
 	-- 	--- @usage 'main'|'moon'|'dawn'
-	-- 	dark_variant = "dawn"
+	-- 	dark_variant = "moon",
 	-- })
 	-- vim.cmd("colorscheme rose-pine")
 	-- vim.g.gruvbox_baby_transparent_mode = 0
 	-- vim.cmd("colorscheme gruvbox-baby")
 	vim.cmd("colorscheme gruber-darker")
+end
+
+function config.neoscroll()
+	require("neoscroll").setup()
+end
+
+function config.notify()
+	vim.notify = require("notify")
 end
 
 function config.bufferline()
