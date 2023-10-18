@@ -1,56 +1,55 @@
 require("core")
-require("utils")
+vim.g.netrw_localrmdir = "rm -r" -- allow netrw to delete directories
 
-local ts = vim.treesitter
-local css_code = [[
-	.class-1 {}
-	.class-2 {}
-	.class-3.class-4 {}
-]]
+-- local newfs = vim.uv.new_fs_event()
+-- local i = 0
+-- vim.uv.fs_event_start(
+-- 	newfs,
+-- 	vim.uv.cwd(),
+-- 	{ watch_entry = true, stat = true },
+-- 	function(err, filename, events)
+-- 		if err ~= nil then
+-- 			return
+-- 		end
 
-local qs = [[
- (selectors . (class_selector . (class_name) @class-name))
-]]
+-- 		print(filename)
 
--- (selectors . (class_selector . (class_name) @class-name))
+-- 		i = i + 1
+-- 		print(i)
 
-local parser = ts.get_string_parser(css_code, "css", nil)
-local tree = parser:parse()[1]
-local root = tree:root()
+-- 		if i >= 5 then
+-- 			i = 0
+-- 		end
+-- 	end
+-- )
 
-local query = ts.query.parse("css", qs)
+-- local scan = require("plenary.scandir")
+-- local rootDir = scan.scan_dir(".", {
+-- 	hidden = true,
+-- 	add_dirs = true,
+-- 	depth = 1,
+-- 	respect_gitignore = true,
+-- 	search_pattern = function(entry)
+-- 		local subEntry = string.sub(entry, 3)
+-- 		-- print(subEntry)
+-- 		print(subEntry:match(".git"))
+-- 		-- "%f[%a]git%f[^%a]"
+-- 		return subEntry:match(".git") or subEntry:match("package.json")
+-- 	end,
+-- })
 
-for _, matches, _ in query:iter_matches(root, css_code) do
-	local class = matches[1]
-	local class_name = ts.get_node_text(class, css_code)
-	print(class_name)
-end
+-- print(vim.inspect(rootDir))
 
--- makes healtycheck happy
-vim.cmd("let g:loaded_python3_provider = 0")
-vim.cmd("let g:loaded_ruby_provider = 0")
-vim.cmd("let g:loaded_perl_provider = 0")
+-- local hasValue = function(tbl)
+-- 	local new_tbl = {}
+-- 	for _, v in ipairs(tbl) do
+-- 		print(v)
+-- 		if v == "git" or v == "package.json" then
+-- 			table.insert(new_tbl, v)
+-- 		end
+-- 	end
 
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none", fg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = "none" })
+-- 	return vim.tbl_contains(rootDir, "./.git") or vim.tbl_contains(rootDir, "./package.json")
+-- end
 
--- You probably always want to set this in your vim file
--- vim.opt.background = "dark"
--- vim.g.colors_name = "lush_template"
-
--- By setting our module to nil, we clear lua's cache,
--- which means the require ahead will *always* occur.
---
--- This isn't strictly required but it can be a useful trick if you are
--- incrementally editing your config a lot and want to be sure your themes
--- changes are being picked up without restarting neovim.
---
--- Note if you're working in on your theme and have :Lushify'd the buffer,
--- your changes will be applied with our without the following line.
---
--- The performance impact of this call can be measured in the hundreds of
--- *nanoseconds* and such could be considered "production safe".
--- package.loaded["lush_theme.basic"] = nil
-
--- include our theme file and pass it to lush to apply
--- require("lush")(require("utils.basic"))
+-- print(vim.inspect(hasValue(rootDir)))

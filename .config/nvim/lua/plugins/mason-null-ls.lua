@@ -1,0 +1,75 @@
+return {}
+-- return {
+-- 	"jay-babu/mason-null-ls.nvim",
+-- 	event = { "BufReadPre", "BufNewFile" },
+-- 	dependencies = {
+-- 		"williamboman/mason.nvim",
+-- 		-- "nvimtools/none-ls.nvim",
+-- 	},
+-- 	config = function()
+-- 		require("mason-null-ls").setup({
+-- 			ensure_installed = { "stylua", "prettier", "eslint", "shfmt", "goimports" },
+-- 			automatic_installation = true,
+-- 			automatic_setup = true,
+-- 		})
+
+		-- local null_ls = require("null-ls")
+		-- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+		-- null_ls.setup({
+		-- 	border = "single",
+		-- 	sources = {
+		-- 		null_ls.builtins.diagnostics.hadolint,
+		-- 		-- null_ls.builtins.diagnostics.cspell,
+		-- 		-- null_ls.builtins.code_actions.cspell,
+		-- 		null_ls.builtins.formatting.stylua,
+		-- 		null_ls.builtins.formatting.prettier.with({
+		-- 			extra_filetypes = { "astro" },
+		-- 			extra_args = function(params)
+		-- 				if
+		-- 					vim.fs.dirname(
+		-- 						vim.fs.find(
+		-- 							{ "~/.config/nvim/utils/linter-config/prettier.config.js" },
+		-- 							{ upward = true }
+		-- 						)[1]
+		-- 					)
+		-- 				then
+		-- 					return nil
+		-- 				end
+
+		-- 				return {} -- your extra args
+		-- 			end,
+		-- 		}),
+		-- 		null_ls.builtins.formatting.deno_fmt.with({
+		-- 			filetypes = { "markdown" }, -- only runs `deno fmt` for markdown
+		-- 			arg = { "--use-tabs", "--line-width 10" },
+		-- 		}),
+		-- 		null_ls.builtins.formatting.prismaFmt,
+		-- 		null_ls.builtins.completion.luasnip,
+		-- 		null_ls.builtins.diagnostics.eslint.with({
+		-- 			diagnostics_format = "[eslint] #{m}\n(#{c})",
+		-- 			-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
+		-- 			condition = function(utils)
+		-- 				return utils.root_has_file(".eslintrc.js") -- change file extension if you use something else
+		-- 			end,
+		-- 		}),
+		-- 		-- golang
+		-- 		null_ls.builtins.formatting.gofmt,
+		-- 		null_ls.builtins.formatting.goimports,
+		-- 	},
+		-- 	on_attach = function(client, bufnr)
+		-- 		if client.supports_method("textDocument/formatting") then
+		-- 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+		-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+		-- 				group = augroup,
+		-- 				buffer = bufnr,
+		-- 				callback = function()
+		-- 					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+		-- 					-- vim.lsp.buf.formatting_sync()
+		-- 					vim.lsp.buf.format({ bufnr = bufnr })
+		-- 				end,
+		-- 			})
+		-- 		end
+		-- 	end,
+		-- })
+-- 	end,
+-- }

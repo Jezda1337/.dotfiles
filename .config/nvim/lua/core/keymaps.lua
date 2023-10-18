@@ -7,10 +7,15 @@ vim.g.mapleader = " "
 
 -- Close buffer --
 map("n", "<leader>q", ":bd<CR>")
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- adding new line using = nad _ withot getting in insert mode
-map("n", "=", "mzO<Esc>`z", { desc = "add blank line above" })
-map("n", "_", "mzo<Esc>`z", { desc = "add blank line below" })
+-- map("n", "=", "mzO<Esc>`z", { desc = "add blank line above" })
+-- map("n", "_", "mzo<Esc>`z", { desc = "add blank line below" })
+
+-- Increase or Decrease value
+map("n", "+", "<C-a>")
+map("n", "-", "<C-x>")
 
 -- buffer jump
 map("n", "]b", ":lua vim.cmd('bn')<CR>")
@@ -57,6 +62,10 @@ map("n", "<S-k>", "<C-w>-")
 
 map("n", 'c"w', 'cw""<ESC>P')
 map("n", "c'w", "cw''<ESC>P")
+map("n", "c[w", "cw[]<ESC>P")
+map("n", "c{w", "cw{}<ESC>P")
+map("n", "c<w", "cw<><ESC>P")
+map("n", "c(w", "cw()<ESC>P")
 map("v", "'", "c''<ESC>P")
 map("v", '"', 'c""<ESC>P')
 

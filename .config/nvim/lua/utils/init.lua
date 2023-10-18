@@ -17,7 +17,9 @@ vim.on_key(toggle_hlsearch, ns)
 
 -- arrow that follow cursos only work on nightly version of neovim
 -- vim.o.statuscolumn =
--- '%s%=%r %C%#color#%{v:relnum == 0 ? "" : " "}%#IndentBlankLineChar#%{v:virtnum == 0 ? "" : "││"} '
+-- 	'%s%=%r %C%#color#%{v:relnum == 0 ? "" : " "}%#IndentBlankLineChar#%{v:virtnum == 0 ? "" : "││"} '
+
+
 
 -- Correct indentation when inserting on blank line
 vim.keymap.set("n", "i", function()
