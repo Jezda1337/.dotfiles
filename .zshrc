@@ -4,14 +4,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# # Load Angular CLI autocompletion.
-source <(ng completion script)
-
 [ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
 
 plugins=(zsh-autosuggestions)
 
-source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# macos only
+#source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 alias python=/usr/bin/python3
 alias ls="exa --no-user --icons --long --grid"
