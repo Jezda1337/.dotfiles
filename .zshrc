@@ -12,7 +12,7 @@ plugins=(zsh-autosuggestions)
 #source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 alias python=/usr/bin/python3
-alias ls="exa --no-user --icons --long --grid"
+alias ls="exa --no-user --icons --long --header --git"
 alias ls-t="exa --icons --long --tree --level=2"
 alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree=$HOME'
 
