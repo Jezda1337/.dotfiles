@@ -30,20 +30,20 @@ return {
 				["markdown.mdx"] = { { "deno_fmt", "prettierd", "prettier" } },
 				["graphql"] = { { "prettierd", "prettier" } },
 				["handlebars"] = { { "prettierd", "prettier" } },
+				["lua"] = { { "stylua" } },
+				["go"] = { { "goimports", "gofmt" } },
 			},
-
 		})
 		require("conform.formatters.prettier").args = function(ctx)
 			local args = { "--stdin-filepath", "$FILENAME" }
-			local found = vim.fs.find("~/.config/nvim/utils/linter-config/prettier.config.js",
-				{ upward = true, path = ctx.dirname })[1]
-
-			print(found)
-			print(args)
+			local found = vim.fs.find(
+				"~/.config/nvim/utils/linter-config/prettier.config.js",
+				{ upward = true, path = ctx.dirname }
+			)[1]
 			if found then
 				vim.list_extend(args, { "--config", found })
 			end
 			return args
 		end
-	end
+	end,
 }

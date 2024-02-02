@@ -51,8 +51,8 @@ map("n", "<BS>", "ci", {})
 map("n", "<leader>w", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Split buffer --
-map("n", "<C-s>", ":split<Return><C-w>w")
-map("n", "<C-v>", ":vsplit<Return><C-w>w")
+-- map("n", "<C-s>", ":split<Return><C-w>w")
+-- map("n", "<C-v>", ":vsplit<Return><C-w>w")
 
 -- Resizing buffers --
 map("n", "<S-h>", "<C-w><2")

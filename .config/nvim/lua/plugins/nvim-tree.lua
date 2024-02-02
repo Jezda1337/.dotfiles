@@ -23,7 +23,7 @@ return {
 							border = "rounded",
 							relative = "editor",
 							col = vim.o.columns,
-							height = vim.o.lines,
+							height = vim.o.lines - 3,
 						}
 					end,
 				},

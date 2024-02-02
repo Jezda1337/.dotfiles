@@ -5,9 +5,10 @@ vim.lsp.start({
 	cmd = { "vue-language-server", "--stdio" },
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
 	capabilities = capabilities,
+	on_attach = require("plugins.utils.on_attach").on_attach,
 	init_options = {
 		typescript = {
-			tsdk = "/Users/radojejezdic/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
+			tsdk = "/home/radoje/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
 		},
 		preferences = {
 			disableSuggestions = true,

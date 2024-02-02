@@ -5,6 +5,7 @@ return {
 	},
 	config = function()
 		require("neodev").setup() -- init neovim dev plugin must be init before lsp
+		local util = require("lspconfig.util")
 
 		-- local function mrgtbls(t1, t2)
 		-- 	for _, v in ipairs(t2) do
@@ -29,10 +30,22 @@ return {
 			signs = true,
 			severity_sort = true,
 			virtual_text = {
-				prefix = "🔥",
+				prefix = signs.Warn,
 				source = true,
 			},
 		})
+
+		-- colors for background and text color in float window
+		vim.cmd([[highlight NormalFloat guifg=white guibg=#000]])
+		vim.cmd([[highlight FloatBorder guifg=white guibg=none]]) -- bg overflow the borders
+
+		local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+		function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+			opts = opts or {}
+			opts.border = opts.border or "rounded"
+			opts.max_width = opts.max_width or 80 -- max width for the float window
+			return orig_util_open_floating_preview(contents, syntax, opts, ...)
+		end
 
 		local lsp = require("lspconfig")
 		-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -55,7 +68,9 @@ return {
 			"angularls",
 			"yamlls",
 			"svelte",
-			-- "volar",
+			"tsserver",
+			"cssls",
+			-- "vuels", -- for vue 2
 		}
 
 		for _, server in ipairs(servers) do
@@ -96,6 +111,21 @@ return {
 					on_new_config = function(new_config, new_root_dir)
 						new_config.cmd = cmd
 					end,
+				})
+			elseif server == "tailwindcss" then
+				require("lspconfig").tailwindcss.setup({
+					capabilities = capabilities,
+					on_attach = require("plugins.utils.on_attach").on_attach,
+					root_dir = util.root_pattern(
+						"tailwind.config.js",
+						"tailwind.config.cjs",
+						"tailwind.config.mjs",
+						"tailwind.config.ts",
+						"postcss.config.js",
+						"postcss.config.cjs",
+						"postcss.config.mjs",
+						"postcss.config.ts"
+					),
 				})
 			else
 				lsp[server].setup({

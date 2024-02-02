@@ -1,10 +1,28 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	tag = "0.1.4",
+	tag = "0.1.5",
 	cmd = "Telescope",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-telescope/telescope-fzy-native.nvim" },
+	},
+	keys = {
+		{ "<leader>gf",  "<cmd>Telescope git_files<cr>",   desc = "Git Files" },
+		{ "<leader>gs",  "<cmd>Telescope git_stash<cr>",   desc = "Git Stash" },
+		{ "<leader>gc",  "<cmd>Telescope git_commits<cr>", desc = "Git Commits" },
+		{ "<leader>gss", "<cmd>Telescope git_status<cr>",  desc = "Git Status" },
+
+		{ "<leader>sw", function()
+			local b = require("telescope.builtin")
+			local word = vim.fn.expand("<cword>")
+			b.grep_string({ search = word })
+		end },
+
+		{ "<leader>sW", function()
+			local b = require("telescope.builtin")
+			local word = vim.fn.expand("<cWORD>")
+			b.grep_string({ search = word })
+		end }
 	},
 	config = function()
 		require("telescope").setup({

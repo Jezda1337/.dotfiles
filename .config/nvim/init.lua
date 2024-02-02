@@ -1,11 +1,13 @@
 require("core")
 vim.g.netrw_localrmdir = "rm -r" -- allow netrw to delete directories
 
+-- require("my-plugin.init").setup()
+
 -- local newfs = vim.uv.new_fs_event()
 -- local i = 0
 -- vim.uv.fs_event_start(
 -- 	newfs,
--- 	vim.uv.cwd(),
+-- 	path,
 -- 	{ watch_entry = true, stat = true },
 -- 	function(err, filename, events)
 -- 		if err ~= nil then
