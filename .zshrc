@@ -17,3 +17,10 @@ alias ls-t="exa --icons --long --tree --level=2"
 alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree=$HOME'
 
 alias vim=nvim
+
+# bun completions
+[ -s "/home/radoje/.bun/_bun" ] && source "/home/radoje/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
