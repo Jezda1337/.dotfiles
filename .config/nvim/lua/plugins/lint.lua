@@ -3,7 +3,7 @@ return {
 	events = { "BufWritePost", "BufReadPost", "InsertLeave" },
 	config = function()
 		require("lint").linters_by_ft = {
-			markdown = { "vale" },
+			markdown = { "eslint" },
 			vue = { "eslint" },
 			javascript = { "eslint" },
 			typescript = { "eslint" },

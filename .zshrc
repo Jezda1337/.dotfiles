@@ -17,6 +17,7 @@ alias ls-t="exa --icons --long --tree --level=2"
 alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree=$HOME'
 
 alias vim=nvim
+alias github="cd ~/Desktop/github/"
 
 # bun completions
 [ -s "/home/radoje/.bun/_bun" ] && source "/home/radoje/.bun/_bun"
