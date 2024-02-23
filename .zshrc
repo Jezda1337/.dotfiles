@@ -18,10 +18,11 @@ alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree
 
 alias vim=nvim
 alias github="cd ~/Desktop/github/"
+alias tx=tmux
 
 # bun completions
 [ -s "/home/radoje/.bun/_bun" ] && source "/home/radoje/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH:$HOME/go/bin"
+export PATH="$BUN_INSTALL/bin:$PATH:$HOME/go/bin:$HOME/pkg/tmux"
