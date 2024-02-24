@@ -12,7 +12,21 @@ return {
       end,
     },
     { "nvim-telescope/telescope-ui-select.nvim" },
-    { "nvim-tree/nvim-web-devicons" },
+    {
+      "nvim-tree/nvim-web-devicons",
+      opts = {
+        color_icons = true,
+        default = true,
+        strict = true,
+        override_by_extension = {
+          ["astro"] = {
+            icon = "🚀",
+            color = "tomato",
+            name = "Astro",
+          },
+        },
+      },
+    },
   },
   config = function()
     require("telescope").setup({
@@ -25,9 +39,17 @@ return {
       --   },
       -- },
       -- pickers = {}
+
+      sorting_strategy = "ascending",
+      file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+      grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+      qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
       extensions = {
         ["ui-select"] = {
           require("telescope.themes").get_dropdown(),
+          -- require("telescope.themes").get_cursor(),
+          -- require("telescope.themes").get_ivy(),
         },
       },
     })

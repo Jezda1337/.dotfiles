@@ -2,7 +2,20 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     -- Automatically install LSPs and related tools to stdpath for neovim
-    "williamboman/mason.nvim",
+    {
+      "williamboman/mason.nvim",
+      cmd = "Mason",
+      build = ":Mason",
+      opts = {
+        ui = {
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗",
+          },
+        },
+      },
+    },
     "williamboman/mason-lspconfig.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -92,13 +105,18 @@ return {
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    -- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    capabilities =
+      vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
     local servers = {
+      astro = {},
       clangd = {},
       gopls = {},
       pyright = {},
       tsserver = {},
+      volar = {},
+      html = {},
+      cssls = {},
       lua_ls = {
         settings = {
           Lua = {
@@ -123,10 +141,14 @@ return {
 
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
-      "stylua", -- Used to format lua code
+      "stylua",
+      "prettier",
+      "prettierd",
+      "goimports",
+      "shfmt",
+      "eslint",
     })
 
-    require("mason").setup()
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
     require("mason-lspconfig").setup({
       handlers = {

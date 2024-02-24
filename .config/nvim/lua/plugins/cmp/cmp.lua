@@ -14,11 +14,15 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
+    { "windwp/nvim-autopairs", opts = {} },
   },
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     luasnip.config.setup({})
+
+    local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+    cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
       snippet = {
@@ -26,26 +30,25 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-      completion = { completeopt = "menu,menuone,noinsert" },
 
-      -- For an understanding of why these mappings were
-      -- chosen, you will need to read `:help ins-completion`
-      --
-      -- No, but seriously. Please read `:help ins-completion`, it is really good!
+      completion = { completeopt = "menu,menuone,noinsert", autocmplete = false },
+      performance = {
+        max_view_entries = 10,
+      },
+
+      experimental = {
+        ghost_text = true,
+      },
+
+      --formatting = require("plugins.cmp.formatting"),
+      formatting = require("plugins.cmp.utils.formatting"),
+
       mapping = cmp.mapping.preset.insert({
-        -- Select the [n]ext item
         ["<C-n>"] = cmp.mapping.select_next_item(),
-        -- Select the [p]revious item
         ["<C-p>"] = cmp.mapping.select_prev_item(),
 
-        -- Accept ([y]es) the completion.
-        --  This will auto-import if your LSP supports it.
-        --  This will expand snippets if the LSP sent a snippet.
-        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-        -- Manually trigger a completion from nvim-cmp.
-        --  Generally you don't need this, because nvim-cmp will display
-        --  completions whenever it has completion options available.
         ["<C-Space>"] = cmp.mapping.complete({}),
 
         -- Think of <c-l> as moving to the right of your snippet expansion.
