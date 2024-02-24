@@ -13,7 +13,7 @@ map("n", "<leader>e", vim.diagnostic.open_float)
 map("n", "<leader>q", vim.diagnostic.setloclist)
 
 -- map("n", "<leader>q", ":bd<cr>")
-map("n", "<leader>e", vim.cmd.Ex)
+-- map("n", "<leader>e", vim.cmd.Ex)
 
 -- increase/decrease numbers
 map("n", "+", "<C-a>")

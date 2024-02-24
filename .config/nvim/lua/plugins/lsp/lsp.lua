@@ -27,6 +27,26 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
       callback = function(event)
+        local signs = {
+          Error = " ",
+          Warn = " ",
+          Info = " ",
+          Hint = " ",
+        }
+
+        vim.diagnostic.config({
+          signs = true,
+          severity_sort = true,
+          virtual_text = {
+            prefix = signs.Warn,
+            source = true,
+          },
+        })
+
+        for type, icon in pairs(signs) do
+          local hl = "DiagnosticSign" .. type
+          vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        end
         -- NOTE: Remember that lua is a real programming language, and as such it is possible
         -- to define small helper and utility functions so you don't have to repeat yourself
         -- many times.
@@ -116,7 +136,17 @@ return {
       tsserver = {},
       volar = {},
       html = {},
-      cssls = {},
+      emmet_language_server = {},
+      cssls = {
+        settings = {
+          css = {
+            validate = true,
+            lint = { unknownAtRules = "ignore" }, -- ignore @ rules like @tailwind
+          },
+          scss = { validate = true },
+          less = { validate = true },
+        },
+      },
       lua_ls = {
         settings = {
           Lua = {
@@ -125,15 +155,24 @@ return {
               checkThirdParty = false,
               -- Tells lua_ls where to find all the Lua files that you have loaded
               -- for your neovim configuration.
-              library = {
-                "${3rd}/luv/library",
-                unpack(vim.api.nvim_get_runtime_file("", true)),
-              },
+              -- library = {
+              --   "${3rd}/luv/library",
+              --   unpack(vim.api.nvim_get_runtime_file("", true)),
+              -- },
               -- If lua_ls is really slow on your computer, you can try this instead:
-              -- library = { vim.env.VIMRUNTIME },
+              library = { vim.env.VIMRUNTIME },
             },
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             -- diagnostics = { disable = { 'missing-fields' } },
+            telemetry = {
+              enable = false,
+            },
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+            },
           },
         },
       },

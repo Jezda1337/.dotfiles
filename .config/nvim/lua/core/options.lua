@@ -13,12 +13,12 @@ local options = {
   backup = false,
   background = "dark",
   hidden = true, -- enable background buffers
-  hlsearch = true, -- hl found searches
+  hlsearch = true,
   incsearch = true, -- show the match while typing
   joinspaces = false, -- no double space with join
   list = true,
   listchars = { tab = "  ", trail = "·", nbsp = "⍽", eol = "↴" },
-  fillchars = { eob = " " },
+  fillchars = { eob = " " }, -- remove ~
   scrolloff = 10,
   sidescrolloff = 10,
   signcolumn = "yes",
@@ -31,7 +31,7 @@ local options = {
   timeoutlen = 300,
   mouse = "a",
   laststatus = 3,
-  cmdheight = 0,
+  cmdheight = 1,
   clipboard = "unnamedplus",
 }
 
