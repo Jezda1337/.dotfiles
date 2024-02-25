@@ -6,6 +6,9 @@ end
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- open lazygit
+map("n", "<leader>lg", ":term lazygit<cr>")
+
 -- Diagnostic keymaps
 map("n", "[d", vim.diagnostic.goto_prev)
 map("n", "]d", vim.diagnostic.goto_next)

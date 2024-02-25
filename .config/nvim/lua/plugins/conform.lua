@@ -5,8 +5,7 @@ return {
   config = function()
     local conform = require("conform")
     vim.o.formatexpr = "vim:lua.require'conform'.formatexpr()"
-    conform.formatters.stylua =
-      { prepend_args = { "--config-path=" .. vim.env.HOME .. "/.config/nvim/stylua.toml" } }
+    conform.formatters.stylua = { prepend_args = { "--config-path=" .. vim.env.HOME .. "/.config/nvim/stylua.toml" } }
 
     require("conform").setup({
       format_on_save = function(bufnr)
@@ -38,6 +37,28 @@ return {
         lua = { "stylua" },
       },
     })
+    local util = require("conform.util")
+    local files = {
+      ".prettierrc",
+      ".prettierrc.json",
+      ".prettierrc.yml",
+      ".prettierrc.yaml",
+      ".prettierrc.json5",
+      ".prettierrc.js",
+      ".prettierrc.cjs",
+      ".prettierrc.toml",
+      "prettier.config.js",
+      "prettier.config.cjs",
+      "package.json",
+    }
+
+    -- require("conform").formatters.prettierd = {
+    --   prepend_args = function(self, ctx)
+    --     for i, file in ipairs(files) do
+    --       util.root_file(files)
+    --     end
+    --   end,
+    -- }
 
     --require("conform.farmatters.prettier").args = function(ctx)
     --	local args = { "--stdin-filepath", "$FILENAME" }

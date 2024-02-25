@@ -1,5 +1,11 @@
 -- fix problem with css and ** * { ** }
-vim.cmd([[autocmd FileType * set formatoptions-=ro]])
+-- vim.cmd([[autocmd FileType * set formatoptions-=ro]])
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  pattern = { "*.css", "*.scss", "*.less", "*.sass" },
+  callback = function()
+    vim.cmd("set formatoptions-=ro")
+  end,
+})
 
 -- disable hlsearch automatically when your search done and enable on next searching without extra plugins
 local ns = vim.api.nvim_create_namespace("toggle_hlsearch")
