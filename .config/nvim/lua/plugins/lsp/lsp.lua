@@ -82,7 +82,13 @@ return {
       gopls = {},
       pyright = {},
       tsserver = {},
-      volar = {},
+      volar = {
+        init_options = {
+          typescript = {
+            tsdk = vim.env.HOME .. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
+          },
+        },
+      },
       html = {},
       emmet_language_server = {},
       cssls = {
