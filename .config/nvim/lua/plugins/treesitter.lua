@@ -24,6 +24,7 @@ return {
         "markdown_inline",
         "vue",
         "go",
+        "python",
       },
       sync_install = true,
       ignore_install = {},
