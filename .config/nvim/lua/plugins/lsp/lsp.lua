@@ -61,15 +61,18 @@ return {
         map("K", vim.lsp.buf.hover, "Hover Documentation")
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-          buffer = event.buf,
-          callback = vim.lsp.buf.document_highlight,
-        })
 
-        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-          buffer = event.buf,
-          callback = vim.lsp.buf.clear_references,
-        })
+        if vim.bo.filetype ~= "markdown" then
+          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            buffer = event.buf,
+            callback = vim.lsp.buf.document_highlight,
+          })
+
+          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            buffer = event.buf,
+            callback = vim.lsp.buf.clear_references,
+          })
+        end
       end,
     })
 
@@ -83,6 +86,8 @@ return {
       gopls = {},
       pyright = {},
       tsserver = {},
+      jsonls = {},
+      marksman = {},
       volar = {
         init_options = {
           typescript = {
