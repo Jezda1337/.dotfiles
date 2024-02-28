@@ -35,6 +35,7 @@ return {
         "toml",
         "yaml",
         "xml",
+        "bash",
       },
       sync_install = true,
       ignore_install = {},

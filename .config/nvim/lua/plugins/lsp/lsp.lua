@@ -78,6 +78,7 @@ return {
 
     local servers = {
       astro = {},
+      bashls = {},
       clangd = {},
       gopls = {},
       pyright = {},

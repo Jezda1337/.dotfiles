@@ -18,6 +18,7 @@ alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree
 
 alias vim=nvim
 alias github="cd ~/Desktop/github/"
+alias sylva="cd ~/Desktop/github/sylva-enterprise/"
 alias tx=tmux
 
 # bun completions
@@ -25,4 +26,4 @@ alias tx=tmux
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH:$HOME/go/bin:$HOME/pkg/tmux"
+export PATH="$BUN_INSTALL/bin:$PATH:$HOME/go/bin:$HOME/pkg/tmux:$HOME/.local/share/nvim/mason/bin"
