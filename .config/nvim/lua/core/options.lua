@@ -33,6 +33,7 @@ local options = {
   laststatus = 3,
   cmdheight = 1,
   clipboard = "unnamedplus",
+  wrap = false,
 }
 
 for key, value in pairs(options) do
