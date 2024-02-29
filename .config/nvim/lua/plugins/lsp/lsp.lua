@@ -157,9 +157,6 @@ return {
             cmd = server.cmd,
             settings = server.settings,
             filetypes = server.filetypes,
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
             capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
           })
         end,
