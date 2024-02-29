@@ -62,7 +62,7 @@ return {
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-        if vim.bo.filetype ~= "markdown" then
+        if vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "json" then
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
             callback = vim.lsp.buf.document_highlight,
