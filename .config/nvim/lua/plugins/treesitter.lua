@@ -36,6 +36,7 @@ return {
         "yaml",
         "xml",
         "bash",
+        "rust",
       },
       sync_install = true,
       ignore_install = {},

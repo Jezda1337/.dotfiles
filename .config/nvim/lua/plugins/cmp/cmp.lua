@@ -28,18 +28,18 @@ return {
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
-      -- snippet = {
-      --   expand = function(args)
-      --     luasnip.lsp_expand(args.body)
-      --   end,
-      -- },
       snippet = {
-        expand = vim.snippet and function(args)
-          vim.snippet.expand(args.body)
-        end or function(_)
-          error("snippet engine is not configured.")
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
         end,
       },
+      -- snippet = {
+      --   expand = vim.snippet and function(args)
+      --     vim.snippet.expand(args.body)
+      --   end or function(_)
+      --     error("snippet engine is not configured.")
+      --   end,
+      -- },
 
       completion = { completeopt = "menu,noinsert" },
 
