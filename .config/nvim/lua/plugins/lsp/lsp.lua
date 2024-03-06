@@ -85,11 +85,28 @@ return {
       clangd = {},
       gopls = {},
       pyright = {},
-      tsserver = {},
+      tsserver = {
+        -- init_options = {
+        --   hostInfo = "neovim",
+        --   plugins = {
+        --     {
+        --       name = "@vue/typescript-plugin",
+        --       location = vim.env.HOME .. "/.nvm/versions/node/v21.4.0/lib/node_modules/@vue/typescript-plugin",
+        --       languages = { "javascript", "typescript", "vue" },
+        --     },
+        --   },
+        -- },
+        -- filetypes = {
+        --   "javascript",
+        --   "typescript",
+        --   "vue",
+        -- },
+      },
       jsonls = {},
       marksman = {},
       ["rust-analyzer"] = {},
       volar = {
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
         init_options = {
           typescript = {
             tsdk = vim.env.HOME .. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
@@ -157,6 +174,11 @@ return {
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
+
+          -- if server_name == "volar" then
+          --   require("typescript-tools").setup(server)
+          -- end
+
           require("lspconfig")[server_name].setup({
             cmd = server.cmd,
             settings = server.settings,

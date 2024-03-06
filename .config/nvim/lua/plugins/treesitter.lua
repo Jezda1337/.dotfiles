@@ -37,6 +37,7 @@ return {
         "xml",
         "bash",
         "rust",
+        "jsonc",
       },
       sync_install = true,
       ignore_install = {},
