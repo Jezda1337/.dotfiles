@@ -31,7 +31,7 @@ local options = {
   timeoutlen = 300,
   mouse = "a",
   laststatus = 3,
-  cmdheight = 1,
+  cmdheight = 0,
   clipboard = "unnamedplus",
   wrap = false,
 }
