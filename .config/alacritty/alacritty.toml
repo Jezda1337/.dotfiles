@@ -9,7 +9,7 @@ size = 14
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
-style = "normal"
+style = "Regular"
 
 [[keyboard.bindings]]
 action = "CreateNewWindow"
@@ -23,4 +23,8 @@ hide_when_typing = false
 history = 100000
 
 [window]
+padding = { x = 0, y = 0 }
+dynamic_padding = false
 dynamic_title = true
+decorations = "None"
+
