@@ -19,8 +19,8 @@ local options = {
   list = true,
   listchars = { tab = "  ", trail = "·", nbsp = "⍽", eol = "↴" },
   fillchars = { eob = " " }, -- remove ~
-  scrolloff = 10,
-  sidescrolloff = 10,
+  scrolloff = 4,
+  sidescrolloff = 4,
   signcolumn = "yes",
   splitbelow = true,
   splitright = true,
