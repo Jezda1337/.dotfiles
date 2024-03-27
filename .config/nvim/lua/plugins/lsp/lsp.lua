@@ -85,23 +85,23 @@ return {
       clangd = {},
       gopls = {},
       pyright = {},
-      -- tsserver = {
-      --   init_options = {
-      --     hostInfo = "neovim",
-      --     plugins = {
-      --       {
-      --         name = "@vue/typescript-plugin",
-      --         location = vim.env.HOME .. "/.nvm/versions/node/v21.4.0/lib/node_modules/@vue/typescript-plugin",
-      --         languages = { "javascript", "typescript", "vue" },
-      --       },
-      --     },
-      --   },
-      --   filetypes = {
-      --     "javascript",
-      --     "typescript",
-      --     "vue",
-      --   },
-      -- },
+      tsserver = {
+        -- init_options = {
+        --   hostInfo = "neovim",
+        --   plugins = {
+        --     {
+        --       name = "@vue/typescript-plugin",
+        --       location = vim.env.HOME .. "/.nvm/versions/node/v21.4.0/lib/node_modules/@vue/typescript-plugin",
+        --       languages = { "vue" },
+        --     },
+        --   },
+        -- },
+        -- filetypes = {
+        --   "javascript",
+        --   "typescript",
+        --   "vue",
+        -- },
+      },
       jsonls = {},
       marksman = {},
       ["rust-analyzer"] = {},
