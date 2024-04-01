@@ -43,6 +43,12 @@ return {
 
       completion = { completeopt = "menu,noinsert" },
 
+      view = {
+        entries = {
+          follow_cursor = true,
+        },
+      },
+
       performance = {
         max_view_entries = 10,
       },
@@ -78,9 +84,9 @@ return {
         {
           name = "html-css",
           option = {
-            max_count = {}, -- not ready yet
             enable_on = {
               "html",
+              "typescriptreact",
             }, -- set the file types you want the plugin to work on
             file_extensions = { "css", "sass", "less" }, -- set the local filetypes from which you want to derive classes
             style_sheets = {
