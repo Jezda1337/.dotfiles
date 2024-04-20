@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z $1]; then
+	echo "you need to pass an argument"
+	exit 1
+fi
+
 screenshots_dir="$(xdg-user-dir PICTURES)/screenshots"
 
 if [ ! -d $screenshots_dir ]; then
