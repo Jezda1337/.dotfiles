@@ -62,17 +62,17 @@ return {
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-        if vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "json" then
-          vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            buffer = event.buf,
-            callback = vim.lsp.buf.document_highlight,
-          })
-
-          vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            buffer = event.buf,
-            callback = vim.lsp.buf.clear_references,
-          })
-        end
+        -- if vim.bo.filetype ~= "markdown" and vim.bo.filetype ~= "json" then
+        --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        --     buffer = event.buf,
+        --     callback = vim.lsp.buf.document_highlight,
+        --   })
+        --
+        --   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        --     buffer = event.buf,
+        --     callback = vim.lsp.buf.clear_references,
+        --   })
+        -- end
       end,
     })
 
@@ -105,14 +105,14 @@ return {
       jsonls = {},
       marksman = {},
       ["rust-analyzer"] = {},
-      volar = {
-        -- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-        init_options = {
-          typescript = {
-            tsdk = vim.env.HOME .. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
-          },
-        },
-      },
+      -- volar = {
+      --   init_options = {
+      --     typescript = {
+      --       tsdk = vim.env.HOME .. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
+      --     },
+      --   },
+      -- },
+      ["vetur-vls"] = {}, -- vue 2
       html = {},
       emmet_language_server = {},
       cssls = {
