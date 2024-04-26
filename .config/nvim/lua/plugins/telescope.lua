@@ -2,7 +2,6 @@ return {
   "nvim-telescope/telescope.nvim",
   -- event = "VeryLazy",
   cmd = "Telescope",
-  branch = "0.1.x",
   dependencies = {
     "nvim-lua/plenary.nvim",
     {
@@ -76,6 +75,13 @@ return {
       file_previewer = require("telescope.previewers").vim_buffer_cat.new,
       grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
       qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
+      defaults = {
+        layout_config = {},
+        path_display = {
+          "filename_first",
+        },
+      },
 
       extensions = {
         ["ui-select"] = {

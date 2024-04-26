@@ -5,6 +5,9 @@
 # starship nice shell
 eval "$(starship init bash)"
 
+# git tab completions
+source "/usr/share/git/completion/git-completion.bash"
+
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
