@@ -10,12 +10,12 @@ M.servers = {
 	bashls = {},
 	html = {},
 	cssls = {},
+	eslint_d = {},
 	emmet_language_server = {},
 	jsonls = {},
 	marksman = {},
 	pyright = {},
 	rust_analyzer = {},
-	-- efm = {},
 }
 
 M.formatters = {
