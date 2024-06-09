@@ -23,6 +23,13 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
       callback = function(event)
+        -- this is the builtin autocompletion
+        -- local clients = vim.lsp.get_clients()
+        -- for _, client in ipairs(clients) do
+        --   local id = client.id
+        --   vim.lsp.completion.enable(true, id, 1, { autotrigger = true })
+        --   return
+        -- end
         -- local signs = {
         --   Error = " ",
         --   Warn = " ",
@@ -86,32 +93,32 @@ return {
       gopls = {},
       pyright = {},
       tsserver = {
-        -- init_options = {
-        --   hostInfo = "neovim",
-        --   plugins = {
-        --     {
-        --       name = "@vue/typescript-plugin",
-        --       location = vim.env.HOME .. "/.nvm/versions/node/v21.4.0/lib/node_modules/@vue/typescript-plugin",
-        --       languages = { "vue" },
-        --     },
-        --   },
-        -- },
-        -- filetypes = {
-        --   "javascript",
-        --   "typescript",
-        --   "vue",
-        -- },
+        init_options = {
+          hostInfo = "neovim",
+          plugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = vim.env.HOME .. "/.nvm/versions/node/v21.4.0/lib/node_modules/@vue/typescript-plugin",
+              languages = { "vue" },
+            },
+          },
+        },
+        filetypes = {
+          "javascript",
+          "typescript",
+          "vue",
+        },
       },
       jsonls = {},
       marksman = {},
       ["rust-analyzer"] = {},
-      -- volar = {
-      --   init_options = {
-      --     typescript = {
-      --       tsdk = vim.env.HOME .. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
-      --     },
-      --   },
-      -- },
+      volar = {
+        init_options = {
+          typescript = {
+            tsdk = vim.env.HOME .. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/typescript/lib",
+          },
+        },
+      },
       ["vetur-vls"] = {}, -- vue 2
       html = {},
       emmet_language_server = {},
@@ -125,38 +132,38 @@ return {
           less = { validate = true },
         },
       },
-      lua_ls = {
-        settings = {
-          Lua = {
-            runtime = { version = "LuaJIT" },
-            workspace = {
-              checkThirdParty = false,
-              -- Tells lua_ls where to find all the Lua files that you have loaded
-              -- for your neovim configuration.
-              library = {
-                "${3rd}/luv/library",
-                unpack(vim.api.nvim_get_runtime_file("", true)),
-              },
-              -- If lua_ls is really slow on your computer, you can try this instead:
-              -- library = { vim.env.VIMRUNTIME },
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-            completion = {
-              callSnippet = "Replace",
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-            },
-          },
-        },
-      },
+      -- lua_ls = {
+      --   settings = {
+      --     Lua = {
+      --       runtime = { version = "LuaJIT" },
+      --       workspace = {
+      --         checkThirdParty = false,
+      --         -- Tells lua_ls where to find all the Lua files that you have loaded
+      --         -- for your neovim configuration.
+      --         library = {
+      --           "${3rd}/luv/library",
+      --           unpack(vim.api.nvim_get_runtime_file("", true)),
+      --         },
+      --         -- If lua_ls is really slow on your computer, you can try this instead:
+      --         -- library = { vim.env.VIMRUNTIME },
+      --       },
+      --       -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+      --       -- diagnostics = { disable = { 'missing-fields' } },
+      --       completion = {
+      --         callSnippet = "Replace",
+      --       },
+      --       telemetry = {
+      --         enable = false,
+      --       },
+      --     },
+      --     workspace = {
+      --       library = {
+      --         [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+      --         [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+      --       },
+      --     },
+      --   },
+      -- },
     }
 
     local ensure_installed = vim.tbl_keys(servers or {})
@@ -166,7 +173,7 @@ return {
       "prettierd",
       "goimports",
       "shfmt",
-      "eslint",
+      -- "eslint", --currntly doesn't work some wird bug eslint: -32603: Request textDocument/diagnostic failed with message: Cannot read properties of undefined (reading 'useFlatConfig')
     })
 
     require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

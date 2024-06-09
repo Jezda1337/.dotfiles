@@ -28,6 +28,7 @@ return {
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     cmp.setup({
+      enabled = true,
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
