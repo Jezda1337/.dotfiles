@@ -16,6 +16,7 @@ M.servers = {
 	marksman = {},
 	pyright = {},
 	rust_analyzer = {},
+	svelte = {},
 }
 
 M.formatters = {

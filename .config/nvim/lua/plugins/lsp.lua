@@ -33,7 +33,9 @@ return {
 				end,
 			})
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 			local servers = require("config.servers").servers
 			local formatters = require("config.servers").formatters
 
