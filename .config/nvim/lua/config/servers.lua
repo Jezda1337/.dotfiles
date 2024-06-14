@@ -7,6 +7,7 @@ M.servers = {
 	tsserver = {},
 	gopls = {},
 	astro = {},
+	tailwindcss = {},
 	bashls = {},
 	html = {},
 	cssls = {},

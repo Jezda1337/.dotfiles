@@ -5,11 +5,12 @@ return function(file_name)
 		return nil
 	end
 
-	local cwd = vim.uv.cwd()
-
-	local file = vim.fs.find(function(name, _path)
+	local file = vim.fs.find(function(name, path)
+		if path:match("node_modules") then
+			return false
+		end
 		return name:match(file_name)
-	end, { limit = 1, type = "file", path = cwd })
+	end, { limit = 1, type = "file", path = "." })
 
 	if file[1] ~= nil then
 		return true

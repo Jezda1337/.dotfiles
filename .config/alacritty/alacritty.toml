@@ -27,4 +27,4 @@ padding = { x = 0, y = 0 }
 dynamic_padding = false
 dynamic_title = true
 decorations = "None"
-opacity = 0.4
+opacity = 0.5
