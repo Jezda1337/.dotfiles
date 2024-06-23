@@ -35,6 +35,16 @@ alias ls-t="exa --icons --long --tree --level=2"
 alias tx="tmux"
 
 # exports
-export EDITOR="nvim"
+export BROWSER="$(which firefox)"
+export EDITOR="$(which nvim)"
+
+function yy() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
 
 source /home/radoje/.config/broot/launcher/bash/br
