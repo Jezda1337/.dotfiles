@@ -10,6 +10,7 @@ source "/usr/share/git/completion/git-completion.bash"
 
 # fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+eval "$(fzf --bash)"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return

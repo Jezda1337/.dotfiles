@@ -4,26 +4,50 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-[ -z "$SSH_AUTH_SOCK" ] && eval "$(ssh-agent -s)"
-
-plugins=(zsh-autosuggestions)
+plugins=(zsh-autosuggestions vi-mode fzf)
 
 # macos only
 #source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-alias python=/usr/bin/python3
-alias ls="exa --no-user --icons --long --header --git"
-alias ls-t="exa --icons --long --tree --level=2"
-alias config='/usr/bin/git --git-dir=$HOME/Desktop/github/.dotfiles/ --work-tree=$HOME'
+# fzf
+source <(fzf --zsh)
 
-alias vim=nvim
-alias github="cd ~/Desktop/github/"
-alias sylva="cd ~/Desktop/github/sylva-enterprise/"
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
 alias tx=tmux
 
-# bun completions
-[ -s "/home/radoje/.bun/_bun" ] && source "/home/radoje/.bun/_bun"
+# aliases
+alias ls="exa --no-user --icons --sort=ext --long --header --git"
+alias ls-t="exa --icons --long --tree --level=2"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH:$HOME/go/bin:$HOME/pkg/tmux:$HOME/.local/share/nvim/mason/bin"
+# exports
+export BROWSER="$(which firefox)"
+export EDITOR="$(which nvim)"
+
+function yy() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$tmp"
+}
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt beep extendedglob notify
+bindkey -v
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/radoje/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+export ZVM_INIT_MODE=sourcing
