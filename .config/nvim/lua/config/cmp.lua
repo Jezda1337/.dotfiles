@@ -23,7 +23,7 @@ return {
 		vim_item.menu = source_mapping[entry.source.name]
 
 		local strings = vim.split(vim_item.kind, "%s+", { trimempty = true })
-		vim_item.kind = " " .. string.format("%s │", strings[1], strings[2]) .. " "
+		vim_item.kind = string.format("%s │", strings[1], strings[2])
 
 		return vim_item
 	end,
