@@ -32,6 +32,7 @@ return {
 			},
 			formatter_by_ft = {
 				css = customPrettierConfig(),
+				astro = formatters.lsp or customPrettierConfig(),
 				html = customPrettierConfig(),
 				javascript = customPrettierConfig(),
 				json = customPrettierConfig(),
@@ -45,6 +46,10 @@ return {
 				typescript = customPrettierConfig(),
 				typescriptreact = customPrettierConfig(),
 				yaml = formatters.lsp,
+				go = {
+					formatters.shell({ cmd = { "goimports" } }),
+					formatters.shell({ cmd = { "gofmt" } }),
+				},
 			},
 		})
 	end,
