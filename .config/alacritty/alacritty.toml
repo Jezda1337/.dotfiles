@@ -8,8 +8,9 @@ live_config_reload = true
 size = 14
 
 [font.normal]
-family = "JetBrainsMono Nerd Font"
+# family = "JetBrainsMono Nerd Font"
 style = "Regular"
+family = "MartianMono Nerd Font"
 
 [[keyboard.bindings]]
 action = "CreateNewWindow"
