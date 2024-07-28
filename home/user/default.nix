@@ -6,5 +6,6 @@
     ./config.nix
     ./cursor.nix
     ./packages.nix
+    ./programs.nix
   ];
 }

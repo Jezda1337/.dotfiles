@@ -1,1 +1,1 @@
-print("hi mom")
+require("core")

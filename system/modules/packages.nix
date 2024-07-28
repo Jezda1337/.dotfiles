@@ -33,6 +33,7 @@
     jq
     sxiv
     swww
-
+    slurp
+    xdg-user-dirs
   ];
 }
