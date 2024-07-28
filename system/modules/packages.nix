@@ -13,7 +13,7 @@
     libsForQt5.qt5.qtgraphicaleffects
     libsForQt5.qt5.qtsvg
     neofetch
-    neovim
+    vim
     ripgrep
     tldr
     unzip
@@ -21,10 +21,18 @@
     openssl.dev
     pkg-config
     wget
-    # xfce.thunar
     # xdg-desktop-portal-gtk
     # xdg-desktop-portal-wlr
     zip
     zoxide
+    neofetch
+    cliphist
+    wf-recorder
+    grim
+    wl-clipboard
+    jq
+    sxiv
+    swww
+
   ];
 }

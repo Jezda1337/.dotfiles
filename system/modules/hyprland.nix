@@ -1,5 +1,14 @@
 { pkgs, ... }:
 
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    # systemd.enable = true;
+    package = pkgs.hyprland;
+    xwayland.enable = true;
+
+    # plugins = [
+    #   inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
+    # ];
+  };
 }

@@ -16,6 +16,7 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
+    hyprcursor.url = "github:hyprwm/hyprcursor";
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {

@@ -1,10 +1,10 @@
 {
   imports = [ 
-    ./shell.nix
-    ./git.nix
-    ./config.nix
-    ./hyprland.nix
     ./env.nix
+    ./git.nix
+    ./shell.nix
+    ./config.nix
     ./cursor.nix
+    ./packages.nix
   ];
 }
