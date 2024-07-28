@@ -14,14 +14,15 @@
     dina-font
     proggyfonts
 
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "MartianMono" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "MartianMono" "GeistMono" "NerdFontsSymbolsOnly" ]; })
   ];
 
   fonts.fontconfig = {
     defaultFonts = {
       serif = [  "Liberation Serif" "Vazirmatn" ];
       sansSerif = [ "Ubuntu" "Vazirmatn" ];
-      monospace = [ "Ubuntu Mono" ];
+      monospace = [ "JetBrainsMono" ];
+      emoji = [ "Noto Color Emoji" ];
     };
   };
 }

@@ -31,9 +31,11 @@
     grim
     wl-clipboard
     jq
-    sxiv
+    # sxiv
+    nsxiv
     swww
     slurp
     xdg-user-dirs
+		gcc
   ];
 }
