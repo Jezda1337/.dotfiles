@@ -6,5 +6,6 @@
     ./users.nix
     ./packages.nix
     ./programs.nix
+    ./hyprland.nix
   ];
 }
