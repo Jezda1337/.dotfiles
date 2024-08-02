@@ -7,6 +7,7 @@ local M = {}
 
 M.servers = {
 	lua_ls = {
+		templ = {},
 		settings = {
 			Lua = {
 				runtime = {

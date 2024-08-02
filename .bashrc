@@ -33,7 +33,7 @@ export NVM_DIR="$HOME/.nvm"
 # aliases
 alias ls="exa --no-user --icons --sort=ext --long --header --git"
 alias ls-t="exa --icons --long --tree --level=2"
-alias tx="tmux"
+alias tx="tmux new -s $1"
 alias viber="sh -c './Downloads/viber.AppImage'"
 
 # exports

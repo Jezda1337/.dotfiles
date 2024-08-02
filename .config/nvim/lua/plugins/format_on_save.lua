@@ -50,6 +50,7 @@ return {
 					formatters.shell({ cmd = { "goimports" } }),
 					formatters.shell({ cmd = { "gofmt" } }),
 				},
+				templ = formatters.lsp or customPrettierConfig(),
 			},
 		})
 	end,
