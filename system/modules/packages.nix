@@ -37,5 +37,9 @@
     slurp
     xdg-user-dirs
 		gcc
+
+		xorg.libXrandr
+		xorg.xrandr
+		wlr-randr
   ];
 }

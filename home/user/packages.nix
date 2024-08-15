@@ -49,5 +49,12 @@
 
 
 		# pkgs.fnm # rust based node version manager
+
+		pkgs.mangohud
+		pkgs.protonup
+		pkgs.lutris
+		pkgs.heroic
+		pkgs.bottles
+		pkgs.wineWowPackages.waylandFull
 	];
 }

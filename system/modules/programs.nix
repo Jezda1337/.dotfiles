@@ -2,7 +2,7 @@
 {
   programs.dconf.enable = true;
 
-	programs.nix-ld.enable = true;
+	#444444programs.nix-ld.enable = true;
 
   programs.zsh = {
     enable = true;

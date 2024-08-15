@@ -12,6 +12,20 @@
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes" ];
+	hardware.graphics.enable = true;
+
+	nixpkgs.config.allowUnfree = true;
+	programs.steam = {
+		enable = true;
+		remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+		dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+		localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+
+		gamescopeSession.enable = true;
+	};
+
+	programs.gamemode.enable = true;
+
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
