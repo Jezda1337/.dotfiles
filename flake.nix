@@ -33,8 +33,8 @@
 				{
 					home-manager.useGlobalPkgs = true;
 					home-manager.useUserPackages = true;
+					#home-manager.backupFileExtension = "backup";
 
-	programs.nix-ld.dev.enable = true;
 					home-manager.users.radoje = import ./home;
 				}
 			];

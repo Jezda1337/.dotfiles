@@ -16,6 +16,7 @@ return {
 	{ "williamboman/mason-lspconfig.nvim" },
 	{
 		"neovim/nvim-lspconfig",
+		opts = { inly_hints = { enable = true } },
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),

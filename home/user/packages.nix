@@ -55,6 +55,6 @@
 		pkgs.lutris
 		pkgs.heroic
 		pkgs.bottles
-		pkgs.wineWowPackages.waylandFull
+		pkgs.wineWowPackages.waylandFull # wine for wayland
 	];
 }
