@@ -1,8 +1,5 @@
 #
-# ~/.bashrc
-#
-
-# starship nice shell
+# ~/.bashrc # # starship nice shell
 eval "$(starship init bash)"
 
 # git tab completions
@@ -20,7 +17,7 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
-export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin"
+export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
