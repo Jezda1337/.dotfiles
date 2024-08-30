@@ -6,6 +6,7 @@
     ./sound.nix
     ./settings.nix
     ./packages.nix
+    ./programs.nix
     ./hyprland.nix
     ./networking.nix
   ];
