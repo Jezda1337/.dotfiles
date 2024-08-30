@@ -9,7 +9,7 @@
     git
     firefox
     kitty
-    lazigit
+    lazygit
     gh
-  ]
+  ];
 }
