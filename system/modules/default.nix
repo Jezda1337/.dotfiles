@@ -1,6 +1,6 @@
 {
   imports = [
     ./boot.nix
-    .settings.nix
+    ./settings.nix
   ];
 }
