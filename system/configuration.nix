@@ -75,6 +75,7 @@
       brave
       vim
       wget
+      kitty
     ];
   };
 
