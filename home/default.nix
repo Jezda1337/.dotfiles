@@ -9,7 +9,6 @@
     ./shell
     ./programs
     ./packages
-    ./hyprland
   ];
 
   # set cursor size and dpi for 4k monitor
@@ -79,6 +78,11 @@
 
     # set some aliases, feel free to add more or remove some
     shellAliases = {
+      ls = "exa --no-user --icons --sort=ext --long --header --git";
+      ls-t = "exa --icons --long --tree --level=2";
+      tx = "tmux new -s $1";
+      viber = "sh -c './Downloads/viber.AppImage'";
+      update = "sudo nixos-rebuild switch --flake ~/.dotfiles/.#radoje";
     };
   };
 
