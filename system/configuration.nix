@@ -75,6 +75,7 @@
       vim
       wget
       kitty
+      neovim
     ];
   };
 
