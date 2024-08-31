@@ -70,7 +70,6 @@
     packages = with pkgs; [
       firefox
       tree
-      lazygit
       git
       brave
       vim
