@@ -14,6 +14,18 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    krb5.out 
+    xorg.libXau.out 
+    xorg.libXcomposite.out 
+    xorg.libXdamage.out 
+    xorg.libXdmcp.out 
+    xorg.libXfixes.out 
+    xorg.libXrandr.out 
+    xorg.libXrender.out 
+    xorg.libXtst.out 
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -76,6 +88,7 @@
       wget
       kitty
       neovim
+      nwg-panel
     ];
   };
 

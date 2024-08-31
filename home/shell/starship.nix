@@ -4,6 +4,7 @@
     enable = true;
     # custom settings
     settings = {
+      "$schema" = "https://starship.rs/config-schema.json";
       add_newline = false;
       aws.disabled = true;
       gcloud.disabled = true;
@@ -12,6 +13,7 @@
         success_symbol = "[➜](bold green)";
         error_symbol = "[➜](bold red)";
       };
+      os.disabled = false;
 
       package.disabled = true;
     };

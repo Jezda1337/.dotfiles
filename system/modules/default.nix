@@ -1,6 +1,7 @@
 {
   imports = [
     ./settings.nix
-      ./hyprland.nix
+    ./hyprland.nix
+    ./fonts.nix
   ];
 }
