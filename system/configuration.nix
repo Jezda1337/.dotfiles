@@ -89,6 +89,7 @@
       kitty
       neovim
       nwg-panel
+      inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
     ];
   };
 
