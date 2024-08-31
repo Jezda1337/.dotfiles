@@ -9,6 +9,7 @@
     ./shell
     ./programs
     ./packages
+    ./hyprland
   ];
 
   # link the configuration file in current directory to the specified location in home directory
