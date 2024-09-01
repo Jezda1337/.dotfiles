@@ -13,19 +13,154 @@
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+	nixpkgs = {
+     config = {
+       allowUnfree = true;
+       packageOverrides = pkgs: {
+         steam = pkgs.steam.override {
+           extraPkgs = pkgs: with pkgs; [
+             krb5.out 
+             xorg.libXau.out 
+             xorg.libXcomposite.out 
+             xorg.libXdamage.out 
+             xorg.libXdmcp.out 
+             xorg.libXfixes.out 
+             xorg.libXrandr.out 
+             xorg.libXrender.out 
+             xorg.libXtst.out 
+           ];
+         };
+       };
+     };
+   };
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    krb5.out 
-    xorg.libXau.out 
-    xorg.libXcomposite.out 
-    xorg.libXdamage.out 
-    xorg.libXdmcp.out 
-    xorg.libXfixes.out 
-    xorg.libXrandr.out 
-    xorg.libXrender.out 
-    xorg.libXtst.out 
-  ];
+
+	programs.steam.enable = true;
+	programs.nix-ld.enable = true;
+	programs.nix-ld.libraries = with pkgs; [
+		krb5.out 
+		stdenv.cc.cc
+		openssl
+		xorg.libXcomposite
+		xorg.libXtst
+		xorg.libXrandr
+		xorg.libXext
+		xorg.libX11
+		xorg.libXfixes
+		libGL
+		libva
+		xorg.libxcb
+		xorg.libXdamage
+		xorg.libxshmfence
+		xorg.libXxf86vm
+		xorg.libXau
+		libelf
+		xorg.libXdmcp
+
+		# Required
+		glib
+		gtk2
+		bzip2
+
+		# Without these it silently fails
+		xorg.libXinerama
+		xorg.libXcursor
+		xorg.libXrender
+		xorg.libXScrnSaver
+		xorg.libXi
+		xorg.libSM
+		xorg.libICE
+		gnome2.GConf
+		nspr
+		nss
+		cups
+		libcap
+		SDL2
+		libusb1
+		dbus-glib
+		ffmpeg
+		# Only libraries are needed from those two
+		libudev0-shim
+
+		# Verified games requirements
+		xorg.libXt
+		xorg.libXmu
+		libogg
+		libvorbis
+		SDL
+		SDL2_image
+		glew110
+		libidn
+		tbb
+
+		# Other things from runtime
+		flac
+		freeglut
+		libjpeg
+		libpng
+		libpng12
+		libsamplerate
+		libmikmod
+		libtheora
+		libtiff
+		pixman
+		speex
+		SDL_image
+		SDL_ttf
+		SDL_mixer
+		SDL2_ttf
+		SDL2_mixer
+		libappindicator-gtk2
+		libdbusmenu-gtk2
+		libindicator-gtk2
+		libcaca
+		libcanberra
+		libgcrypt
+		libvpx
+		librsvg
+		xorg.libXft
+		libvdpau
+		gnome2.pango
+		cairo
+		atk
+		gdk-pixbuf
+		fontconfig
+		freetype
+		dbus
+		alsaLib
+		expat
+		# Needed for electron
+		libdrm
+		mesa
+		libxkbcommon
+
+		xorg.libXrandr
+		xorg.libX11
+		gcc.libc
+		libGL
+		zlib
+		krb5.out
+		glib
+		nspr
+		nss
+		xorg.libXcomposite
+		xorg.libXdamage
+		xorg.libXext
+		xorg.libXfixes
+		xorg.libXrender
+		xorg.libXtst
+		freetype
+		expat
+		fontconfig
+		#xorg.libX11_xcb
+		dbus
+		alsaLib
+		xorg.libXau
+		xorg.libXdmcp
+		xorg.xrandr
+		wlr-randr
+	];
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -44,12 +179,12 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+		#  keyMap = "us";
+    useXkbConfig = true; # use xkb.options in tty.
+  };
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -114,11 +249,6 @@
   };
   services.tor = {
 	  enable = true;
-#	  client.dns.enable = true;
-#	  settings.DNSPort = [{
-#		  addr = "127.0.0.1";
-#		  port = 9050;
-#	  }];
   };
 
 
@@ -127,8 +257,13 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+		# viber
   ];
   environment.variables.EDITOR = "vim";
+	environment.variables = {
+		#NIX_LD = lib.fileContents "${pkgs.stdenv.cc}/nix-support/dynamic-linker";
+	};
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
