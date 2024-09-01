@@ -10,20 +10,20 @@
     yazi.url = "github:sxyazi/yazi";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, yazi, ... }: {
+  outputs = inputs@{ nixpkgs, hyprland, home-manager, yazi, ... }: {
     nixosConfigurations = {
       radoje = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs; inherit hyprland; };
         modules = [
           ./system/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.radoje = import ./home/home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; };
-          }
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.radoje = import ./home/home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; inherit hyprland; };
+            }
         ];
       };
     };
