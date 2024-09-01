@@ -1,12 +1,12 @@
 { pkgs, lib, config, ...}:
 
 {
-#  wayland.windowManager.hyprland = {
-#    enable = true;
-#    settings = {
-#      "$mod" = "SUPER";
-#    };
-#  };
+# wayland.windowManager.hyprland = {
+#   enable = true;
+#   settings = {
+#     "$mod" = "SUPER";
+#   };
+# };
 
   imports = [
     ./programs

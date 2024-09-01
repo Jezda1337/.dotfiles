@@ -8,5 +8,6 @@
     ./browsers.nix
     ./starship.nix
     ./alacritty.nix
+    ./hyprland.nix
   ];
 }

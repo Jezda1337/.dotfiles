@@ -7,4 +7,7 @@
   };
 
   programs.lazygit.enable = true;
+  programs.lazygit.settings = {
+    gui.border = "single";
+  };
 }

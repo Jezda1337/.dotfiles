@@ -11,7 +11,7 @@
       ls-t = "exa --icons --long --tree --level=2";
       tx = "tmux new -s $1";
       viber = "sh -c './Downloads/viber.AppImage'";
-      update = "sudo nixos-rebuild switch --flake ~/.dotfiles/.#radoje";
+      update = "sudo nixos-rebuild switch --flake ~/.dotfiles/";
     };
   };
 }
