@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ...}:
+{ pkgs, lib, ...}:
 
 {
   imports = [
@@ -11,6 +11,7 @@
     stateVersion = "24.05";
     packages = (with pkgs; [
       neofetch
+			#viber
 
       # archives
       zip
