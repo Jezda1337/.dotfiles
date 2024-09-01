@@ -1,9 +1,12 @@
-{ ... }:
+let
+  userName = "Radoje";
+  email = "megasrbin1@gmail.com";
+in
 {
   programs.git = {
     enable = true;
-    userName = "Radoje";
-    userEmail = "megasrbin1@gmail.com";
+    userName = userName;
+    userEmail = email;
   };
 
   programs.lazygit.enable = true;
