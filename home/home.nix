@@ -1,6 +1,10 @@
-{ config, pkgs, options, ... }:
+{ pkgs, ...}:
 
 {
+  imports = [
+    ./programs
+  ];
+
   home = {
     username = "radoje";
     homeDirectory = "/home/radoje";
@@ -83,10 +87,6 @@
       # };
     };
   };
-
-  imports = [
-    ./programs
-  ];
 
   # set cursor size and dpi for 4k monitor
   xresources.properties = {
