@@ -12,6 +12,12 @@
     packages = (with pkgs; [
       neofetch
 			#viber
+			wineWowPackages.waylandFull # wine for wayland
+			mangohud
+			protonup
+			lutris
+			heroic
+			bottles
 
       # archives
       zip
@@ -25,6 +31,10 @@
       yq-go
       eza
       fzf
+			gnumake
+			cmake
+			tmux
+			bun
 
       # networking tools
       mtr # A network diagnostic tool
@@ -82,7 +92,7 @@
       # package = pkgs.vanilla-dmz;
       # name = "Vanilla-DMZ";
       # size = 24;
-			package = pkgs.banana-cursor;
+			package = pkgs.banana-cursor; # the best cursor ever made
 			name = "Banana";
 			size = 32;
 
