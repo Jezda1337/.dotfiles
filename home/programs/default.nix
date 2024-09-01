@@ -2,6 +2,8 @@
 {
   imports = [
     ./git.nix
+    ./vim.nix
+    ./obs-studio.nix
     ./yazi.nix
     ./bash.nix
     ./kitty.nix
