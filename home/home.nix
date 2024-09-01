@@ -1,9 +1,17 @@
-{ pkgs, ...}:
+{ pkgs, lib, config, ...}:
 
 {
+#  wayland.windowManager.hyprland = {
+#    enable = true;
+#    settings = {
+#      "$mod" = "SUPER";
+#    };
+#  };
+
   imports = [
     ./programs
   ];
+
 
   home = {
     username = "radoje";
