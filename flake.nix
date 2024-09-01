@@ -21,11 +21,8 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-	    home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.radoje = import ./home;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
+            home-manager.users.radoje = import ./home/home.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
       };
