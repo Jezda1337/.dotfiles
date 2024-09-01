@@ -78,9 +78,13 @@
       # name = "Bibata-Modern-Classic";
       # size = 16;
 
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
-      size = 24;
+      # package = pkgs.vanilla-dmz;
+      # name = "Vanilla-DMZ";
+      # size = 24;
+			package = pkgs.banana-cursor;
+			name = "Banana";
+			size = 32;
+
       # x11 = {
       #   enable = true;
       #   defaultCursor = true;
