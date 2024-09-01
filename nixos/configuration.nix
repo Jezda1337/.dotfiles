@@ -91,8 +91,36 @@
       nwg-panel
       inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default
       pamixer
+
+      tor-browser
+      proxychains
+
+			gcc
+			nodejs_22
+			go
+			gotools
     ];
   };
+
+  programs.proxychains.enable = true;
+  programs.proxychains.chain.type = "dynamic";
+  programs.proxychains.proxies = {
+	  tor = {
+		  enable = true;
+		  type = "socks5";
+		  host = "127.0.0.1";
+		  port = 9050;
+	  };
+  };
+  services.tor = {
+	  enable = true;
+#	  client.dns.enable = true;
+#	  settings.DNSPort = [{
+#		  addr = "127.0.0.1";
+#		  port = 9050;
+#	  }];
+  };
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

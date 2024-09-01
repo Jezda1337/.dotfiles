@@ -3,6 +3,7 @@
   imports = [
     ./git.nix
     ./vim.nix
+    ./nvim.nix
     ./obs-studio.nix
     ./yazi.nix
     ./bash.nix
