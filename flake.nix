@@ -8,9 +8,10 @@
 		hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";   
 		rose-pine-hyprcursor.url = "github:ndom91/rose-pine-hyprcursor";
 		yazi.url = "github:sxyazi/yazi";
+		stylix.url = "github:danth/stylix";
 	};
 
-	outputs = inputs@{ nixpkgs, home-manager, ... }: {
+	outputs = inputs@{ nixpkgs, home-manager, stylix, ... }: {
 		nixosConfigurations = {
 			nixos = nixpkgs.lib.nixosSystem {
 				system = "x86_64-linux";
@@ -18,6 +19,7 @@
 				modules = [
 					./nixos/configuration.nix
 
+					stylix.nixosModules.stylix
 					home-manager.nixosModules.home-manager
 					{
 						home-manager.useGlobalPkgs = true;

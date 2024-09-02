@@ -82,8 +82,8 @@
       usbutils # lsusb
     ]);
 
-    pointerCursor = {
-      gtk.enable = true;
+    # pointerCursor = {
+      # gtk.enable = true;
       # x11.enable = true;
       # package = pkgs.bibata-cursors;
       # name = "Bibata-Modern-Classic";
@@ -92,22 +92,22 @@
       # package = pkgs.vanilla-dmz;
       # name = "Vanilla-DMZ";
       # size = 24;
-			package = pkgs.banana-cursor; # the best cursor ever made
-			name = "Banana";
-			size = 32;
+			# package = pkgs.banana-cursor; # the best cursor ever made
+			# name = "Banana";
+			# size = 32;
 
       # x11 = {
       #   enable = true;
       #   defaultCursor = true;
       # };
-    };
+    # };
   };
 
   # set cursor size and dpi for 4k monitor
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
-  };
+  # xresources.properties = {
+  #   "Xcursor.size" = 16;
+  #   "Xft.dpi" = 172;
+  # };
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
