@@ -247,6 +247,19 @@
     pulse.enable = true;
   };
 
+	services.keyd = {
+		enable = true;
+		keyboards = {
+			default = {
+				ids = [ "*" ];
+				settings = {
+					main = {
+						capslock = "overload(control, esc)";
+					};
+				};
+			};
+		};
+	};
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
@@ -268,6 +281,7 @@
       slack	
       discord
 			wofi
+			keyd
 
       tor-browser
       proxychains
