@@ -2,11 +2,12 @@
 	description = "NixOS configuration";
 
 	inputs = {
-		#nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-		nixpkgs.url = "github:nixos/nixpkgs/b79ce4c43f9117b2912e7dbc68ccae4539259dda";
+		nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+		#nixpkgs.url = "github:nixos/nixpkgs/13fe00cb6c75461901f072ae62b5805baef9f8b2";
 		home-manager.url = "github:nix-community/home-manager";
 		home-manager.inputs.nixpkgs.follows = "nixpkgs";
-		hyprland.url = "github:hyprwm/Hyprland";
+		#hyprland.url = "github:hyprwm/Hyprland";
+		hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 		yazi.url = "github:sxyazi/yazi";
 		stylix.url = "github:danth/stylix";
 	};
