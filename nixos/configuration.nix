@@ -285,6 +285,8 @@
 			wl-clipboard
 			grim
 			slurp
+			android-studio
+			android-studio-tools
 			keyd
 
       tor-browser
