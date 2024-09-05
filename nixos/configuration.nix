@@ -281,6 +281,10 @@
       slack	
       discord
 			wofi
+			cliphist
+			wl-clipboard
+			grim
+			slurp
 			keyd
 
       tor-browser
