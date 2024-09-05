@@ -267,6 +267,7 @@
       pamixer
       slack	
       discord
+			wofi
 
       tor-browser
       proxychains
