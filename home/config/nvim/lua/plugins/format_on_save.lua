@@ -17,7 +17,7 @@ return {
 				return formatters.shell({
 					cmd = {
 						"prettier",
-						"--config ~/.dotfiles/.config/nvim/format-configs/.prettierrc.yaml",
+						"--config ~/.dotfiles/home/config/nvim/format-configs/.prettierrc.yaml",
 						"--stdin-filepath",
 						"%",
 					},
