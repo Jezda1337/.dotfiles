@@ -138,17 +138,33 @@ return {
 					function(server_name)
 						local server = servers[server_name] or {}
 
-						-- if server_name == "volar" then
-						--   require("typescript-tools").setup(server)
-						-- end
-
-						require("lspconfig")[server_name].setup({
-							cmd = server.cmd,
-							settings = server.settings,
-							filetypes = server.filetypes,
-							-- capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
-							capabilities = capabilities,
-						})
+						if server_name == "tsserver" then
+							require("lspconfig").ts_ls.setup({
+								cmd = server.cmd,
+								settings = server.settings,
+								filetypes = server.filetypes,
+								capabilities = vim.tbl_deep_extend(
+									"force",
+									{},
+									capabilities,
+									server.capabilities or {}
+								),
+								-- capabilities = capabilities,
+							})
+						else
+							require("lspconfig")[server_name].setup({
+								cmd = server.cmd,
+								settings = server.settings,
+								filetypes = server.filetypes,
+								capabilities = vim.tbl_deep_extend(
+									"force",
+									{},
+									capabilities,
+									server.capabilities or {}
+								),
+								-- capabilities = capabilities,
+							})
+						end
 					end,
 				},
 			})

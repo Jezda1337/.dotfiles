@@ -80,7 +80,7 @@ M.servers = {
 			},
 		},
 	},
-	ts_ls = {
+	tsserver = {
 		init_options = {
 			preferences = {
 				includeCompletionsForModuleExports = false,
