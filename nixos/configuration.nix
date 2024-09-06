@@ -75,6 +75,9 @@
    };
 
 
+	programs.nautilus-open-any-terminal.terminal = "kitty";
+	services.gnome.sushi.enable = true;
+
 	programs.steam.enable = true;
 	programs.nix-ld.enable = true;
 	programs.nix-ld.libraries = with pkgs; [
@@ -289,6 +292,12 @@
 			android-studio
 			android-studio-tools
 			keyd
+			nautilus
+			sushi # preview for nautilus
+			dolphin
+			nemo
+			xfce.thunar
+			gh
 
       tor-browser
       proxychains
