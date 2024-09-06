@@ -23,8 +23,10 @@
 			name = "JetBrainsMono Nerd Font Mono";
 		};
 		sansSerif = {
-			package = pkgs.dejavu_fonts;
-			name = "DejaVu Sans";
+			# package = pkgs.dejavu_fonts;
+			# name = "DejaVu Sans";
+			package = pkgs.ubuntu-sans;
+			name = "Ubuntu Sans";
 		};
 		serif = {
 			package = pkgs.dejavu_fonts;
@@ -209,6 +211,16 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+	# run appimages easy from teriminal
+	boot.binfmt.registrations.appimage = {
+		wrapInterpreterInShell = false;
+		interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+		recognitionType = "magic";
+		offset = 0;
+		mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
+		magicOrExtension = ''\x7fELF....AI\x02'';
+	};
+
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -224,7 +236,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "Lat2-Terminus16";
+    font = "Lat2-Terminus24";
 		#  keyMap = "us";
     useXkbConfig = true; # use xkb.options in tty.
   };
@@ -298,6 +310,7 @@
 			nemo
 			xfce.thunar
 			gh
+			appimage-run
 
       tor-browser
       proxychains
