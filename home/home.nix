@@ -9,6 +9,9 @@
     username = "radoje";
     homeDirectory = "/home/radoje";
     stateVersion = "24.05";
+		sessionVariables = {
+			PKG_CONFIG_PATH = "${pkgs.alsa-lib}/lib/pkgconfig";
+		};
     packages = (with pkgs; [
       neofetch
 			#viber
@@ -80,6 +83,9 @@
       ethtool
       pciutils # lspci
       usbutils # lsusb
+
+			pkg-config
+			alsa-lib
     ]);
 
     # pointerCursor = {
