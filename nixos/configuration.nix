@@ -313,6 +313,12 @@
 			xfce.thunar
 			gh
 			appimage-run
+			fpm # Tool to build packages for multiple platforms with ease
+			pkg-config
+			alsa-lib
+			alsa-tools
+			clapper
+
 
       tor-browser
       proxychains
