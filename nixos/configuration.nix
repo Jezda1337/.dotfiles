@@ -318,6 +318,7 @@
 			alsa-lib
 			alsa-tools
 			clapper
+			libxkbcommon # keyboard supp lib for wayland and manymore
 
 
       tor-browser
