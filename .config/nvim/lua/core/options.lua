@@ -34,6 +34,7 @@ local options = {
 	cmdheight = 0,
 	clipboard = "unnamedplus",
 	wrap = false,
+	autoread = true,
 }
 
 for key, value in pairs(options) do
