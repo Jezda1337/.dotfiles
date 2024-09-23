@@ -3,8 +3,8 @@ local map = function(mode, lhs, rhs)
 	vim.keymap.set(mode, lhs, rhs, opts)
 end
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.mapleader = ";"
+vim.g.maplocalleader = ";"
 
 -- open lazygit
 map("n", "<leader>lg", ":term lazygit<cr>")
