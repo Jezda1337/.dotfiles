@@ -6,6 +6,13 @@ end
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
+-- copy file path
+map("n", "<leader>fp", ":lua  vim.fn.setreg('+', vim.fn.expand('%:.'))<CR>")
+-- copy dir path
+map("n", "<leader>dp", ":lua  vim.fn.setreg('+', vim.fn.expand('%:h'))<CR>")
+-- copy file name
+map("n", "<leader>fn", ":lua  vim.fn.setreg('+', vim.fn.expand('%:t:r'))<CR>")
+
 -- open lazygit
 map("n", "<leader>lg", ":term lazygit<cr>")
 
