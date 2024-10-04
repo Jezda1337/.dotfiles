@@ -30,6 +30,10 @@ map("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
 map("n", "<C-k>", ":m -2<cr>")
 map("n", "<C-j>", ":m +1<cr>")
 
+-- duplicate line with persisten course position
+map("n", "<A-d>", "mDyyp`Dj")
+map("i", "<A-d>", "<esc>mDyyp`Dja")
+
 -- map("n", "<C-j>", "<C-w>j")
 -- map("n", "<C-k>", "<C-w>k")
 -- map("n", "<C-l>", "<C-w>l")
