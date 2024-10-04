@@ -30,7 +30,7 @@ map("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
 map("n", "<C-k>", ":m -2<cr>")
 map("n", "<C-j>", ":m +1<cr>")
 
--- duplicate line with persisten course position
+-- duplicate line with persisten couror position
 map("n", "<A-d>", "mDyyp`Dj")
 map("i", "<A-d>", "<esc>mDyyp`Dja")
 
