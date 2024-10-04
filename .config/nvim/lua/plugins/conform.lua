@@ -4,6 +4,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			lua = { "stylua" },
+			-- stop_after_first = Only run the first available formatter in the list
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			vue = { "prettierd", "prettier", stop_after_first = true },
 			css = { "prettierd", "prettier", stop_after_first = true },
@@ -12,6 +13,7 @@ return {
 			json = { "prettierd", "prettier", stop_after_first = true },
 			typescript = { "prettierd", "prettier", stop_after_first = true },
 			markdown = { "prettierd", "prettier", stop_after_first = true },
+			go = { "gofmt", "goimports", stop_after_first = false },
 		},
 
 		format_on_save = {
