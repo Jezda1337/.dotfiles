@@ -1,0 +1,57 @@
+(defwidget main []
+	(centerbox :orientation "h"
+		(workspaces)
+		(window_w)
+		(clock)
+	))
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    (box :space-evenly false :spacing 10
+      (label :text "${workspaces}${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
+            )
+          )
+        )
+      )
+    )
+  )
+
+(deflisten window :initial "..." "bash ~/.config/eww/scripts/get-window-title")
+(defwidget window_w []
+  (box
+    (label :text "${window}")
+  )
+)
+
+(defpoll time :interval "0.01s"
+	"date '+%H:%M:%S %b %d, %Y'")
+
+(defwidget clock []
+	(box :space-evenly false :halign "end" :spacing 10
+		(label :text "${time}")
+		(macak)
+))
+
+(defwidget macak []
+	(eventbox :onclick "scripts/macak"
+		(box :class "macak" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")
+	)
+)
+
+(defwindow main
+	:monitor 0
+	:geometry (geometry :x "0%"
+		:y "0px"
+		:width "100%"
+		:height "15px"
+		:anchor "bottom center")
+	:stacking "fg"
+	:exclusive true
+	(main))
+

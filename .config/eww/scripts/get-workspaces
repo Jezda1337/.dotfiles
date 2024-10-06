@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+spaces() {
+	# Get workspace windows information
+	WORKSPACE_WINDOWS=$(hyprctl workspaces -j | jq 'map({key: .id | tostring, value: .windows}) | from_entries')
+
+	# Get the current active workspace
+	CURRENT_WORKSPACE=$(hyprctl monitors -j | jq -r '.[0].activeWorkspace.id | tostring')
+
+	# Create the workspace list and filter
+	seq 1 10 | jq --argjson windows "${WORKSPACE_WINDOWS}" --arg current "${CURRENT_WORKSPACE}" --slurp -Mc '
+		map(tostring) 
+		| map({id: ., windows: ($windows[.]//0)}) 
+		| map(select(.windows > 0 or .id == $current))' # Show active workspace even if empty
+}
+
+spaces
+socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
+	spaces
+done
