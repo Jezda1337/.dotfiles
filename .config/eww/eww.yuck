@@ -35,12 +35,20 @@
 (defwidget clock []
 	(box :space-evenly false :halign "end" :spacing 10
 		(label :text "${time}")
+		(weather)
 		(macak)
 ))
 
+(defpoll WEATHER :interval "1m" `curl https://wttr.in/Bajina-Basta?format=1`)
+(defwidget weather []
+	(box 
+		(label :text WEATHER)
+	)
+)
+
 (defwidget macak []
 	(eventbox :onclick "scripts/macak"
-		(box :class "macak" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")
+		(box :class "macak" :tooltip "Маћак" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")
 	)
 )
 
