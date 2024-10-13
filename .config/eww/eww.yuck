@@ -35,7 +35,10 @@
 (defwidget clock []
 	(box :space-evenly false :halign "end" :spacing 10
 		(label :text "${time}")
-		(weather)
+		(box :space-evenly false :spacing 10
+			(weather)
+			(abutton)
+		)
 		(macak)
 ))
 
@@ -46,8 +49,14 @@
 	)
 )
 
+(defwidget abutton []
+	(eventbox :cursor "pointer" :onclick "scripts/bar" :tooltip "button"
+		(label :class "a_btn" :text "a button")
+	)
+)
+
 (defwidget macak []
-	(eventbox :onclick "scripts/macak"
+	(eventbox :onclick "scripts/macak" :valign "center"
 		(box :class "macak" :tooltip "Маћак" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")
 	)
 )
@@ -61,5 +70,22 @@
 		:anchor "bottom center")
 	:stacking "fg"
 	:exclusive true
-	(main))
+	(main)
+)
 
+
+(defwindow bar
+	:monitor 0
+	:geometry (geometry :x "1%"
+		:y "0px"
+		:width "2%"
+		:height "80%"
+		:anchor "right center")
+	:stacking "fg"
+	:exclusive false
+	(centerbox :orientation "v"
+		(box 123)
+		(box 123)
+		(box 123)
+	)
+)
