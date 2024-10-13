@@ -2,6 +2,8 @@
 # ~/.bashrc # # starship nice shell
 eval "$(starship init bash)"
 
+set -o vi
+
 # git tab completions
 source "/usr/share/git/completion/git-completion.bash"
 
