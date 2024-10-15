@@ -14,6 +14,7 @@ return {
 			typescript = { "prettierd", "prettier", stop_after_first = true },
 			markdown = { "prettierd", "prettier", stop_after_first = true },
 			go = { "gofmt", "goimports", stop_after_first = false },
+			templ = { "templ" },
 		},
 
 		format_on_save = {
