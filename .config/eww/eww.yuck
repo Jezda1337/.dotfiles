@@ -42,7 +42,7 @@
 		(macak)
 ))
 
-(defpoll WEATHER :interval "1m" `curl https://wttr.in/Bajina-Basta?format=1`)
+(defpoll WEATHER :interval "5m" `curl https://wttr.in/Bajina-Basta?format=1`)
 (defwidget weather []
 	(box 
 		(label :text WEATHER)
