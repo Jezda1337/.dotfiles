@@ -1,6 +1,6 @@
 -- return {}
 return {
-	dir = vim.env.HOME .. "/personal/blink.cmp",
+	"Jezda1337/blink.cmp",
 	lazy = false,
 	dependencies = "rafamadriz/friendly-snippets",
 	-- version = "v0.*",
@@ -23,9 +23,29 @@ return {
 			},
 		},
 		keymap = {
-			accept = "<CR>",
-			select_prev = { "<C-k>" },
-			select_next = { "<C-j>" },
+			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide" },
+			-- ["<CR>"] = { "select_and_accept" },
+			["<CR>"] = {
+				function(cmp)
+					if cmp.is_in_snippet() then
+						return cmp.accept()
+					else
+						return cmp.select_and_accept()
+					end
+				end,
+				"snippet_forward",
+				"fallback",
+			},
+
+			["<C-p>"] = { "select_prev", "fallback" },
+			["<C-n>"] = { "select_next", "fallback" },
+
+			["<C-b>"] = { "scroll_documentation_up", "fallback" },
+			["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
+			["<Tab>"] = { "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "fallback" },
 		},
 	},
 }
