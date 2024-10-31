@@ -6,8 +6,8 @@ local M = {}
 -- 	.. "/node_modules/@vue/language-server"
 
 M.servers = {
+	templ = {},
 	lua_ls = {
-		templ = {},
 		settings = {
 			Lua = {
 				runtime = {
@@ -128,9 +128,18 @@ M.servers = {
 	volar = {},
 	gopls = {},
 	astro = {},
-	tailwindcss = {},
+	tailwindcss = {
+		settings = {
+			tailwindCSS = {
+				includeLanguages = {
+					templ = "html",
+				},
+			},
+		},
+	},
 	bashls = {},
-	html = {},
+	html = { filetypes = { "html" } },
+	htmx = { filetypes = { "html", "templ" } },
 	cssls = {},
 	eslint_d = {},
 	emmet_language_server = {},
