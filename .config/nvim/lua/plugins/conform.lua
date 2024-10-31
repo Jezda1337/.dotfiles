@@ -2,6 +2,7 @@ return {
 	"stevearc/conform.nvim",
 	dependencies = { "mason.nvim" },
 	opts = {
+		templ = {},
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- stop_after_first = Only run the first available formatter in the list
@@ -14,7 +15,7 @@ return {
 			typescript = { "prettierd", "prettier", stop_after_first = true },
 			markdown = { "prettierd", "prettier", stop_after_first = true },
 			go = { "gofmt", "goimports", stop_after_first = false },
-			templ = { "templ" },
+			-- templ = { inherit = false, command = "templ", args = { "fmt", "-filename", "$FILENAME" } },
 		},
 
 		format_on_save = {
