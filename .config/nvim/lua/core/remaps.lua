@@ -31,8 +31,12 @@ map("n", "<C-K>", ":m -2<CR>")
 map("n", "<C-J>", ":m +1<CR>")
 
 -- duplicate line with persisten couror position
-map("n", "<A-d>", "mDyyp`Dj")
-map("i", "<A-d>", "<esc>mDyyp`Dja")
+-- new way
+map("n", "<A-d>", ":t.<CR>")
+map("n", "<A-D>", ":t.-1<CR>")
+-- old way
+-- map("n", "<A-d>", "mDyyp`Dj")
+-- map("i", "<A-d>", "<esc>mDyyp`Dja")
 
 -- map("n", "<C-j>", "<C-w>j")
 -- map("n", "<C-k>", "<C-w>k")
