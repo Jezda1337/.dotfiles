@@ -42,3 +42,6 @@ map("n", "<A-D>", ":t.-1<CR>")
 -- map("n", "<C-k>", "<C-w>k")
 -- map("n", "<C-l>", "<C-w>l")
 -- map("n", "<C-h>", "<C-w>h")
+
+map("n", "<S-ScrollWheelUp>", "20zh")
+map("n", "<S-ScrollWheelDown>", "20zl")
