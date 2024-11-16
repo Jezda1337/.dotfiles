@@ -37,7 +37,7 @@
 		(label :text "${time}")
 		(box :space-evenly false :spacing 10
 			(weather)
-			(abutton)
+			(right_side_panel)
 		)
     (key_layout)
 		(macak)
@@ -50,11 +50,9 @@
 	)
 )
 
-(defwidget abutton []
-	(eventbox :cursor "pointer" :onclick "scripts/bar" :tooltip "button"
-		(label :class "a_btn" :text "a button")
-	)
-)
+(defwidget right_side_panel []
+ (eventbox :cursor "pointer" :onclick "scripts/bar" :tooltip "button"
+  (label :class "a_btn" :text "")))
 
 (deflisten var_key_layout :initial "en" "bash ~/.config/eww/scripts/get-key-layout")
 (defwidget key_layout []
