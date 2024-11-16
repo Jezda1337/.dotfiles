@@ -39,6 +39,7 @@
 			(weather)
 			(abutton)
 		)
+    (key_layout)
 		(macak)
 ))
 
@@ -53,6 +54,17 @@
 	(eventbox :cursor "pointer" :onclick "scripts/bar" :tooltip "button"
 		(label :class "a_btn" :text "a button")
 	)
+)
+
+(deflisten var_key_layout :initial "en" "bash ~/.config/eww/scripts/get-key-layout")
+(defwidget key_layout []
+    (eventbox :cursor "pointer" 
+              :onclick "hyprctl switchxkblayout current next" 
+              :tooltip "button"
+        (label :width 30 
+               :class "key_layout_btn" 
+               :text "${var_key_layout == "en" ? "us 󰥻" : "rs 󰥻"}")
+    )
 )
 
 (defwidget macak []

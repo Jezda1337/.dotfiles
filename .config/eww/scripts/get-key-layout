@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# get current active key-layout
+#hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap'
+
+# socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - |
+# 	stdbuf -o0 awk -F '>>|,' -e '/^activelayout>>/ {print $3}' -e '/^focusedmon>>/ {print $3}'
+
+# socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - |
+# 	stdbuf -o0 awk -F '>>|,' '
+#     /^activelayout>>/ {
+#         if ($3 == "English (US)") {
+#             system("hyprctl notify 1 3000 0 \"Keyboard: English (US)\"")
+#         } else if ($3 == "Serbian") {
+#             system("hyprctl notify 1 3000 0 \"Keyboard: Serbian\"")
+#         }
+#         print $3
+#     }
+#     /^focusedmon>>/ {print $3}
+#     '
+
+socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - |
+	stdbuf -o0 awk -F '>>|,' '
+	/^activelayout>>/ {
+	layout = ($3 == "English (US)") ? "en" : "rs";
+	system("hyprctl notify 0 3000 0 \"Keyboard: " $3 "\"");
+	print layout;
+	fflush();
+}
+/^focusedmon>>/ {print $3}
+'
