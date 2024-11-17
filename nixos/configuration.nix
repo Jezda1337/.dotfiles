@@ -189,7 +189,7 @@
 		fontconfig
 		freetype
 		dbus
-		alsaLib
+		alsa-lib
 		expat
 		# Needed for electron
 		libdrm
@@ -216,7 +216,6 @@
 		fontconfig
 		#xorg.libX11_xcb
 		dbus
-		alsaLib
 		xorg.libXau
 		xorg.libXdmcp
 		xorg.xrandr
