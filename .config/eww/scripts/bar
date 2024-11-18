@@ -5,7 +5,9 @@ eww="/home/radoje/pkgs/eww/target/release/eww"
 active_windows=$($eww active-windows)
 
 if echo "$active_windows" | grep -q "bar"; then
-    $eww close bar
+	$eww update bar_rev=false
+	# $eww close bar
 else
-    $eww open bar
+	$eww update bar_rev=true
+	# $eww open bar
 fi

@@ -40,6 +40,7 @@
 			(right_side_panel)
 		)
     (key_layout)
+		(test)
 		(macak)
 ))
 
@@ -51,7 +52,7 @@
 )
 
 (defwidget right_side_panel []
- (eventbox :cursor "pointer" :onclick "scripts/bar" :tooltip "button"
+ (eventbox :cursor "pointer" :onclick "${eww} update bar_rev=true" :tooltip "button"
   (label :class "a_btn" :text "")))
 
 (deflisten var_key_layout :initial "en" "bash ~/.config/eww/scripts/get-key-layout")
@@ -83,19 +84,48 @@
 	(main)
 )
 
-
+(defvar bar_rev false)
 (defwindow bar
 	:monitor 0
-	:geometry (geometry :x "1%"
-		:y "0px"
-		:width "2%"
-		:height "80%"
-		:anchor "right center")
+	:geometry (geometry
+		:x "0"
+		:y "0"
+		:width "0"
+		:height "100%"
+		:anchor "top right")
 	:stacking "fg"
 	:exclusive false
-	(centerbox :orientation "v"
-		(box 123)
-		(box 123)
-		(box 123)
+	(eventbox
+		:onhover "${eww} update bar_rev=true"
+		(revealer
+			:transition "slideleft"
+			:reveal bar_rev
+			:duration "350ms"
+			:class "bar_box"
+			(box :valign "start"	:width 300
+				(button :width 30 :height 30 :onclick "${eww} update bar_rev=false" :halign "start"
+					(label :class "lbl" :text "")
+				)
+			)
+		)
+	)
+)
+
+
+(defvar side_rev false)
+(defvar eww "~/pkgs/eww/target/release/eww")
+(defwidget test []
+	(eventbox 
+		:onhover "${eww} update side_rev=true"
+		:onhoverlost "${eww} update side_rev=false"
+		(box :space-evenly "false" :spacing "3" 
+			(label :text "123")
+			(revealer 
+				:transition "slideleft"
+				:reveal side_rev
+				:duration "350ms"
+				(label :text "hi mom!")
+			)
+		)
 	)
 )
