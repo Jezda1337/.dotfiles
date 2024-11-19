@@ -97,6 +97,7 @@
 	:exclusive false
 	(eventbox
 		:onhover "${eww} update bar_rev=true"
+    :onhoverlost "${eww} update bar_rev=false"
 		(revealer
 			:transition "slideleft"
 			:reveal bar_rev
