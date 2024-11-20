@@ -1,3 +1,5 @@
+(defvar eww "~/pkgs/eww/target/release/eww")
+
 (defwidget main []
 	(centerbox :orientation "h"
 		(workspaces)
@@ -5,10 +7,10 @@
 		(clock)
 	))
 
-(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(deflisten workspaces :initial "[]" "./scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "./scripts/get-active-workspace")
 (defwidget workspaces []
-  (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+  (eventbox :onscroll "./scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
     (box :space-evenly false :spacing 0
       (label :text "${workspaces}${current_workspace}" :visible false)
       (for workspace in workspaces
@@ -22,10 +24,10 @@
     )
   )
 
-(deflisten window :initial "..." "bash ~/.config/eww/scripts/get-window-title")
+(deflisten window-title :initial "..." "./scripts/get-window-title")
 (defwidget window_w []
   (box
-    (label :text "${window}")
+    (label :text "${window-title}")
   )
 )
 
@@ -55,7 +57,7 @@
  (eventbox :cursor "pointer" :onclick "${eww} update bar_rev=true" :tooltip "button"
   (label :class "a_btn" :text "")))
 
-(deflisten var_key_layout :initial "en" "bash ~/.config/eww/scripts/get-key-layout")
+(deflisten var_key_layout :initial "en" "./scripts/get-key-layout")
 (defwidget key_layout []
     (eventbox :cursor "pointer" 
               :onclick "hyprctl switchxkblayout current next" 
@@ -114,20 +116,20 @@
 
 (deflisten sound_var :initial "0" "./scripts/get-volume")
 (defvar side_rev false)
-(defvar eww "~/pkgs/eww/target/release/eww")
 (defwidget sound []
 	(eventbox 
-		:onclick "pamixer -t"
 		:onhover "${eww} update side_rev=true"
 		:onhoverlost "${eww} update side_rev=false"
 		(box :space-evenly "false" :spacing "3" :class "vol-controller"
-			(label :text "${sound_var == 'muted' ? " " : "   " + sound_var + '%'}")
+			(button	:onclick "pamixer -t"
+				(label :text "${sound_var == 'muted' ? " " : "   " + sound_var + '%'}")
+			)
 			(revealer 
 				:transition "slideleft"
 				:reveal side_rev
 				:duration "350ms"
 				(scale 
-					:value sound_var
+					:value "${sound_var == "muted" ? 0 : sound_var }"
 					:min 0
 					:max 100
 					:width 100
@@ -138,3 +140,36 @@
 	)
 )
 
+;; (defvar show_popup true)
+;; (defwindow sound_popup_win
+;; 	:monitor 0
+;; 	:geometry (geometry :x "0%"
+;; 		:y "30px"
+;; 		:width 300
+;; 		:height 300
+;; 		:anchor "bottom center")
+;; 	:stacking "fg"
+;; 	:exclusive false
+;; 	(box :class "sound_popup" :visible show_popup
+;; 		(revealer
+;; 			:transition "crossfade"
+;; 			:reveal show_popup
+;; 			:duration "500ms"
+;; 			(box
+;; 				:space-evenly false
+;; 				:orientation "v"
+;; 				:valign "center"
+;; 				:spacing 0
+;; 				(label
+;; 					:halign "center"
+;; 					:class "icon_label"
+;; 					:text " "
+;; 				)
+;; 				(label
+;; 					:class "sound_label"
+;; 					:text "${sound_var} %"
+;; 				)
+;; 			)
+;; 		)
+;; 	)
+;; )
