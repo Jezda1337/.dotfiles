@@ -40,7 +40,7 @@
 			(right_side_panel)
 		)
     (key_layout)
-		(test)
+		(sound)
 		(macak)
 ))
 
@@ -112,21 +112,29 @@
 	)
 )
 
-
+(deflisten sound_var :initial "0" "./scripts/get-volume")
 (defvar side_rev false)
 (defvar eww "~/pkgs/eww/target/release/eww")
-(defwidget test []
+(defwidget sound []
 	(eventbox 
+		:onclick "pamixer -t"
 		:onhover "${eww} update side_rev=true"
 		:onhoverlost "${eww} update side_rev=false"
-		(box :space-evenly "false" :spacing "3" 
-			(label :text "123")
+		(box :space-evenly "false" :spacing "3" :class "vol-controller"
+			(label :text "${sound_var == 'muted' ? " " : "   " + sound_var + '%'}")
 			(revealer 
 				:transition "slideleft"
 				:reveal side_rev
 				:duration "350ms"
-				(label :text "hi mom!")
+				(scale 
+					:value sound_var
+					:min 0
+					:max 100
+					:width 100
+					:onchange "./scripts/set-volume {}"
+				)
 			)
 		)
 	)
 )
+

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+function get_volume_status() {
+	vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%')
+	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+
+	if [ "$muted" = "yes" ]; then
+		echo "muted" # or echo "" if you want to show mute icon
+	else
+		echo "$vol" # or use different icons based on volume
+	fi
+}
+
+# Send initial value
+get_volume_status
+
+# Then listen for changes
+pactl subscribe | grep --line-buffered "sink" | while read -r event; do
+	get_volume_status
+done
