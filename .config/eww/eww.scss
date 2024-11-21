@@ -1,24 +1,25 @@
+@import "flexoki";
+
 * {
   all: unset;
   font-family: "JetBrains Mono";
 }
 
 .main {
-  background: #2b2b2b;
+  background: $flexoki-black;
   font-size: 14px;
   font-weight: bold;
   padding: 2px 5px;
-  color: white;
+  color: $flexoki-paper;
 }
 
 .bar {
-  // border-radius: 10px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background: #2b2b2b;
-  border-left: 2px solid #ddd;
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
+  background: $flexoki-black;
+  border-left: 2px solid $flexoki-paper;
+  border-top: 2px solid $flexoki-paper;
+  border-bottom: 2px solid $flexoki-paper;
 }
 
 .bar_box {
@@ -29,24 +30,24 @@
 }
 
 .a_btn {
-  background-color: #000;
-  padding: 5px 10px;
-  border-radius: 4px;
+  background-color: $flexoki-300;
+  padding: 0px 10px;
+  border-radius: 2px;
 }
 .key_layout_btn {
-  background-color: #000;
-  padding: 5px 10px;
-  border-radius: 4px;
+  background-color: $flexoki-blue-600;
+  padding: 0px 10px;
+  border-radius: 2px;
 }
 
 .workspace-entry {
-  color: #ccc;
+  color: $flexoki-50;
   opacity: 0.7;
   padding: 0 2.5px;
 }
 
 .current {
-  color: #fff;
+  color: $flexoki-paper;
   opacity: 1;
 }
 
@@ -56,27 +57,27 @@
   min-height: 20px;
   min-width: 20px;
   border-radius: 100px;
-  border: 1px solid skyblue;
+  border: 2px solid $flexoki-blue-600;
 }
 .vol-controller {
   transition: opacity 0.2s ease-out;
   scale {
     border-radius: 90px;
     trough {
-      background-color: #666;
+      background-color: $flexoki-500;
       min-height: 10px;
       border-radius: 90px;
       highlight {
         border-radius: 90px;
-        background: black;
+        background: $flexoki-50;
       }
     }
   }
 }
 
 .sound_popup {
-  background: #2b2b2b;
-  border: 2px solid #ddd;
+  background: $flexoki-black;
+  border: 2px solid $flexoki-paper;
   border-radius: 16px;
 }
 .icon_label {
