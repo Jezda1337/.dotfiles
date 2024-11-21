@@ -62,7 +62,7 @@
 (defwidget key_layout []
 	(eventbox :cursor "pointer" 
 		:onclick "hyprctl switchxkblayout current next" 
-		:tooltip "button"
+		:tooltip "${var_key_layout == "en" ? "English (US)" : "Serbian"}"
 		(label 
 			:width 30 
 			:class "key_layout_btn" 

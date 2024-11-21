@@ -30,12 +30,12 @@
 }
 
 .a_btn {
-  background-color: $flexoki-300;
+  background-color: $flexoki-black;
   padding: 0px 10px;
   border-radius: 2px;
 }
 .key_layout_btn {
-  background-color: $flexoki-blue-600;
+  background-color: $flexoki-black;
   padding: 0px 10px;
   border-radius: 2px;
 }
@@ -64,12 +64,12 @@
   scale {
     border-radius: 90px;
     trough {
-      background-color: $flexoki-500;
-      min-height: 10px;
-      border-radius: 90px;
+      background-color: $flexoki-blue-600;
+      min-height: 8px;
+      border-radius: 92px;
       highlight {
         border-radius: 90px;
-        background: $flexoki-50;
+        background: $flexoki-black;
       }
     }
   }
