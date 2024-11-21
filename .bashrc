@@ -19,7 +19,7 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
-export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin"
+export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
