@@ -41,10 +41,11 @@
 			(weather)
 			(right_side_panel)
 		)
-    (key_layout)
+		(key_layout)
 		(sound)
 		(macak)
-))
+	)
+)
 
 (defpoll WEATHER :interval "5m" `curl https://wttr.in/Bajina-Basta?format=1`)
 (defwidget weather []
@@ -151,10 +152,10 @@
 ;; 		:anchor "bottom center")
 ;; 	:stacking "fg"
 ;; 	:exclusive false
-;; 	(box :class "sound_popup" :visible show_popup
+;; 	(box :class "sound_popup"
 ;; 		(revealer
 ;; 			:transition "crossfade"
-;; 			:reveal show_popup
+;; 			:reveal true
 ;; 			:duration "500ms"
 ;; 			(box
 ;; 				:space-evenly false

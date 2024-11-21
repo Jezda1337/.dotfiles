@@ -5,9 +5,9 @@ function get_volume_status() {
 	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
 
 	if [ "$muted" = "yes" ]; then
-		echo "muted" # or echo "" if you want to show mute icon
+		echo "muted"
 	else
-		echo "$vol" # or use different icons based on volume
+		echo "$vol"
 	fi
 }
 

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+KITTY_LIGHT_THEME="Flexoki (Light)"
+KITTY_DARK_THEME="Flexoki (Dark)"
+NVIM_LIGHT_THEME="flexoki-dawn"
+NVIM_DARK_THEME="gruber-darker"
+
+switch_kitty_theme() {
+	current_houlr=$(date +%H)
+
+	if [ $current_houlr -ge 14 ] || [ $current_houlr -lt 2 ]; then
+		kitten themes --reload-in=all "$KITTY_DARK_THEME"
+	else
+		kitten themes --reload-in=all "$KITTY_LIGHT_THEME"
+	fi
+}
+
+switch_nvim_theme() {
+	local theme=$1
+	for addr in $XDG_RUNTIME_DIR/nvim.*; do
+		[ -e "$addr" ] && nvim --server "$addr" --remote-send ":colorscheme $theme<CR>"
+	done
+}
+
+# Function to switch all themes
+switch_themes() {
+	current_hour=$(date +%H)
+
+	if [ $current_hour -ge 18 ] || [ $current_hour -lt 6 ]; then
+		# Night time (6 PM to 6 AM)
+		switch_kitty_theme "dark"
+		switch_nvim_theme "$NVIM_DARK_THEME"
+		echo "Switched to dark themes at $(date)"
+	else
+		# Day time (6 AM to 6 PM)
+		switch_kitty_theme "light"
+		switch_nvim_theme "$NVIM_LIGHT_THEME"
+		echo "Switched to light themes at $(date)"
+	fi
+}
+
+# Initial theme switch
+switch_themes
+
+(
+	while true; do
+		sleep 3600 # check once per hour
+		switch_themes
+	done
+) &
+disown
