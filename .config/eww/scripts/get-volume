@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-function get_volume_status() {
-	vol=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}' | tr -d '%')
-	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+source ./notify
 
-	if [ "$muted" = "yes" ]; then
+function get_volume_status() {
+	vol=$(pamixer --get-volume)
+	muted=$(pamixer --get-mute)
+
+	if "$muted"; then
 		echo "muted"
 	else
 		echo "$vol"

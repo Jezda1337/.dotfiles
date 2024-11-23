@@ -117,7 +117,7 @@
 	)
 )
 
-(deflisten sound_var :initial "0" "./scripts/get-volume")
+(deflisten vol :initial 0 `./scripts/get-volume`)
 (defvar side_rev false)
 (defwidget sound []
 	(eventbox 
@@ -125,17 +125,17 @@
 		:onhoverlost "${eww} update side_rev=false"
 		(box :space-evenly "false" :spacing "3" :class "vol-controller"
 			(button	:onclick "pamixer -t"
-				(label :text "${sound_var == 'muted' ? " " : "   " + sound_var + '%'}")
+				(label :text "${vol == "muted" ? "  Muted" : vol == 0 ? "  Muted" : "   ${vol}%" }")
 			)
 			(revealer 
 				:transition "slideleft"
 				:reveal side_rev
-				:duration "350ms"
+				:duration "1000ms"
 				(scale 
-					:value "${sound_var == "muted" ? 0 : sound_var }"
+					:value vol
 					:min 0
 					:max 100
-					:width 100
+					:width 110
 					:onchange "./scripts/set-volume {}"
 				)
 			)
@@ -143,35 +143,44 @@
 	)
 )
 
-;; (defwindow sound_popup_win
-;; 	:monitor 0
-;; 	:geometry (geometry :x "0%"
-;; 		:y "30px"
-;; 		:width 300
-;; 		:height 300
-;; 		:anchor "bottom center")
-;; 	:stacking "fg"
-;; 	:exclusive false
-;; 	(box :class "sound_popup"
-;; 		(revealer
-;; 			:transition "crossfade"
-;; 			:reveal true
-;; 			:duration "500ms"
-;; 			(box
-;; 				:space-evenly false
-;; 				:orientation "v"
-;; 				:valign "center"
-;; 				:spacing 0
-;; 				(label
-;; 					:halign "center"
-;; 					:class "icon_label"
-;; 					:text " "
-;; 				)
-;; 				(label
-;; 					:class "sound_label"
-;; 					:text "${sound_var} %"
-;; 				)
-;; 			)
-;; 		)
-;; 	)
-;; )
+
+;; Generic notification widget
+(defwindow notify
+    :monitor 0
+    :geometry (geometry :x "0%"
+        :y "30px"
+        :width 300
+        :height 300
+        :anchor "bottom center")
+    :stacking "fg"
+    :exclusive false
+    (notify_widget))
+
+;; Variables for notification content
+(defvar notify_icon "")
+(defvar notify_text "")
+
+;; Generic notification widget
+(defwidget notify_widget []
+    (box :class "notify_popup"
+        (revealer
+            :transition "crossfade"
+            :reveal true
+            :duration "500ms"
+            (box
+                :space-evenly false
+                :orientation "v"
+                :valign "center"
+                :spacing 10
+                (label
+                    :class "notify_icon"
+                    :text notify_icon
+                )
+                (label
+                    :class "notify_label"
+                    :text notify_text
+                )
+            )
+        )
+    )
+)

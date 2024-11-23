@@ -1,18 +1,15 @@
 #!/bin/bash
 
+# theme switcher for kitty and neovim all instances.
+
 KITTY_LIGHT_THEME="Flexoki (Light)"
 KITTY_DARK_THEME="Flexoki (Dark)"
 NVIM_LIGHT_THEME="flexoki-dawn"
 NVIM_DARK_THEME="gruber-darker"
 
 switch_kitty_theme() {
-	current_houlr=$(date +%H)
-
-	if [ $current_houlr -ge 14 ] || [ $current_houlr -lt 2 ]; then
-		kitten themes --reload-in=all "$KITTY_DARK_THEME"
-	else
-		kitten themes --reload-in=all "$KITTY_LIGHT_THEME"
-	fi
+	local theme=$1
+	kitten themes --reload-in=all "$theme"
 }
 
 switch_nvim_theme() {
@@ -22,20 +19,16 @@ switch_nvim_theme() {
 	done
 }
 
-# Function to switch all themes
 switch_themes() {
-	current_hour=$(date +%H)
-
-	if [ $current_hour -ge 18 ] || [ $current_hour -lt 6 ]; then
-		# Night time (6 PM to 6 AM)
-		switch_kitty_theme "dark"
+	current_hour=$(date +%H) # 24-hour clock
+	if [[ $current_hour -ge 14 ]] || [[ $current_hour -lt 2 ]]; then
+		switch_kitty_theme "$KITTY_DARK_THEME"
 		switch_nvim_theme "$NVIM_DARK_THEME"
-		echo "Switched to dark themes at $(date)"
+		hyprctl notify 1 3000 0 "Switched to dark themes at $(date)"
 	else
-		# Day time (6 AM to 6 PM)
-		switch_kitty_theme "light"
+		switch_kitty_theme "$KITTY_LIGHT_THEME"
 		switch_nvim_theme "$NVIM_LIGHT_THEME"
-		echo "Switched to light themes at $(date)"
+		hyprctl notify 1 3000 0 "Switched to light themes at $(date)"
 	fi
 }
 
