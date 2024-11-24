@@ -63,14 +63,14 @@
 .vol-controller {
   transition: opacity 0.2s ease-out;
   scale {
-    border-radius: 90px;
+    padding: 0 5px;
     trough {
-      background-color: $flexoki-blue-600;
+      background: $flexoki-cyan-400;
       min-height: 8px;
       border-radius: 92px;
       highlight {
         border-radius: 90px;
-        background: $flexoki-black;
+        background-color: $flexoki-blue-600;
       }
     }
   }
