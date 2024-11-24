@@ -7,6 +7,17 @@ return {
 	},
 	build = ":TSUpdate",
 	config = function()
+		require("ts_context_commentstring").setup({
+			enable_autocmd = false,
+			languages = {
+				typescript = "// %s",
+			},
+		})
+		local get_option = vim.filetype.get_option
+		vim.filetype.get_option = function(filetype, option)
+			return option == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring()
+				or get_option(filetype, option)
+		end
 		require("nvim-treesitter.configs").setup({
 			ensure_installed = {
 				"lua",
@@ -46,11 +57,6 @@ return {
 			highlight = { enable = true },
 			indent = { enable = true },
 			auto_install = true,
-
-			context_commentstring = {
-				elable = true,
-				enable_autocmd = false,
-			},
 
 			incremental_selection = {
 				enable = true,
