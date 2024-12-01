@@ -4,6 +4,10 @@ return {
 	config = function()
 		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 		require("oil").setup({
+			columns = {
+				"icon",
+				"size",
+			},
 			view_options = {
 				show_hidden = false,
 				is_hidden_file = function(name, _)
