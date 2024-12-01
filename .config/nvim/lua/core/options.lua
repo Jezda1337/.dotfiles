@@ -31,11 +31,12 @@ local options = {
 	timeoutlen = 300,
 	mouse = "a",
 	laststatus = 2,
-	-- statusline = "%t%h%m%r%=%c,%l/%L %P",
+	statusline = "%t%h%m%r%=%c,%l/%L %P",
 	cmdheight = 0,
 	clipboard = "unnamedplus",
 	wrap = false,
 	autoread = true,
+	spell = true,
 }
 
 for key, value in pairs(options) do
