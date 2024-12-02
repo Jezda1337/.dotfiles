@@ -6,7 +6,7 @@ KITTY_LIGHT_THEME="Flexoki (Light)"
 KITTY_DARK_THEME="Flexoki (Dark)"
 NVIM_LIGHT_THEME="flexoki-dawn"
 NVIM_DARK_THEME="gruber-darker"
-
+color_schema=$1
 switch_kitty_theme() {
 	local theme=$1
 	kitten themes --reload-in=all "$theme"
@@ -20,8 +20,18 @@ switch_nvim_theme() {
 }
 
 switch_themes() {
-	current_hour=$(date +%H) # 24-hour clock
-	if [[ $current_hour -ge 14 ]] || [[ $current_hour -lt 2 ]]; then
+	# current_hour=$(date +%H) # 24-hour clock
+	# if [[ $current_hour -ge 14 ]] || [[ $current_hour -lt 2 ]]; then
+	# 	switch_kitty_theme "$KITTY_DARK_THEME"
+	# 	switch_nvim_theme "$NVIM_DARK_THEME"
+	# 	hyprctl notify 1 3000 0 "Switched to dark themes at $(date)"
+	# else
+	# 	switch_kitty_theme "$KITTY_LIGHT_THEME"
+	# 	switch_nvim_theme "$NVIM_LIGHT_THEME"
+	# 	hyprctl notify 1 3000 0 "Switched to light themes at $(date)"
+	# fi
+
+	if [[ "$color_schema" == "dark" ]]; then
 		switch_kitty_theme "$KITTY_DARK_THEME"
 		switch_nvim_theme "$NVIM_DARK_THEME"
 		hyprctl notify 1 3000 0 "Switched to dark themes at $(date)"
@@ -31,14 +41,14 @@ switch_themes() {
 		hyprctl notify 1 3000 0 "Switched to light themes at $(date)"
 	fi
 }
-
-# Initial theme switch
+#
+# # Initial theme switch
 switch_themes
-
-(
-	while true; do
-		sleep 3600 # check once per hour
-		switch_themes
-	done
-) &
-disown
+#
+# (
+# 	while true; do
+# 		sleep 3600 # check once per hour
+# 		switch_themes
+# 	done
+# ) &
+# disown
