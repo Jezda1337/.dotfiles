@@ -47,10 +47,10 @@
 	)
 )
 
-(defpoll WEATHER :interval "5m" `curl https://wttr.in/Bajina-Basta?format=3`)
+(defpoll WEATHER :interval "5m" `curl https://wttr.in/Bajina-Basta?format=2`)
 (defwidget weather []
 	(box 
-		(label :text WEATHER)
+		(label :text "Бајина Башта ${WEATHER}")
 	)
 )
 
