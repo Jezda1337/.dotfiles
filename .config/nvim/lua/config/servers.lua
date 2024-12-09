@@ -138,7 +138,7 @@ M.servers = {
 		},
 	},
 	bashls = {},
-	html = { filetypes = { "html" } },
+	html = {},
 	htmx = { filetypes = { "html", "templ" } },
 	cssls = {},
 	eslint_d = {},
