@@ -1,4 +1,5 @@
 local options = {
+	ex = true,
 	softtabstop = 2,
 	tabstop = 2,
 	shiftwidth = 2,
@@ -37,11 +38,14 @@ local options = {
 	wrap = false,
 	autoread = true,
 	spell = true,
+	completeopt = "menu,fuzzy",
 }
 
 for key, value in pairs(options) do
 	vim.opt[key] = value
 end
+
+vim.opt.wildignore:append({ "*/node_modules/*,*/.history/*" })
 
 local function fold_virt_text(result, s, lnum, coloff)
 	if not coloff then
