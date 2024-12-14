@@ -39,13 +39,17 @@ local options = {
 	autoread = true,
 	spell = true,
 	completeopt = "menu,fuzzy",
+	grepprg = "grep -inH",
 }
 
 for key, value in pairs(options) do
 	vim.opt[key] = value
 end
 
-vim.opt.wildignore:append({ "*/node_modules/*,*/.history/*" })
+-- helpful for :find command, :find command won't look for this dirs
+vim.opt.wildignore:append({ "*/node_modules/*,*/.history/*,*/dist/*" })
+-- vim.opt.grepprg = "grep -rInH --exclude-dir=node_modules --exclude-dir=.history --exclude-dir=dist"
+vim.opt.grepprg = "rg --vimgrep --hidden --glob=!node_modules --glob=!.history --glob=!dist"
 
 local function fold_virt_text(result, s, lnum, coloff)
 	if not coloff then
