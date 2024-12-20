@@ -6,6 +6,8 @@ end
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
+map("n", "<leader>sw", ":grep <cWORD> . | copen")
+
 -- copy file path
 map("n", "<leader>fp", ":lua  vim.fn.setreg('+', vim.fn.expand('%:.'))<CR>")
 -- copy dir path
