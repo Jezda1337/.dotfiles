@@ -48,6 +48,12 @@ function yy() {
   rm -f -- "$tmp"
 }
 
+function gc() {
+ output=$(ollama run llama3.2:latest "Suggest commit messages for this changes keep it short: $(git diff)")
+ echo "$output"
+ echo "$output" | wl-copy
+}
+
 source /home/radoje/.config/broot/launcher/bash/br
 
 # pnpm
