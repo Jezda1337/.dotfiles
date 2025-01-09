@@ -1,4 +1,5 @@
 (defvar eww "~/pkgs/eww/target/release/eww")
+(defvar icons "/usr/share/icons/Papirus/16x16/apps/")
 
 (defwidget main []
 	(centerbox :orientation "h"
@@ -9,25 +10,31 @@
 
 (deflisten workspaces :initial "[]" "./scripts/get-workspaces")
 (deflisten current_workspace :initial "1" "./scripts/get-active-workspace")
+(deflisten current_app :initial "[]" "./scripts/get-active-app")
 (defwidget workspaces []
-  (eventbox :onscroll "./scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
-    (box :space-evenly false :spacing 0
-      (label :text "${workspaces}${current_workspace}" :visible false)
-      (for workspace in workspaces
-        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-          (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
-            (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
-            )
-          )
-        )
-      )
-    )
-  )
+	(eventbox :onscroll "./scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+		(box :space-evenly false :spacing 0
+			(box :space-evenly false :spacing 0
+				(label :text "${workspaces}${current_workspace}" :visible false)
+				(for workspace in workspaces
+					(eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+						(box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+							(label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
+						)
+					)
+				)
+			)
+			(image :icon {current_app})
+			;;(image :path "${icons+current_app}.svg")
+			;;(label :text {current_app})
+		)
+	)
+)
 
 (deflisten window-title :initial "..." "./scripts/get-window-title")
 (defwidget window_w []
   (box
-    (label :text "${window-title}")
+    ;;(label :text "${window-title}")
   )
 )
 
@@ -51,7 +58,7 @@
 	)
 )
 
-(defpoll WEATHER :interval "5m" `curl https://wttr.in/Bajina-Basta?format=2`)
+(defpoll WEATHER :interval "30m" `curl https://wttr.in/Bajina-Basta?format=2`)
 (defwidget weather []
 	(box 
 		(label :text "Бајина Башта ${WEATHER}")
