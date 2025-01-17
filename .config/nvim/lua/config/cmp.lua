@@ -16,7 +16,8 @@ return {
 		local kind = vim_item.kind
 
 		if source == "html-css" then
-			source_mapping["html-css"] = "[" .. entry.completion_item.provider .. "]" or "[html-css]"
+			-- source_mapping["html-css"] = "[" .. entry.completion_item.menu .. "]" or "[html-css]" -- v1
+			-- source_mapping["html-css"] = "[" .. entry.completion_item.provider .. "]" or "[html-css]" -- v2
 		end
 
 		vim_item.kind = (icons[kind] or "?") .. " "

@@ -6,7 +6,10 @@ end
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
-map("n", "<leader>sw", ":grep <cWORD> . | copen")
+map("n", "<leader>sw", ":grep <cWORD> . | copen <CR>")
+
+-- compile C code and run it. Doesn't work with user input (scanf)
+map("n", "<leader>r", ":!gcc % -o %:p:t:r && ./%:p:t:r <CR>")
 
 -- copy file path
 map("n", "<leader>fp", ":lua  vim.fn.setreg('+', vim.fn.expand('%:.'))<CR>")

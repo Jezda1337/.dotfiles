@@ -1,4 +1,3 @@
-#
 # ~/.bashrc # # starship nice shell
 eval "$(starship init bash)"
 

@@ -26,6 +26,11 @@ return {
 						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
+					-- if client == nil or not client:supports_method("textDocument/inlayHint", 0) then
+					-- 	return
+					-- end
+					-- vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+
 					if client:supports_method("textDocument/implementation") ~= nil then
 						map("gi", vim.lsp.buf.implementation, "Go to Implementation")
 					end

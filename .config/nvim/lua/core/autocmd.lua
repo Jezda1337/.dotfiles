@@ -1,8 +1,10 @@
 local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
 -- fix problem with css and ** * { ** }
 -- vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 autocmd({ "BufEnter", "BufWinEnter" }, {
+	group = augroup("CSS", { clear = true }),
 	pattern = { "*.css", "*.scss", "*.less", "*.sass" },
 	callback = function()
 		vim.cmd("set formatoptions-=ro")
@@ -24,31 +26,40 @@ end
 vim.on_key(toggle_hlsearch, ns)
 
 -- Highlight current line only on focused window
-local g = vim.api.nvim_create_augroup("LineHL", { clear = true })
 autocmd({ "WinEnter", "BufEnter", "InsertLeave" }, {
-	group = g,
+	group = augroup("LineHL", { clear = true }),
 	pattern = "*",
 	command = "if ! &cursorline && ! &pvw | setlocal cursorline | endif",
 })
 autocmd({ "WinLeave", "BufLeave", "InsertEnter" }, {
-	group = g,
+	group = augroup("LineHL", { clear = true }),
 	pattern = "*",
 	command = "if &cursorline && ! &pvw | setlocal nocursorline | endif",
 })
 
 autocmd("VimResized", {
+	group = augroup("Resize", { clear = true }),
 	command = "wincmd =",
 })
 
 -- since I have cmdheight=0 I cannot see recording status on macro, this event solves
 -- that problem by adding 󰑊 at the middle of the statusline while I'm recording a macro.
 autocmd("RecordingEnter", {
+	group = augroup("Recording", { clear = true }),
 	callback = function()
 		vim.opt.statusline = "%t%h%m%r%=󰑊%=%c,%l/%L %P"
 	end,
 })
 autocmd("RecordingLeave", {
+	group = augroup("Recording", { clear = true }),
 	callback = function()
 		vim.opt.statusline = "%t%h%m%r%=%c,%l/%L %P"
+	end,
+})
+
+autocmd("TextYankPost", {
+	group = augroup("highlight--text-on-yank", { clear = true }),
+	callback = function()
+		(vim.hl or vim.highlight).on_yank()
 	end,
 })

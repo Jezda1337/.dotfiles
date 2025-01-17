@@ -6,6 +6,7 @@ local M = {}
 -- 	.. "/node_modules/@vue/language-server"
 
 M.servers = {
+	clangd = {},
 	templ = {},
 	lua_ls = {
 		settings = {
@@ -138,9 +139,38 @@ M.servers = {
 		},
 	},
 	bashls = {},
-	html = {},
 	htmx = { filetypes = { "html", "templ" } },
-	cssls = {},
+	html = {
+		init_options = {
+			configurationSection = { "html", "css", "javascript" },
+			embeddedLanguages = {
+				css = true,
+				javascript = true,
+			},
+			provideFormatter = true,
+		},
+		settings = {
+			html = {
+				hover = true,
+				definition = true,
+				references = true,
+				links = true, -- Ensures links between files are resolved
+			},
+			css = {
+				lint = {
+					validProperties = {},
+				},
+			},
+		},
+	},
+	cssls = {
+		filetypes = { "css", "html" },
+		settings = {
+			css = { validate = true },
+			scss = { validate = true },
+			less = { validate = true },
+		},
+	},
 	eslint_d = {},
 	emmet_language_server = {},
 	jsonls = {},
