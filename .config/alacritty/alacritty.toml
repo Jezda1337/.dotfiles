@@ -10,7 +10,8 @@ size = 14
 [font.normal]
 # family = "JetBrainsMono Nerd Font"
 style = "Regular"
-family = "MartianMono Nerd Font"
+# family = "MartianMono Nerd Font"
+family = "0xProto"
 
 [[keyboard.bindings]]
 action = "CreateNewWindow"

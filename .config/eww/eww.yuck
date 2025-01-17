@@ -24,7 +24,7 @@
 					)
 				)
 			)
-			(image :icon {current_app})
+			(image :style "margin-left: 10px;" :icon {current_app})
 			;;(image :path "${icons+current_app}.svg")
 			;;(label :text {current_app})
 		)
