@@ -33,23 +33,19 @@ return {
 
 					if client:supports_method("textDocument/implementation") ~= nil then
 						map("gi", vim.lsp.buf.implementation, "Go to Implementation")
+					else
+						print("Go to Implementation is not supported")
 					end
 
 					---Enable new native completions
 					-- vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 
 					map("g=", vim.lsp.buf.format, "Format file")
-
-					if client.name == "htmx" then
-						client.server_capabilities.hoverProvider = false -- Disable hover for htmx-lsp
-						client.server_capabilities.definitionProvider = false
-						client.server_capabilities.referencesProvider = false
-					end
 				end,
 			})
 
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = vim.lsp.protocol.make_client_capabilities()
+			-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local servers = require("config.servers").servers
 			local formatters = require("config.servers").formatters

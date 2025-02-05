@@ -43,15 +43,15 @@ autocmd("VimResized", {
 })
 
 -- since I have cmdheight=0 I cannot see recording status on macro, this event solves
--- that problem by adding 󰑊 at the middle of the statusline while I'm recording a macro.
+-- that problem by adding 󰑊 at the middle of the status line while I'm recording a macro.
 autocmd("RecordingEnter", {
-	group = augroup("Recording", { clear = true }),
+	group = augroup("RecordingEnter", { clear = true }),
 	callback = function()
 		vim.opt.statusline = "%t%h%m%r%=󰑊%=%c,%l/%L %P"
 	end,
 })
 autocmd("RecordingLeave", {
-	group = augroup("Recording", { clear = true }),
+	group = augroup("RecordingLeave", { clear = true }),
 	callback = function()
 		vim.opt.statusline = "%t%h%m%r%=%c,%l/%L %P"
 	end,
