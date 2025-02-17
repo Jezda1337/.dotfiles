@@ -37,10 +37,12 @@ return {
 						print("Go to Implementation is not supported")
 					end
 
+
 					---Enable new native completions
 					-- vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
 
 					map("g=", vim.lsp.buf.format, "Format file")
+					map("gd", vim.lsp.buf.definition, "Go to definition")
 				end,
 			})
 
