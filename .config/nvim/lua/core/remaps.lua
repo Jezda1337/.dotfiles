@@ -6,6 +6,16 @@ end
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
+-- Open diagnostic quickfix list
+map("n", "<leader>q", vim.diagnostic.setloclist)
+
+map("n", "<leader>ca", vim.lsp.buf.code_action)
+map("n", "<leader>", vim.lsp.buf.rename)
+map("n", "gD", vim.lsp.buf.declaration)
+map("n", "gr", vim.lsp.buf.references)
+map("n", "gI", vim.lsp.buf.implementation)
+map("n", "<leader>D", vim.lsp.buf.type_definition)
+
 map("n", "<leader>sw", ":grep <cWORD> . | copen <CR>")
 
 -- compile C code and run it. Doesn't work with user input (scanf)
