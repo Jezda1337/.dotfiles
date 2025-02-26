@@ -50,6 +50,7 @@ return {
 				"rust",
 				"jsonc",
 				"c",
+				"comment",
 			},
 			sync_install = true,
 			ignore_install = {},
