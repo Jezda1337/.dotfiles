@@ -46,8 +46,8 @@ return {
 				end,
 			})
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			-- local capabilities = vim.lsp.protocol.make_client_capabilities() -- this one doesn't add all autocompletion
+			local capabilities = require("cmp_nvim_lsp").default_capabilities() -- this one add autocompletion for some files 
 
 			local servers = require("config.servers").servers
 			local formatters = require("config.servers").formatters
@@ -63,6 +63,7 @@ return {
 
 						require("lspconfig")[server_name].setup({
 							cmd = server.cmd,
+							root_dir = server.root_dir,
 							settings = server.settings,
 							filetypes = server.filetypes,
 							capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
