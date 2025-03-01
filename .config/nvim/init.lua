@@ -29,3 +29,4 @@ function open_floating_lazygit()
 end
 
 vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua open_floating_lazygit()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>gw", "<cmd>lua require('512-words').open()<CR>", { noremap = true, silent = true })

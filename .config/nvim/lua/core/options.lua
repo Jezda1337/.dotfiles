@@ -1,5 +1,6 @@
 local options = {
 	ex = true,
+	expandtab = true,
 	softtabstop = 2,
 	tabstop = 2,
 	shiftwidth = 2,
