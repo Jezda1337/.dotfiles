@@ -32,7 +32,6 @@ export NVM_DIR="$HOME/.nvm"
 alias ls="exa --no-user --icons --sort=ext --long --header --git"
 alias ls-t="exa --icons --long --tree --level=2"
 alias tx="tmux new -s $1"
-alias viber="sh -c './Downloads/viber.AppImage'"
 
 # exports
 export BROWSER="$(which firefox)"
