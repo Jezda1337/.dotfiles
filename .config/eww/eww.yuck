@@ -95,8 +95,8 @@
     :width "100%"
     :height "15px"
     :anchor "bottom center")
-  :stacking "overlay"
-  :exclusive false
+  :stacking "fg"
+  :exclusive true
   (main)
 )
 
