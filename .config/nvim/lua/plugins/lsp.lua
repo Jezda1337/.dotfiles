@@ -46,8 +46,9 @@ return {
 				end,
 			})
 
-			-- local capabilities = vim.lsp.protocol.make_client_capabilities() -- this one doesn't add all autocompletion
-			local capabilities = require("cmp_nvim_lsp").default_capabilities() -- this one add autocompletion for some files 
+			local capabilities = vim.lsp.protocol.make_client_capabilities() -- this one doesn't add all autocompletion
+            capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
+			-- local capabilities = require("cmp_nvim_lsp").default_capabilities() -- this one add autocompletion for some files 
 
 			local servers = require("config.servers").servers
 			local formatters = require("config.servers").formatters
