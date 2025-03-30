@@ -1,0 +1,43 @@
+#!/bin/bash
+# A script to pass all arguments to pamixer and update eww with the result.
+source ./notify
+
+get_volume() {
+	vol=$(pamixer --get-volume)
+	echo "$vol"
+}
+
+inc_volume() {
+	pamixer -i 5
+}
+
+dec_volume() {
+	pamixer -d 5
+}
+
+toggle_mute() {
+	pamixer -t
+}
+
+get_icon() {
+	current=$(get_volume)
+	if [[ "$current" -eq "0" ]]; then
+		echo " "
+	else
+		echo " "
+	fi
+}
+
+if [[ "$1" == "--get" ]]; then
+	get_volume
+elif [[ "$1" == "--inc" ]]; then
+	inc_volume
+elif [[ "$1" == "--dec" ]]; then
+	dec_volume
+elif [[ "$1" == "--toggle" ]]; then
+	toggle_mute
+elif [[ "$1" == "--get-icon" ]]; then
+	get_icon
+else
+	get_volume
+fi

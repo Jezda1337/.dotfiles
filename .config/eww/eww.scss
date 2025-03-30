@@ -1,0 +1,89 @@
+@import "flexoki";
+
+* {
+  all: unset;
+  // font-family: "JetBrains Mono";
+  font-family: "Martian Mono";
+}
+
+.main {
+  background: $flexoki-black;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 5px;
+  color: $flexoki-paper;
+}
+
+.bar {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: $flexoki-black;
+  border-left: 2px solid $flexoki-paper;
+  border-top: 2px solid $flexoki-paper;
+  border-bottom: 2px solid $flexoki-paper;
+}
+
+.bar_box {
+  padding: 10px;
+}
+.lbl {
+  font-size: 22px;
+}
+
+.a_btn {
+  background-color: $flexoki-black;
+  padding: 0px 10px;
+  border-radius: 2px;
+}
+.key_layout_btn {
+  background-color: $flexoki-black;
+  padding: 0px 10px;
+  border-radius: 2px;
+}
+
+.workspace-entry {
+  color: $flexoki-50;
+  opacity: 0.7;
+  padding: 0 2.5px;
+}
+
+.current {
+  color: $flexoki-paper;
+  opacity: 1;
+}
+
+.macak {
+  background-repeat: no-repeat;
+  background-size: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  border-radius: 100px;
+  border: 2px solid $flexoki-blue-600;
+}
+.vol-controller {
+  transition: opacity 0.2s ease-out;
+  scale {
+    padding: 0 5px;
+    trough {
+      background: $flexoki-cyan-400;
+      min-height: 8px;
+      border-radius: 92px;
+      highlight {
+        border-radius: 90px;
+        background-color: $flexoki-blue-600;
+      }
+    }
+  }
+}
+
+.notify_popup {
+  background: $flexoki-black;
+  border: 2px solid $flexoki-paper;
+  border-radius: 16px;
+}
+.notify_icon {
+  font-size: 100px;
+}
+.notify_label {
+  font-size: 30px;
+}

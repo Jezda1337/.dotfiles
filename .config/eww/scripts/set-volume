@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Get the new volume value as argument
+new_volume="$1"
+
+if [ "$new_volume" = "0" ]; then
+	# If volume is 0, mute
+	pamixer --mute
+	pamixer --set-volume 0
+elif [ "$new_volume" -gt 0 ]; then
+	# If volume is greater than 0, unmute and set volume
+	pamixer --unmute
+	pamixer --set-volume "$new_volume"
+fi

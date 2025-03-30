@@ -1,0 +1,32 @@
+import = [
+	"~/.config/alacritty/theme.toml"
+]
+
+live_config_reload = true
+
+[font]
+size = 14
+
+[font.normal]
+# family = "JetBrainsMono Nerd Font"
+style = "Regular"
+# family = "MartianMono Nerd Font"
+family = "0xProto"
+
+[[keyboard.bindings]]
+action = "CreateNewWindow"
+key = "Return"
+mods = "Control|Shift"
+
+[mouse]
+hide_when_typing = false
+
+[scrolling]
+history = 100000
+
+[window]
+padding = { x = 0, y = 0 }
+dynamic_padding = false
+dynamic_title = true
+decorations = "None"
+opacity = 0.5

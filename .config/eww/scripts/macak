@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+sxiv ~/Pictures/wallpapers/'IMG_1836 (3).jpg'

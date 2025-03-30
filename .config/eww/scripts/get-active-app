@@ -1,0 +1,24 @@
+#!/bin/bash
+
+handle() {
+	case $1 in
+	activewindow*)
+		current_app=$(echo "$1" | awk -F '>>|,' '/^activewindow>>/ {print $2}')
+		declare -A icon_map=(
+			["Brave-browser"]="brave"
+			["Google-chrome"]="google-chrome"
+			["Albion Online Launcher"]="albion-online"
+		)
+
+		if [[ -n "$current_app" ]]; then
+			if [[ ${icon_map[$current_app]+exists} ]]; then
+				echo ${icon_map[$current_app]}
+			else
+				echo ${current_app}
+			fi
+		fi
+		;;
+	esac
+}
+
+socat -U - UNIX-CONNECT:"$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" | while read -r line; do handle "$line"; done
