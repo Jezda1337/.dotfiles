@@ -39,7 +39,8 @@ local options = {
 	wrap = false,
 	autoread = true,
 	spell = true,
-	completeopt = "menuone,fuzzy,preinsert,noinsert,preview,popup",
+	completeopt = "menuone,fuzzy,noinsert,popup",
+    completeitemalign = "kind,abbr,menu",
 	grepprg = "grep -inH",
 }
 

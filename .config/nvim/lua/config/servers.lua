@@ -30,32 +30,32 @@ M.servers = {
             },
         },
     },
-    ts_ls = {
-        settings = {
-            javascript = {
-                inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = "none",
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                }
-            },
-            typescript = {
-                inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = "none",
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                },
-            },
-        }
-    },
+    -- ts_ls = {
+    --     settings = {
+    --         javascript = {
+    --             inlayHints = {
+    --                 includeInlayEnumMemberValueHints = true,
+    --                 includeInlayFunctionLikeReturnTypeHints = true,
+    --                 includeInlayFunctionParameterTypeHints = true,
+    --                 includeInlayParameterNameHints = "none",
+    --                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+    --                 includeInlayPropertyDeclarationTypeHints = true,
+    --                 includeInlayVariableTypeHints = true,
+    --             }
+    --         },
+    --         typescript = {
+    --             inlayHints = {
+    --                 includeInlayEnumMemberValueHints = true,
+    --                 includeInlayFunctionLikeReturnTypeHints = true,
+    --                 includeInlayFunctionParameterTypeHints = true,
+    --                 includeInlayParameterNameHints = "none",
+    --                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+    --                 includeInlayPropertyDeclarationTypeHints = true,
+    --                 includeInlayVariableTypeHints = true,
+    --             },
+    --         },
+    --     }
+    -- },
     gopls = {},
     astro = {},
     tailwindcss = {

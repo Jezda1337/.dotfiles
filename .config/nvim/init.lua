@@ -6,6 +6,96 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
 
+vim.lsp.enable({
+    "ts_ls",
+    "css_ls",
+    "json_ls",
+    "bash_ls",
+    "lua_ls",
+    "clangd_ls",
+    "html_ls",
+    "gopls_ls",
+    "tailwind_ls",
+})
+
+
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
+    callback = function(event)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if not client then return end
+
+        vim.lsp.handlers["textDocument/completion"] = function(_, _, result, _)
+            vim.print(result)
+        end
+
+        if client:supports_method("textDocument/completion") then
+            -- client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
+            local lsp_kind = vim.lsp.protocol.CompletionItemKind
+            local icons = require("config.icons")
+            vim.lsp.completion.enable(true, client.id, event.buf, {
+                autotrigger = false,
+                convert = function(item)
+                    local kind_name = lsp_kind[item.kind] or "Text"
+                    local icon = icons[kind_name] or "Text"
+                    return { kind = icon .. "│", abbr = item.label }
+                end
+            })
+
+            local _, cancel_prev = nil, function() end
+            vim.api.nvim_create_autocmd('CompleteChanged', {
+                buffer = event.buf,
+                callback = function()
+                    cancel_prev()
+                    local info = vim.fn.complete_info({ 'selected' })
+                    local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp',
+                        'completion_item')
+                    if nil == completionItem then
+                        return
+                    end
+                    _, cancel_prev = vim.lsp.buf_request(event.buf,
+                        vim.lsp.protocol.Methods.completionItem_resolve,
+                        completionItem,
+                        function(err, item, ctx)
+                            if not item then
+                                return
+                            end
+                            local docs = (item.documentation or {}).value
+                            local win = vim.api.nvim__complete_set(info['selected'], { info = docs })
+                            if win.winid and vim.api.nvim_win_is_valid(win.winid) then
+                                vim.treesitter.start(win.bufnr, 'markdown')
+                                vim.wo[win.winid].conceallevel = 3
+                            end
+                        end)
+                end
+            })
+        end
+        local map = function(keys, func, desc)
+            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
+
+        vim.keymap.set("i", "<c-n>", function() vim.lsp.completion.get() end)
+        vim.keymap.set("i", "<c-p>", function() vim.lsp.completion.get() end)
+
+        if client ~= nil and not client:supports_method("textDocument/inlayHint", 0) then
+            map("<leader>lh", function()
+                local bufnr = 0
+                local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+                vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = bufnr })
+            end, "Toggle Inlay Hints")
+        end
+
+        vim.diagnostic.config({ virtual_text = true })
+
+        local capabilities = vim.lsp.protocol.make_client_capabilities()          -- this one doesn't add all autocompletion
+        capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
+        -- local capabilities = require("cmp_nvim_lsp").default_capabilities() -- this one add autocompletion for some files
+
+        client.capabilities = capabilities
+    end
+})
+
+
 function open_floating_lazygit()
     local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
 
