@@ -1,0 +1,5 @@
+#--no-playlist
+-x
+--audio-format mp3
+
+-o ~/Downloads/music/%(title)s.%(ext)s
