@@ -1,7 +1,8 @@
+-- return {}
 return {
-	-- dir = vim.env.HOME .. "/personal/nvim-html-css-refactoring",
 	dir = vim.env.HOME .. "/personal/nvim-html-css",
-	-- dependencies = { "hrsh7th/nvim-cmp" },
+	-- dependencies = { "hrsh7th/nvim-cmp", "nvim-treesitter/nvim-treesitter" },
+	dependencies = { "saghen/blink.cmp", "nvim-treesitter/nvim-treesitter" },
 	opts = {
 		enable_on = {
 			"txt",
@@ -16,11 +17,11 @@ return {
 			"php",
 			"templ",
 			"astro",
-			"css",
 			"typescriptreact",
 			"javascriptreact",
+			"tmpl"
 		},
-		notify = true,
+		-- notify = true,
 		documentation = {
 			auto_show = true,
 		},
