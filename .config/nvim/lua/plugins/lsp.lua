@@ -22,6 +22,12 @@ return {
                 group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
                 callback = function(event)
                     local client = vim.lsp.get_client_by_id(event.data.client_id)
+                    -- builtin autocompletion is not there yet
+                    -- if client:supports_method("textDocument/completion") then
+                    --     client.server_capabilities.completionProvider.triggerCharacters = vim.split(
+                    --     "qwertyuiopasdfghjklzxcvbnm. ", "")
+                    --     vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+                    -- end
                     local map = function(keys, func, desc)
                         vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
                     end
@@ -48,6 +54,8 @@ return {
                     map("gd", vim.lsp.buf.definition, "Go to definition")
                 end,
             })
+
+            vim.diagnostic.config({ virtual_text = true })
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()          -- this one doesn't add all autocompletion
             capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example

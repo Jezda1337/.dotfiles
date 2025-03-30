@@ -39,7 +39,7 @@ local options = {
 	wrap = false,
 	autoread = true,
 	spell = true,
-	--completeopt = "menu,fuzzy", -- nightly only
+	completeopt = "menuone,fuzzy,preinsert,noinsert,preview,popup",
 	grepprg = "grep -inH",
 }
 
