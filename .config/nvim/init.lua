@@ -18,6 +18,8 @@ vim.lsp.enable({
     "tailwind_ls",
 })
 
+local console_log_macro = vim.api.nvim_replace_termcodes('yoconsole.log("")<Esc>bllhpla, <Esc>p<Esc>', true, true, true)
+vim.fn.setreg("l", console_log_macro)
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
