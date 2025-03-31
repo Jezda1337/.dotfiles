@@ -79,6 +79,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("i", "<c-n>", function() vim.lsp.completion.get() end)
         vim.keymap.set("i", "<c-p>", function() vim.lsp.completion.get() end)
 
+        map("g=", function() vim.lsp.buf.format() end, "Format file using LSP builting formatter")
+
         if client ~= nil and not client:supports_method("textDocument/inlayHint", 0) then
             map("<leader>lh", function()
                 local bufnr = 0
