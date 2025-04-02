@@ -76,8 +76,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
         end
 
-        vim.keymap.set("i", "<c-n>", function() vim.lsp.completion.get() end)
-        vim.keymap.set("i", "<c-p>", function() vim.lsp.completion.get() end)
+        vim.keymap.set("i", "<CR>", function()
+            return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+        end, { expr = true })
 
         map("g=", function() vim.lsp.buf.format() end, "Format file using LSP builting formatter")
 
@@ -93,7 +94,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()          -- this one doesn't add all autocompletion
         capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
-        -- local capabilities = require("cmp_nvim_lsp").default_capabilities() -- this one add autocompletion for some files
+        -- used for cmp or blink.cmp
+        -- local capabilities = require("cmp_nvim_lsp").default_capabilities()       -- this one add autocompletion for some files
+        -- capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
 
         client.capabilities = capabilities
     end
