@@ -80,6 +80,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
             return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
         end, { expr = true })
 
+        vim.keymap.set("i", "<C-n>", function()
+            if vim.fn.pumvisible() == 1 then
+                return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+            else
+                vim.lsp.completion.get()
+            end
+        end, { expr = true })
+
+        vim.keymap.set("i", "<C-p>", function()
+            if vim.fn.pumvisible() == 1 then
+                return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+            else
+                vim.lsp.completion.get()
+            end
+        end, { expr = true })
+
         map("g=", function() vim.lsp.buf.format() end, "Format file using LSP builting formatter")
 
         if client ~= nil and not client:supports_method("textDocument/inlayHint", 0) then
