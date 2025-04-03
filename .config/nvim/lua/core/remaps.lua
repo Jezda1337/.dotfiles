@@ -21,7 +21,7 @@ map("n", "<C-p>", ":find ", { noremap = true, silent = false})
 
 map("n", "<leader>D", vim.lsp.buf.type_definition)
 map("n", "gd", vim.lsp.buf.definition)
-map("n", "gD", ":vsplit | lua vim.lsp.buf.definition()")
+map("n", "gD", ":vsplit | lua vim.lsp.buf.definition()<CR>")
 
 map("n", "<leader>sw", ":grep <cWORD> . | copen <CR>")
 
