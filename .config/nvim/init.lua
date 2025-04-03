@@ -106,7 +106,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             end, "Toggle Inlay Hints")
         end
 
-        vim.diagnostic.config({ virtual_text = true })
+        -- vim.diagnostic.config({ virtual_text = true })
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()          -- this one doesn't add all autocompletion
         capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
