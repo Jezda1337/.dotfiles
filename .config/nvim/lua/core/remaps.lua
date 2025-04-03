@@ -1,5 +1,5 @@
-local map = function(mode, lhs, rhs)
-	local opts = { noremap = true, silent = true }
+local map = function(mode, lhs, rhs, opts)
+	opts = opts or { noremap = true, silent = true }
 	vim.keymap.set(mode, lhs, rhs, opts)
 end
 
@@ -9,8 +9,19 @@ vim.g.maplocalleader = ";"
 -- Open diagnostic quickfix list
 map("n", "<leader>q", vim.diagnostic.setqflist)
 
+map("n", "<C-/>", function()
+    local pattern = vim.fn.input("grep: ")
+    if pattern ~= "" then
+        vim.cmd("silent grep! " .. pattern)
+        vim.cmd("copen")
+    end
+end)
+
+map("n", "<C-p>", ":find ", { noremap = true, silent = false})
+
 map("n", "<leader>D", vim.lsp.buf.type_definition)
 map("n", "gd", vim.lsp.buf.definition)
+map("n", "gD", ":vsplit | lua vim.lsp.buf.definition()")
 
 map("n", "<leader>sw", ":grep <cWORD> . | copen <CR>")
 
