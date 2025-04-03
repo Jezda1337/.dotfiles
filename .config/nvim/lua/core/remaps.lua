@@ -1,6 +1,6 @@
 local map = function(mode, lhs, rhs, opts)
-	opts = opts or { noremap = true, silent = true }
-	vim.keymap.set(mode, lhs, rhs, opts)
+    opts = opts or { noremap = true, silent = true }
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 vim.g.mapleader = ";"
@@ -9,6 +9,7 @@ vim.g.maplocalleader = ";"
 -- Open diagnostic quickfix list
 map("n", "<leader>q", vim.diagnostic.setqflist)
 
+-- a better :grep
 map("n", "<C-/>", function()
     local pattern = vim.fn.input("grep: ")
     if pattern ~= "" then
@@ -17,12 +18,36 @@ map("n", "<C-/>", function()
     end
 end)
 
-map("n", "<C-p>", ":find ", { noremap = true, silent = false})
+-- shortcut for find command
+map("n", "<C-p>", ":find ", { noremap = true, silent = false })
+
+-- toggle current buffer with the full-screen using :tabedit %
+map("n", "<C-e>", function()
+    local current_buf = vim.api.nvim_get_current_buf()
+    local tabs = vim.api.nvim_list_tabpages()
+
+    if #tabs > 1 then
+        for _, tab in ipairs(tabs) do
+            local win = vim.api.nvim_tabpage_get_win(tab)
+            vim.print(win)
+            local buf = vim.api.nvim_win_get_buf(win)
+            vim.print(buf)
+            if buf == current_buf then
+                vim.cmd("tabclose")
+                return
+            end
+        end
+    end
+
+    vim.cmd("tabedit %")
+end)
 
 map("n", "<leader>D", vim.lsp.buf.type_definition)
 map("n", "gd", vim.lsp.buf.definition)
+-- go to definition in split buffer
 map("n", "gD", ":vsplit | lua vim.lsp.buf.definition()<CR>")
 
+-- grep word under the cursor
 map("n", "<leader>sw", ":grep <cWORD> . | copen <CR>")
 
 -- compile C code and run it. Doesn't work with user input (scanf)
@@ -40,7 +65,6 @@ map("n", "<leader>lg", ":term lazygit<cr>")
 
 -- increase/decrease numbers
 map("n", "+", "<C-a>")
-map("n", "-", "<C-x>")
 
 -- buffer jump
 map("n", "]b", ":lua vim.cmd('bn')<CR>")
