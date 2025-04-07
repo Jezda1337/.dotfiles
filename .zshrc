@@ -20,8 +20,8 @@ source <(fzf --zsh)
 alias tx=tmux
 
 # aliases
-alias ls="exa --no-user --icons --sort=ext --long --header --git"
-alias ls-t="exa --icons --long --tree --level=2"
+alias ls="eza --no-user --icons --sort=ext --long --header --git"
+alias ls-t="eza --icons --long --tree --level=2"
 
 # exports
 export BROWSER="$(which firefox)"
