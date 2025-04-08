@@ -1,4 +1,3 @@
-(defvar eww "~/pkgs/eww/target/release/eww")
 (defvar icons "/usr/share/icons/Papirus/16x16/apps/")
 
 (defwidget main []
@@ -44,7 +43,7 @@
 (defwidget clock []
 	(box :space-evenly false :halign "end" :spacing 10
 		(eventbox :cursor "pointer"
-			(button :onclick "${eww} update bar_rev=true"
+			(button :onclick "eww update bar_rev=true"
 				(label :text "${time}")
 			)
 		)
@@ -120,7 +119,7 @@
 			:duration "350ms"
 			:class "bar_box"
 			(box :valign "start"	:width 300
-				(button :width 30 :height 30 :onclick "${eww} update bar_rev=false" :halign "start"
+				(button :width 30 :height 30 :onclick "eww update bar_rev=false" :halign "start"
 					(label :class "lbl" :text "")
 				)
 			)
@@ -132,8 +131,8 @@
 (defvar side_rev false)
 (defwidget sound []
 	(eventbox 
-		:onhover "${eww} update side_rev=true"
-		:onhoverlost "${eww} update side_rev=false"
+		:onhover "eww update side_rev=true"
+		:onhoverlost "eww update side_rev=false"
 		(box :space-evenly "false" :spacing "3" :class "vol-controller"
 			(button	:onclick "pamixer -t"
 				(label :text "${vol == "muted" ? "  Muted" : vol == 0 ? "  Muted" : "   ${vol}%" }")
