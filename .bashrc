@@ -52,8 +52,6 @@ function gc() {
  echo "$output" | wl-copy
 }
 
-source /home/radoje/.config/broot/launcher/bash/br
-
 # pnpm
 export PNPM_HOME="/home/radoje/.local/share/pnpm"
 case ":$PATH:" in
