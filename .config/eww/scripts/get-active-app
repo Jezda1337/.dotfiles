@@ -8,6 +8,7 @@ handle() {
 			["Brave-browser"]="brave"
 			["Google-chrome"]="google-chrome"
 			["Albion Online Launcher"]="albion-online"
+			["zen"]="zen-browser"
 		)
 
 		if [[ -n "$current_app" ]]; then
