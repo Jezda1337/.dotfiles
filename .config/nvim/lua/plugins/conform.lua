@@ -1,6 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-	dependencies = { "mason.nvim" },
+	-- dependencies = { "mason.nvim" },
 	opts = {
 		templ = {},
 		formatters_by_ft = {

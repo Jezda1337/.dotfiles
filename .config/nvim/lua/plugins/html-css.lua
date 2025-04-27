@@ -33,8 +33,8 @@ return {}
 -- }
 -- return {
 --     dir = vim.env.HOME .. "/personal/nvim-html-css",
---     dependencies = { "hrsh7th/nvim-cmp", "nvim-treesitter/nvim-treesitter" },
---     -- dependencies = { "saghen/blink.cmp", "nvim-treesitter/nvim-treesitter" },
+--     -- dependencies = { "hrsh7th/nvim-cmp", "nvim-treesitter/nvim-treesitter" },
+--     dependencies = { "saghen/blink.cmp", "nvim-treesitter/nvim-treesitter" },
 --     opts = {
 --         enable_on = {
 --             "txt",

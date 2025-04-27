@@ -16,7 +16,10 @@ vim.lsp.enable({
     "html_ls",
     "gopls_ls",
     "tailwind_ls",
+    "html_css_ls"
 })
+
+require("lsp").setup()
 
 local console_log_macro = vim.api.nvim_replace_termcodes('yoconsole.log("")<Esc>bllhpla, <Esc>p<Esc>', true, true, true)
 vim.fn.setreg("l", console_log_macro)
