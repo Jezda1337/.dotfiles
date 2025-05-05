@@ -48,7 +48,7 @@
 			)
 		)
 		(box :space-evenly false :spacing 10
-			(weather)
+			;; (weather)
 			;;(right_side_panel)
 		)
 		(key_layout)
