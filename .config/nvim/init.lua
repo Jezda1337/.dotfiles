@@ -8,6 +8,7 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
 
 vim.lsp.enable({
     "ts_ls",
+    "py_ls",
     "css_ls",
     "json_ls",
     "bash_ls",
