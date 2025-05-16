@@ -19,7 +19,7 @@ PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
 export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin"
-export npm_config_prefix="$HOME/.local"
+#export npm_config_prefix="$HOME/.local"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
