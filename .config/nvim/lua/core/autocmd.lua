@@ -63,3 +63,10 @@ autocmd("TextYankPost", {
 		(vim.hl or vim.highlight).on_yank()
 	end,
 })
+
+-- Show errors and warnings in floating window
+-- autocmd("CursorHold", {
+--     callback = function()
+--         vim.diagnostic.open_float(nil, { focusable = false, source = "id_many" })
+--     end,
+-- })

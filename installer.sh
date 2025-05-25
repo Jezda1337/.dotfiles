@@ -12,6 +12,7 @@ declare -a lsps=(
   typescript
   typescript-language-server
   @vue/language-server
+  pyright
 )
 
 # Check if npm is available
@@ -20,8 +21,8 @@ if ! command -v npm >/dev/null 2>&1; then
   sudo pacman -S npm nodejs --noconfirm
 fi
 
-export npm_config_prefix="$HOME/.local"
-export PATH="$HOME/.local/bin:$PATH"
+# export npm_config_prefix="$HOME/.local"
+# export PATH="$HOME/.local/bin:$PATH"
 
 # Install LSPs globally
 for lsp in "${lsps[@]}"; do
@@ -30,7 +31,7 @@ done
 
 
 # Install pacman-based LSPs
-sudo pacman -S lua-language-server marksman --noconfirm
+sudo pacman -S lua-language-server marksman phpactor --noconfirm
 
 # Install Go-based LSPs
 go install golang.org/x/tools/gopls@latest

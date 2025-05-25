@@ -10,7 +10,7 @@ vim.g.maplocalleader = ";"
 map("n", "<leader>q", vim.diagnostic.setqflist)
 
 -- a better :grep
-map("n", "<C-/>", function()
+map("n", "<C-f>", function()
     local pattern = vim.fn.input("grep: ")
     if pattern ~= "" then
         vim.cmd("silent grep! " .. pattern)

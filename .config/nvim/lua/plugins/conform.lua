@@ -1,28 +1,29 @@
 return {
-	"stevearc/conform.nvim",
-	-- dependencies = { "mason.nvim" },
-	opts = {
-		templ = {},
-		formatters_by_ft = {
-			lua = { "stylua" },
-			-- stop_after_first = Only run the first available formatter in the list
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			vue = { "prettierd", "prettier", stop_after_first = true },
-			css = { "prettierd", "prettier", stop_after_first = true },
-			scss = { "prettierd", "prettier", stop_after_first = true },
-			html = { "prettierd", "prettier", stop_after_first = true },
-			json = { "prettierd", "prettier", stop_after_first = true },
-			typescript = { "prettierd", "prettier", stop_after_first = true },
-			markdown = { "prettierd", "prettier", stop_after_first = true },
-			go = { "gofmt", "goimports", stop_after_first = false },
-			-- templ = { inherit = false, command = "templ", args = { "fmt", "-filename", "$FILENAME" } },
-		},
+    "stevearc/conform.nvim",
+    -- dependencies = { "mason.nvim" },
+    opts = {
+        templ = {},
+        formatters_by_ft = {
+            lua = { "stylua" },
+            -- stop_after_first = Only run the first available formatter in the list
+            javascript = { "prettierd", "prettier", stop_after_first = true },
+            vue = { "prettierd", "prettier", stop_after_first = true },
+            css = { "prettierd", "prettier", stop_after_first = true },
+            scss = { "prettierd", "prettier", stop_after_first = true },
+            html = { "prettier", "prettierd", stop_after_first = true },
+            htmlangular = { "prettier", "prettierd", stop_after_first = true },
+            json = { "prettierd", "prettier", stop_after_first = true },
+            typescript = { "prettierd", "prettier", stop_after_first = true },
+            markdown = { "prettierd", "prettier", stop_after_first = true },
+            go = { "gofmt", "goimports", stop_after_first = false },
+            -- templ = { inherit = false, command = "templ", args = { "fmt", "-filename", "$FILENAME" } },
+        },
 
-		-- format_on_save = {
-		-- 	timeout_ms = 500,
-		-- 	lsp_format = "fallback",
-		-- },
-	},
+        format_on_save = {
+            timeout_ms = 500,
+            lsp_format = "fallback",
+        },
+    },
 }
 -- return {
 -- 	"elentok/format-on-save.nvim",
