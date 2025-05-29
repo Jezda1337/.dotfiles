@@ -18,7 +18,8 @@ vim.lsp.enable({
     "gopls_ls",
     "tailwind_ls",
     "html_css_ls",
-    "angular_ls"
+    "angular_ls",
+    "astro_ls"
 })
 
 require("lsp").setup()
