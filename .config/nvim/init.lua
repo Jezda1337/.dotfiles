@@ -92,7 +92,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             else
                 vim.lsp.completion.get()
             end
-        end, { expr = true })
+        end, { expr = true, buffer = false })
 
         vim.keymap.set("i", "<C-p>", function()
             if vim.fn.pumvisible() == 1 then
