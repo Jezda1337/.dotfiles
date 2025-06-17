@@ -4,25 +4,40 @@
   --text: 53, 100%, 97%;
   --border: 0, 0%, 19%;
 
-
   --tag-background: 180, 0%, 30%;
   --tag-color: 220, 10%, 100%;
   --error: 4, 71%, 62%;
   --warning: 55, 100%, 68%;
   --success: 140, 40%, 40%;
 
-  --weather-clear: linear-gradient(45deg, #87B2E0 0%, #CED9E5 50%);
-  --weather-few-clouds: linear-gradient(45deg, #A1A1A1 0%, #87B2E0 100%);
-  --weather-many-clouds: linear-gradient(45deg, #B2B2B2 0%, #C8C8C8 100%);
-  --weather-mist: linear-gradient(45deg, #878787 0%, #D1D1C7 100%);
-  --weather-showers: linear-gradient(45deg, #73848C 0%, #374B54 100%);
-  --weather-freezing-scattered-rain-storm: linear-gradient(45deg, #1A1C1F 0%, #242B35 100%);
-  --weather-freezing-scattered-rain: linear-gradient(45deg, #73848C 0%, #242B35 100%);
-  --weather-snow-scattered-day: linear-gradient(45deg, #73848C 0%, #242B35 100%);
-  --weather-storm: linear-gradient(45deg, #1A1C1F 0%, #242B35 100%);
-  --weather-snow-storm: linear-gradient(45deg, #1A1C1F 0%, #242B35 100%);
-  --weather-snow-scattered-storm: linear-gradient(45deg, #1A1C1F 0%, #242B35 100%);
-  --weather-showers-scattered: linear-gradient(45deg, #73848C 0%, #374B54 100%);
+  --weather-clear: linear-gradient(45deg, #87b2e0 0%, #ced9e5 50%);
+  --weather-few-clouds: linear-gradient(45deg, #a1a1a1 0%, #87b2e0 100%);
+  --weather-many-clouds: linear-gradient(45deg, #b2b2b2 0%, #c8c8c8 100%);
+  --weather-mist: linear-gradient(45deg, #878787 0%, #d1d1c7 100%);
+  --weather-showers: linear-gradient(45deg, #73848c 0%, #374b54 100%);
+  --weather-freezing-scattered-rain-storm: linear-gradient(
+    45deg,
+    #1a1c1f 0%,
+    #242b35 100%
+  );
+  --weather-freezing-scattered-rain: linear-gradient(
+    45deg,
+    #73848c 0%,
+    #242b35 100%
+  );
+  --weather-snow-scattered-day: linear-gradient(
+    45deg,
+    #73848c 0%,
+    #242b35 100%
+  );
+  --weather-storm: linear-gradient(45deg, #1a1c1f 0%, #242b35 100%);
+  --weather-snow-storm: linear-gradient(45deg, #1a1c1f 0%, #242b35 100%);
+  --weather-snow-scattered-storm: linear-gradient(
+    45deg,
+    #1a1c1f 0%,
+    #242b35 100%
+  );
+  --weather-showers-scattered: linear-gradient(45deg, #73848c 0%, #374b54 100%);
 
   --weather-none-available: 0, 0%, 50%;
   /* Neutral placeholder gray */
@@ -34,7 +49,6 @@
 --success: 102, 36%, 53%;
 */
 
-
 overshoot *,
 undershoot *,
 overshoot.top,
@@ -44,7 +58,7 @@ overshoot.left undershoot.top,
 undershoot.right,
 undershoot.bottom,
 undershoot.left,
-.scroll-window>*,
+.scroll-window > *,
 overshoot:backdrop {
   background: none;
   border: none;
@@ -52,6 +66,7 @@ overshoot:backdrop {
 }
 
 * {
+  all: unset;
   padding: 0px;
   margin: 0px;
   -gtk-secondary-caret-color: hsl(var(--background));
@@ -60,6 +75,10 @@ overshoot:backdrop {
   outline-style: dashed;
   line-height: 1;
   font-family: "Cantarell";
+}
+
+label {
+  color: hsl(var(--text));
 }
 
 #overlay spinner {
@@ -75,45 +94,23 @@ row:selected,
   background: transparent;
 }
 
-scrolledwindow>viewport,
-scrolledwindow>viewport>*,
+scrolledwindow > viewport,
+scrolledwindow > viewport > *,
 listview,
+gridview,
 window {
   background: hsl(var(--background));
 }
 
-
-label {
-  color: hsl(var(--text));
+#backdrop {
+  background: black;
 }
 
-
-window {
+window:not(#backdrop) {
   color: hsl(var(--text));
   border-radius: 5px;
   border: 2px solid hsl(var(--border));
 }
-
-/* STATUS BAR */
-.status-bar {
-  background: hsla(var(--foreground), 0.2);
-  border-top: 1px solid hsl(var(--border));
-  padding: 4px 10px 4px 20px;
-}
-
-.status-bar label {
-  color: hsl(var(--text), 0.3);
-}
-
-.spinner-disappear {
-  animation: vanish-rotate 0.3s ease forwards;
-}
-
-.spinner-appear {
-  animation: ease-opacity 0.3s ease forwards;
-  animation: rotate 0.3s linear infinite;
-}
-
 
 /* SEARCH PAGE */
 #search-bar {
@@ -154,7 +151,6 @@ window {
   opacity: 1;
 }
 
-
 #search-icon {
   margin-left: 10px;
 }
@@ -194,7 +190,6 @@ scrollbar slider {
   border: none;
 }
 
-
 image {
   color: white;
 }
@@ -204,6 +199,7 @@ image {
   min-height: 50px;
   padding: 0px 10px;
   margin-bottom: 5px;
+  border: 1px solid transparent;
   border-radius: 4px;
 }
 
@@ -218,43 +214,43 @@ image {
   animation: fadeInUp 0.2s ease-out forwards;
 }
 
-.tile.animate:nth-child(1) {
+row:nth-child(1) .tile.animate {
   animation-delay: 0.05s;
 }
 
-.tile.animate:nth-child(2) {
+row:nth-child(2) .tile.animate {
   animation-delay: 0.1s;
 }
 
-.tile.animate:nth-child(3) {
+row:nth-child(3) .tile.animate {
   animation-delay: 0.15s;
 }
 
-.tile.animate:nth-child(4) {
+row:nth-child(4) .tile.animate {
   animation-delay: 0.2s;
 }
 
-.tile.animate:nth-child(5) {
+row:nth-child(5) .tile.animate {
   animation-delay: 0.25s;
 }
 
-.tile.animate:nth-child(6) {
+row:nth-child(6) .tile.animate {
   animation-delay: 0.3s;
 }
 
-.tile.animate:nth-child(7) {
+row:nth-child(7) .tile.animate {
   animation-delay: 0.35s;
 }
 
-.tile.animate:nth-child(8) {
+row:nth-child(8) .tile.animate {
   animation-delay: 0.4s;
 }
 
-.tile.animate:nth-child(9) {
+row:nth-child(9) .tile.animate {
   animation-delay: 0.45s;
 }
 
-.tile.animate:nth-child(10) {
+row:nth-child(10) .tile.animate {
   animation-delay: 0.5s;
 }
 
@@ -285,8 +281,12 @@ image {
 row:selected .tile {
   background: hsla(var(--foreground), 1);
   background-color: hsla(var(--foreground), 1);
-  outline: none;
-  border: none;
+}
+row:selected .tile.multi-active,
+.tile.multi-active {
+  background: hsla(var(--foreground), 1);
+  background-color: hsla(var(--foreground), 1);
+  border: 1px solid hsla(var(--text), 1);
 }
 
 .tile:selected .tag,
@@ -324,7 +324,6 @@ row:selected .tile {
   border-radius: 50px;
 }
 
-
 /*SHORTCUT*/
 #shortcut-holder {
   margin-right: 25px;
@@ -354,7 +353,6 @@ row:selected .tile {
 #shortcut-modkey {
   font-size: 13px;
 }
-
 
 /*CALCULATOR*/
 .calc-tile {
@@ -390,15 +388,11 @@ row:selected .tile {
   color: gray;
 }
 
-
-
-
 /* BULK TEXT TILE */
 .bulk-text {
   padding-bottom: 10px;
   min-height: 50px;
 }
-
 
 #bulk-text-title {
   margin-left: 10px;
@@ -421,8 +415,6 @@ row:selected .tile {
   min-height: 20px;
 }
 
-
-
 /* MPRIS TILE*/
 #mpris-icon-holder {
   border-radius: 5px;
@@ -434,11 +426,21 @@ row:selected .tile {
   animation: ease-opacity 0.5s forwards;
 }
 
+/* EMOJI */
+gridview child {
+  padding: 5px;
+  background: transparent;
+}
 
+gridview child box {
+  background: hsl(var(--foreground));
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
 
-
-
-
+gridview child:selected box {
+  border: 1px solid hsl(var(--tag-color));
+}
 
 /* NEXT PAGE */
 .next_tile {
@@ -454,11 +456,10 @@ row:selected .tile {
 
 .raw_text,
 .next_tile #content-body {
-  font-family: 'Fira Code', monospace;
+  font-family: "Fira Code", monospace;
   font-feature-settings: "kern" off;
   font-kerning: None;
 }
-
 
 /*Error*/
 .error-tile #scroll-window {
@@ -509,7 +510,6 @@ row:selected .tile {
   color: gray;
 }
 
-
 /* STATUS BAR */
 .status-bar {
   background: hsla(var(--foreground), 0.2);
@@ -521,15 +521,65 @@ row:selected .tile {
   color: hsl(var(--text), 0.3);
 }
 
+.status-bar #shortcut-key,
+.status-bar #shortcut-modifier {
+  background: hsl(var(--foreground));
+  margin: 2px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 13px;
+}
 
-@keyframes slide {
-  from {
-    transform: translate(0px, 0px);
-  }
+.status-bar #shortcut-description {
+  font-size: 13px;
+  margin-right: 10px;
+}
 
-  to {
-    transform: translate(-20px, 0px);
-  }
+.spinner-disappear {
+  animation: vanish-rotate 0.3s ease forwards;
+}
+
+.spinner-appear {
+  animation: ease-opacity 0.3s ease forwards;
+  animation: rotate 0.3s linear infinite;
+}
+
+.inactive {
+  opacity: 0;
+  transition: 0.1s ease;
+}
+
+.active {
+  opacity: 1;
+  transition: 0.1s ease;
+}
+
+/* CONTEXT MENU */
+#context-menu {
+  min-width: 50px;
+  padding: 5px;
+  margin: 4px;
+  margin-bottom: 35px;
+  background: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: 5px;
+  box-shadow: unset;
+}
+
+#context-menu row {
+  color: hsla(var(--text), 0.8);
+  transition: 0.1s ease;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+#context-menu label {
+  color: hsla(var(--text), 0.8);
+  font-size: 13px;
+}
+
+#context-menu row:selected {
+  background: hsl(var(--foreground));
 }
 
 /* WEATHER TILE */
@@ -567,78 +617,72 @@ row:selected .tile {
   margin-bottom: 15px;
 }
 
-
-
-
-
-
 /*WEATHER CLASSES*/
-.tile.weather-tile label {
-  color: hsl(var(--text));
-}
-
+/* Weather Types */
 .tile.weather-tile.weather-clear {
   background: var(--weather-clear);
-  /* Light sky blue */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-few-clouds {
   background: var(--weather-few-clouds);
-  /* Very light */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-many-clouds {
   background: var(--weather-many-clouds);
-  /* Medium-light */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-mist {
   background: var(--weather-mist);
-  /* Light beige */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-showers {
   background: var(--weather-showers);
-  /* Medium-dark blue */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-freezing-scattered-rain-storm {
   background: var(--weather-freezing-scattered-rain-storm);
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-freezing-scattered-rain {
   background: var(--weather-freezing-scattered-rain);
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-snow-scattered-day {
   background: var(--weather-snow-scattered-day);
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-storm {
   background: var(--weather-storm);
-  /* Very dark */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-snow-storm {
   background: var(--weather-snow-storm);
-  /* Light */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-snow-scattered-storm {
   background: var(--weather-snow-scattered-storm);
-  /* Still light */
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-showers-scattered {
   background: var(--weather-showers-scattered);
+  background-clip: padding-box;
 }
 
 .tile.weather-tile.weather-none-available {
   background: hsl(var(--weather-none-available));
-  /* Neutral gray */
+  background-clip: padding-box;
 }
-
-
 
 /*ANIMATIONS*/
 @keyframes vanish-rotate {
@@ -650,7 +694,6 @@ row:selected .tile {
     opacity: 0;
     transform: rotate(360deg);
   }
-
 }
 
 @keyframes rotate {
@@ -663,7 +706,6 @@ row:selected .tile {
     transform: rotate(360deg);
     --start-rotation: 360deg;
   }
-
 }
 
 @keyframes ease-opacity {
@@ -674,7 +716,16 @@ row:selected .tile {
   to {
     opacity: 1;
   }
+}
 
+@keyframes slide {
+  from {
+    transform: translate(0px, 0px);
+  }
+
+  to {
+    transform: translate(-20px, 0px);
+  }
 }
 
 @keyframes slide {

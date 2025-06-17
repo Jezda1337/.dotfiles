@@ -35,7 +35,7 @@ global_prefix           =   ""
 global_flags            =   ""                                    
 
 [binds]
-prev                    =   "shift-tab"                           
+prev                    =   "shift-tab"                                  
 next                    =   "tab"                                  
 modifier                =   "control"                               
 
