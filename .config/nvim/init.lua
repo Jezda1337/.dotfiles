@@ -27,102 +27,102 @@ require("lsp").setup()
 local console_log_macro = vim.api.nvim_replace_termcodes('yoconsole.log("")<Esc>bllhpla, <Esc>p<Esc>', true, true, true)
 vim.fn.setreg("l", console_log_macro)
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
-    callback = function(event)
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if not client then return end
-
-        vim.lsp.handlers["textDocument/completion"] = function(_, _, result, _)
-            vim.print(result)
-        end
-
-        if client:supports_method("textDocument/completion") then
-            -- client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
-            local lsp_kind = vim.lsp.protocol.CompletionItemKind
-            local icons = require("config.icons")
-            vim.lsp.completion.enable(true, client.id, event.buf, {
-                autotrigger = false,
-                convert = function(item)
-                    local kind_name = lsp_kind[item.kind] or "Text"
-                    local icon = icons[kind_name] or "Text"
-                    return { kind = icon .. "│", abbr = item.label }
-                end
-            })
-
-            local _, cancel_prev = nil, function() end
-            vim.api.nvim_create_autocmd('CompleteChanged', {
-                buffer = event.buf,
-                callback = function()
-                    cancel_prev()
-                    local info = vim.fn.complete_info({ 'selected' })
-                    local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp',
-                        'completion_item')
-                    if nil == completionItem then
-                        return
-                    end
-                    _, cancel_prev = vim.lsp.buf_request(event.buf,
-                        vim.lsp.protocol.Methods.completionItem_resolve,
-                        completionItem,
-                        function(err, item, ctx)
-                            if not item then
-                                return
-                            end
-                            local docs = (item.documentation or {}).value
-                            local win = vim.api.nvim__complete_set(info['selected'], { info = docs })
-                            if win.winid and vim.api.nvim_win_is_valid(win.winid) then
-                                vim.treesitter.start(win.bufnr, 'markdown')
-                                vim.wo[win.winid].conceallevel = 3
-                            end
-                        end)
-                end
-            })
-        end
-        local map = function(keys, func, desc)
-            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-        end
-
-        vim.keymap.set("i", "<CR>", function()
-            return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
-        end, { expr = true })
-
-        vim.keymap.set("i", "<C-n>", function()
-            if vim.fn.pumvisible() == 1 then
-                return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
-            else
-                vim.lsp.completion.get()
-            end
-        end, { expr = true, buffer = false })
-
-        vim.keymap.set("i", "<C-p>", function()
-            if vim.fn.pumvisible() == 1 then
-                return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
-            else
-                vim.lsp.completion.get()
-            end
-        end, { expr = true })
-
-        map("g=", function() vim.lsp.buf.format() end, "Format file using LSP builting formatter")
-
-        if client ~= nil and not client:supports_method("textDocument/inlayHint", 0) then
-            map("<leader>lh", function()
-                local bufnr = 0
-                local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
-                vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = bufnr })
-            end, "Toggle Inlay Hints")
-        end
-
-        -- vim.diagnostic.config({ virtual_text = true })
-
-        local capabilities = vim.lsp.protocol.make_client_capabilities()          -- this one doesn't add all autocompletion
-        capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
-        -- used for cmp or blink.cmp
-        -- local capabilities = require("cmp_nvim_lsp").default_capabilities()       -- this one add autocompletion for some files
-        -- capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
-
-        client.capabilities = capabilities
-    end
-})
+-- vim.api.nvim_create_autocmd("LspAttach", {
+--     group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
+--     callback = function(event)
+--         local client = vim.lsp.get_client_by_id(event.data.client_id)
+--         if not client then return end
+--
+--         vim.lsp.handlers["textDocument/completion"] = function(_, _, result, _)
+--             vim.print(result)
+--         end
+--
+--         if client:supports_method("textDocument/completion") then
+--             -- client.server_capabilities.completionProvider.triggerCharacters = vim.split("qwertyuiopasdfghjklzxcvbnm. ", "")
+--             local lsp_kind = vim.lsp.protocol.CompletionItemKind
+--             local icons = require("config.icons")
+--             vim.lsp.completion.enable(true, client.id, event.buf, {
+--                 autotrigger = false,
+--                 convert = function(item)
+--                     local kind_name = lsp_kind[item.kind] or "Text"
+--                     local icon = icons[kind_name] or "Text"
+--                     return { kind = icon .. "│", abbr = item.label }
+--                 end
+--             })
+--
+--             local _, cancel_prev = nil, function() end
+--             vim.api.nvim_create_autocmd('CompleteChanged', {
+--                 buffer = event.buf,
+--                 callback = function()
+--                     cancel_prev()
+--                     local info = vim.fn.complete_info({ 'selected' })
+--                     local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp',
+--                         'completion_item')
+--                     if nil == completionItem then
+--                         return
+--                     end
+--                     _, cancel_prev = vim.lsp.buf_request(event.buf,
+--                         vim.lsp.protocol.Methods.completionItem_resolve,
+--                         completionItem,
+--                         function(err, item, ctx)
+--                             if not item then
+--                                 return
+--                             end
+--                             local docs = (item.documentation or {}).value
+--                             local win = vim.api.nvim__complete_set(info['selected'], { info = docs })
+--                             if win.winid and vim.api.nvim_win_is_valid(win.winid) then
+--                                 vim.treesitter.start(win.bufnr, 'markdown')
+--                                 vim.wo[win.winid].conceallevel = 3
+--                             end
+--                         end)
+--                 end
+--             })
+--         end
+--         local map = function(keys, func, desc)
+--             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+--         end
+--
+--         vim.keymap.set("i", "<CR>", function()
+--             return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+--         end, { expr = true })
+--
+--         vim.keymap.set("i", "<C-n>", function()
+--             if vim.fn.pumvisible() == 1 then
+--                 return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+--             else
+--                 vim.lsp.completion.get()
+--             end
+--         end, { expr = true, buffer = false })
+--
+--         vim.keymap.set("i", "<C-p>", function()
+--             if vim.fn.pumvisible() == 1 then
+--                 return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+--             else
+--                 vim.lsp.completion.get()
+--             end
+--         end, { expr = true })
+--
+--         map("g=", function() vim.lsp.buf.format() end, "Format file using LSP builting formatter")
+--
+--         if client ~= nil and not client:supports_method("textDocument/inlayHint", 0) then
+--             map("<leader>lh", function()
+--                 local bufnr = 0
+--                 local is_enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+--                 vim.lsp.inlay_hint.enable(not is_enabled, { bufnr = bufnr })
+--             end, "Toggle Inlay Hints")
+--         end
+--
+--         -- vim.diagnostic.config({ virtual_text = true })
+--
+--         local capabilities = vim.lsp.protocol.make_client_capabilities()          -- this one doesn't add all autocompletion
+--         capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
+--         -- used for cmp or blink.cmp
+--         -- local capabilities = require("cmp_nvim_lsp").default_capabilities()       -- this one add autocompletion for some files
+--         -- capabilities.textDocument.completion.completionItem.snippetSupport = true -- without this blink.cmp doesn't work with index.css file for example
+--
+--         client.capabilities = capabilities
+--     end
+-- })
 
 
 function open_floating_lazygit()
