@@ -33,6 +33,7 @@ export NVM_DIR="$HOME/.nvm"
 alias ls="exa --no-user --icons --sort=ext --long --header --git"
 alias ls-t="exa --icons --long --tree --level=2"
 alias tx="tmux new -s $1"
+alias wow="WINEPREFIX=~/.wine-wow WINEESYNC=1 WINEFSYNC=1 DXVK_HUD=0 wine /home/radoje/Downloads/'World of Warcraft 3.3.5a'/Wow.exe"
 
 # exports
 export BROWSER="$(which firefox)"
@@ -64,3 +65,6 @@ esac
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# opencode
+export PATH=/home/radoje/.opencode/bin:$PATH
