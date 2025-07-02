@@ -44,6 +44,7 @@ end)
 
 map("n", "<leader>D", vim.lsp.buf.type_definition)
 map("n", "gd", vim.lsp.buf.definition)
+map("n", "gi", vim.lsp.buf.implementation)
 -- go to definition in split buffer
 map("n", "gD", ":vsplit | lua vim.lsp.buf.definition()<CR>")
 
