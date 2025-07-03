@@ -2,9 +2,26 @@ require("core")
 
 vim.cmd("colorscheme gruber-darker")
 
-vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+
+local transparent_groups = {
+    "Normal",
+    "NormalNC",
+    "NormalFloat",
+    "NonText",
+    "SignColumn",
+    "VertSplit",
+    "StatusLine",
+    "EndOfBuffer",
+    "FloatBorder",
+    "WinSeparator",
+}
+
+for _, group in ipairs(transparent_groups) do
+    vim.api.nvim_set_hl(0, group, { bg = "none" })
+end
 
 vim.lsp.enable({
     "ts_ls",
