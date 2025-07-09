@@ -47,10 +47,6 @@
 				(label :text "${time}")
 			)
 		)
-		(box :space-evenly false :spacing 10
-			;; (weather)
-			;;(right_side_panel)
-		)
 		(key_layout)
 		(sound)
 		(macak)
@@ -76,13 +72,13 @@
 		(label 
 			:width 30 
 			:class "key_layout_btn" 
-			:text "${var_key_layout == "en" ? "us 󰥻" : "rs 󰥻"}"
+      :text "${var_key_layout} 󰥻"
 		)
 	)
 )
 
 (defwidget macak []
-	(eventbox :onclick "scripts/macak" :valign "center"
+	(eventbox :onclick "scripts/macak" :valign "center" :cursor "pointer"
 		(box :class "macak" :tooltip "Маћак" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")
 	)
 )
@@ -133,9 +129,10 @@
 	(eventbox 
 		:onhover "eww update side_rev=true"
 		:onhoverlost "eww update side_rev=false"
-		(box :space-evenly "false" :spacing "3" :class "vol-controller"
+    :cursor "pointer"
+		(box :space-evenly "false" :class "vol-controller"
 			(button	:onclick "pamixer -t"
-				(label :text "${vol == "muted" ? "  Muted" : vol == 0 ? "  Muted" : "   ${vol}%" }")
+				(label :text "${vol == "muted" ? " Muted" : vol == 0 ? " Muted" : " ${vol}%"}")
 			)
 			(revealer 
 				:transition "slideleft"
