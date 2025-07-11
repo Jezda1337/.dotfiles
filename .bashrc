@@ -49,7 +49,7 @@ function yy() {
 }
 
 function gc() {
- output=$(ollama run llama3.2:latest "Suggest commit messages for this changes keep it short: $(git diff)")
+ output=$(ollama run qwen2.5-coder:32b "Suggest commit messages for this changes: $(git diff)")
  echo "$output"
  echo "$output" | wl-copy
 }
