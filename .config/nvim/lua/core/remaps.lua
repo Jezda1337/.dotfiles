@@ -74,8 +74,8 @@ map("n", "[b", ":lua vim.cmd('bp')<CR>")
 -- moving whole lines up or down
 map("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo")
 map("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
-map("n", "<C-K>", ":m -2<CR>")
-map("n", "<C-J>", ":m +1<CR>")
+map("n", "<S-k>", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
+map("n", "<S-j>", ":m '>+1<CR>gv==kgvo<esc>=kgvo")
 
 -- duplicate line with persisten couror position
 -- new way
