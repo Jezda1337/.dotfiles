@@ -11,6 +11,7 @@ return {
             css = { "prettierd", "prettier", stop_after_first = true },
             scss = { "prettierd", "prettier", stop_after_first = true },
             html = { "prettier", "prettierd", stop_after_first = true },
+            astro = { "prettier", "prettierd", stop_after_first = true },
             htmlangular = { "prettier", "prettierd", stop_after_first = true },
             json = { "prettierd", "prettier", stop_after_first = true },
             typescript = { "prettierd", "prettier", stop_after_first = true },
