@@ -48,6 +48,8 @@ map("n", "gi", vim.lsp.buf.implementation)
 -- go to definition in split buffer
 map("n", "gD", ":vsplit | lua vim.lsp.buf.definition()<CR>")
 
+map("n", "-", ":Explore <CR>")
+
 -- grep word under the cursor
 map("n", "<leader>sw", ":grep <cWORD> . | copen <CR>")
 
@@ -74,8 +76,8 @@ map("n", "[b", ":lua vim.cmd('bp')<CR>")
 -- moving whole lines up or down
 map("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo")
 map("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
-map("n", "<S-k>", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
-map("n", "<S-j>", ":m '>+1<CR>gv==kgvo<esc>=kgvo")
+map("n", "<C-k>", ":m '<-2<CR>gv==jgvo<esc>=jgvo")
+map("n", "<C-j>", ":m '>+1<CR>gv==kgvo<esc>=kgvo")
 
 -- duplicate line with persisten couror position
 -- new way
