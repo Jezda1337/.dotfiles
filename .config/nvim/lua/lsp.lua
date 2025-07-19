@@ -30,7 +30,7 @@ local function server(dispatchers)
         elseif method == "textDocument/hover" then
             -- params.position.lone or character both are int
             local node = vim.treesitter.get_node()
-            vim.print(vim.treesitter.get_node_text(node, 0))
+            -- vim.print(vim.treesitter.get_node_text(node, 0))
 
             -- vim.print(params)
             -- print("HOVERRRRRRRRRRRR")
