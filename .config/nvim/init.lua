@@ -1,5 +1,64 @@
 require("core")
 
+local function fzf_picker(find_cmd, vim_cmd)
+    local buf = vim.api.nvim_create_buf(false, true)
+    local width = math.floor(vim.o.columns * 0.6)
+    local height = math.floor(vim.o.lines * 0.6)
+    local row = math.floor((vim.o.lines - height) / 2)
+    local col = math.floor((vim.o.columns - width) / 2)
+
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = 'editor',
+        row = row,
+        col = col,
+        width = width,
+        height = height,
+        style = 'minimal',
+        border = 'rounded',
+    })
+
+    local tmpfile = "/tmp/fzf_result_" .. vim.fn.getpid()
+
+    local cmd = string.format('%s | fzf > %s', find_cmd, tmpfile)
+
+
+    vim.fn.jobstart(cmd, {
+        on_exit = function()
+            vim.schedule(function()
+                vim.api.nvim_win_close(win, true)
+
+                local file = io.open(tmpfile, "r")
+                if not file then return end
+                local selection = file:read("*l")
+                file:close()
+                os.remove(tmpfile)
+
+                if selection and selection ~= "" then
+                    vim.cmd(vim_cmd .. " " .. vim.fn.fnameescape(selection))
+                end
+            end)
+        end,
+        term = true
+    })
+
+    vim.cmd("startinsert")
+end
+
+local cmd = "fd --type f --hidden --exclude .git --exclude .node_modules"
+
+-- Bind keys
+vim.keymap.set("n", "<leader>ff", function()
+    fzf_picker(cmd, ":e")
+end, { noremap = true })
+
+vim.keymap.set("n", "<leader>fv", function()
+    fzf_picker(cmd, ":vs")
+end, { noremap = true })
+
+vim.keymap.set("n", "<leader>fs", function()
+    fzf_picker(cmd, ":sp")
+end, { noremap = true })
+
 vim.cmd("colorscheme gruber-darker")
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
