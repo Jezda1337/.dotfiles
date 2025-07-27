@@ -1,6 +1,6 @@
 {
   "conform.nvim": { "branch": "master", "commit": "973f3cb73887d510321653044791d7937c7ec0fa" },
-  "gitsigns.nvim": { "branch": "main", "commit": "0cb5a7753d3c4b8e9cfdc9d88d9110cb8d4b1544" },
+  "gitsigns.nvim": { "branch": "main", "commit": "b01433169be710d6c69f7b4ee264d9670698b831" },
   "gruber-darker.nvim": { "branch": "main", "commit": "a2dda61d9c1225e16951a51d6b89795b0ac35cd6" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "nvim-highlight-colors": { "branch": "main", "commit": "b42a5ccec7457b44e89f7ed3b3afb1b375bb2093" },
@@ -8,5 +8,5 @@
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "89ebe73cd2836db80a22d9748999ace0241917a5" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f" },
-  "vim-wakatime": { "branch": "master", "commit": "f39c4a201ae350aaba713b59d4a4fdd88e0811aa" }
+  "vim-wakatime": { "branch": "master", "commit": "3403495670f0ee08887401a28f8430dc4ac67429" }
 }
