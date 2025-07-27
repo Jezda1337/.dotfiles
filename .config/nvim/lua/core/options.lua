@@ -51,7 +51,8 @@ local options = {
     wildmenu = true,
     wildmode = "longest:full,full",
     wildoptions = "pum",
-    guifont = "monospace:h17"
+    guifont = "monospace:h17",
+    winborder = "rounded"
 }
 
 for key, value in pairs(options) do
