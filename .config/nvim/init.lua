@@ -1,6 +1,6 @@
 require("core")
 
-vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
+vim.g.netrw_bufsettings = "name nomod nu rnu nobl nowrap ro"
 
 local function fzf_picker(find_cmd, vim_cmd)
     local buf = vim.api.nvim_create_buf(false, true)

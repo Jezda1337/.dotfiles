@@ -26,6 +26,7 @@ alias ls-t="eza --icons --long --tree --level=2"
 # exports
 export BROWSER="$(which firefox)"
 export EDITOR="$(which nvim)"
+export PATH=$PATH:/Users/radojejezdic/go/bin
 
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -51,3 +52,10 @@ compinit
 # End of lines added by compinstall
 
 export ZVM_INIT_MODE=sourcing
+
+# bun completions
+[ -s "/Users/radojejezdic/.bun/_bun" ] && source "/Users/radojejezdic/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
