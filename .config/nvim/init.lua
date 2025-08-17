@@ -1,5 +1,7 @@
 require("core")
 
+vim.g.netrw_bufsettings = 'noma nomod nu rnu nobl nowrap ro'
+
 local function fzf_picker(find_cmd, vim_cmd)
     local buf = vim.api.nvim_create_buf(false, true)
     local width = math.floor(vim.o.columns * 0.6)
@@ -135,25 +137,29 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function()
                     cancel_prev()
                     local info = vim.fn.complete_info({ 'selected' })
-                    local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp',
-                        'completion_item')
-                    if nil == completionItem then
-                        return
+                    local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp', 'completion_item')
+                    if not completionItem then return end
+
+                    local client = vim.lsp.get_client_by_id(event.data.client_id)
+                    -- only call completionItem/resolve if supported
+                    if client
+                        and client.server_capabilities.completionProvider
+                        and client.server_capabilities.completionProvider.resolveProvider
+                    then
+                        _, cancel_prev = vim.lsp.buf_request(event.buf,
+                            vim.lsp.protocol.Methods.completionItem_resolve,
+                            completionItem,
+                            function(err, item, ctx)
+                                if not item then return end
+                                local docs = (item.documentation or {}).value
+                                local win = vim.api.nvim__complete_set(info['selected'], { info = docs })
+                                if win.winid and vim.api.nvim_win_is_valid(win.winid) then
+                                    vim.treesitter.start(win.bufnr, 'markdown')
+                                    vim.wo[win.winid].conceallevel = 3
+                                end
+                            end
+                        )
                     end
-                    _, cancel_prev = vim.lsp.buf_request(event.buf,
-                        vim.lsp.protocol.Methods.completionItem_resolve,
-                        completionItem,
-                        function(err, item, ctx)
-                            if not item then
-                                return
-                            end
-                            local docs = (item.documentation or {}).value
-                            local win = vim.api.nvim__complete_set(info['selected'], { info = docs })
-                            if win.winid and vim.api.nvim_win_is_valid(win.winid) then
-                                vim.treesitter.start(win.bufnr, 'markdown')
-                                vim.wo[win.winid].conceallevel = 3
-                            end
-                        end)
                 end
             })
         end
