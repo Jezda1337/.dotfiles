@@ -3,6 +3,24 @@ local map = function(mode, lhs, rhs, opts)
     vim.keymap.set(mode, lhs, rhs, opts)
 end
 
+-- toggle current buffer with the full-screen
+map("n", "<C-w>f", function()
+    local win     = vim.api.nvim_get_current_win()
+    local wwidth  = vim.api.nvim_win_get_width(win)
+    local wheight = vim.api.nvim_win_get_height(win)
+
+    local tab_width  = vim.o.columns
+    local tab_height = vim.o.lines - vim.o.cmdheight
+
+    local focused = wwidth >= tab_width * 0.9 and wheight >= tab_height * 0.9
+    if focused then
+        vim.cmd("wincmd =") --equalize all win size
+    else
+        vim.cmd("wincmd |")
+        vim.cmd("wincmd _")
+    end
+end)
+
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
@@ -23,23 +41,29 @@ map("n", "<C-p>", ":find ", { noremap = true, silent = false })
 
 -- toggle current buffer with the full-screen using :tabedit %
 map("n", "<C-e>", function()
-    local current_buf = vim.api.nvim_get_current_buf()
-    local tabs = vim.api.nvim_list_tabpages()
+  local current_buf = vim.api.nvim_get_current_buf()
+  local tabs = vim.api.nvim_list_tabpages()
+  local pos = vim.api.nvim_win_get_cursor(0)
 
-    if #tabs > 1 then
-        for _, tab in ipairs(tabs) do
-            local win = vim.api.nvim_tabpage_get_win(tab)
-            vim.print(win)
-            local buf = vim.api.nvim_win_get_buf(win)
-            vim.print(buf)
-            if buf == current_buf then
-                vim.cmd("tabclose")
-                return
-            end
-        end
+  if #tabs > 1 then
+    for _, tab in ipairs(tabs) do
+      local win = vim.api.nvim_tabpage_get_win(tab)
+      local buf = vim.api.nvim_win_get_buf(win)
+
+      if buf == current_buf and tab ~= vim.api.nvim_get_current_tabpage() then
+        vim.api.nvim_win_set_cursor(win, pos)
+        vim.cmd("tabclose")
+        return
+      end
     end
+  end
 
-    vim.cmd("tabedit %")
+  vim.cmd("tabedit %")
+
+  local win = vim.api.nvim_get_current_win()
+  local line_count = vim.api.nvim_buf_line_count(0)
+  local line = math.min(pos[1], line_count)
+  vim.api.nvim_win_set_cursor(win, {line, pos[2]})
 end)
 
 map("n", "<leader>D", vim.lsp.buf.type_definition)
