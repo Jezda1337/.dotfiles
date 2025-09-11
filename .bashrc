@@ -18,7 +18,7 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
-export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin"
+export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin/:$HOME/bin/"
 #export npm_config_prefix="$HOME/.local"
 
 # bun
@@ -68,3 +68,8 @@ source <(ng completion script)
 
 # opencode
 export PATH=/home/radoje/.opencode/bin:$PATH
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/radoje/.lmstudio/bin"
+# End of LM Studio CLI section
+

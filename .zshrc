@@ -59,3 +59,8 @@ export ZVM_INIT_MODE=sourcing
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/radoje/.lmstudio/bin"
+# End of LM Studio CLI section
+
