@@ -39,9 +39,14 @@
 
 (defpoll time :interval "0.01s"
 	"date '+%H:%M:%S %b %d, %Y'")
-
+(defpoll PING_GW :interval "2s" "./scripts/ping_gw || echo error")
 (defwidget clock []
 	(box :space-evenly false :halign "end" :spacing 10
+    (box :spacing 10 :space-evenly false
+      (label :class "ping_gw ${PING_GW}"
+        :text PING_GW)
+      (label :text "|")
+    )
 		(eventbox :cursor "pointer"
 			(button :onclick "eww update bar_rev=true"
 				(label :text "${time}")

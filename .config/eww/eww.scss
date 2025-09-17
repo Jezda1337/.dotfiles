@@ -86,3 +86,10 @@
 .notify_label {
   font-size: 30px;
 }
+
+.ping_gw.online {
+  color: #28a745;
+}
+.ping_gw.offline {
+  color: #fd7e14;
+}

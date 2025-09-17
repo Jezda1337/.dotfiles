@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Get default gateway
+GW=$(ip r | grep default | awk '{print $3}')
+
+# Check gateway (LAN)
+if ! ping -q -w 1 -c 1 "$GW" > /dev/null 2>&1; then
+    echo "offline"
+    exit 0
+fi
+
+# Check internet connectivity (Cloudflare & Google)
+if ping -q -w 2 -c 1 1.1.1.1 > /dev/null 2>&1 || ping -q -w 2 -c 1 8.8.8.8 > /dev/null 2>&1; then
+    echo "online"
+else
+    echo "no_internet"
+fi
