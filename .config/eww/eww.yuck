@@ -55,7 +55,7 @@
 		(key_layout)
 		(sound)
 		(macak)
-    (systray)
+    (systray :icon-size 16 :spacing 6 :prepend-new true)
 	)
 )
 

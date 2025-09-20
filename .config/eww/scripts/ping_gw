@@ -13,5 +13,5 @@ fi
 if ping -q -w 2 -c 1 1.1.1.1 > /dev/null 2>&1 || ping -q -w 2 -c 1 8.8.8.8 > /dev/null 2>&1; then
     echo "online"
 else
-    echo "no_internet"
+    echo "offline"
 fi
