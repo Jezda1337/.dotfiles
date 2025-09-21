@@ -3,6 +3,11 @@ eval "$(starship init bash)"
 
 set -o vi
 
+# running hyprland proper way
+if uwsm check may-start && uwsm select; then
+	exec systemd-cat -t uwsm_start uwsm start default
+fi
+
 # git tab completions
 source "/usr/share/git/completion/git-completion.bash"
 
