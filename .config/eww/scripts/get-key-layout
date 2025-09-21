@@ -19,13 +19,20 @@
 #     /^focusedmon>>/ {print $3}
 #     '
 
-socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - |
-	stdbuf -o0 awk -F '>>|,' '
-	/^activelayout>>/ {
-	layout = ($3 == "English (US)") ? "en" : "rs";
-	system("hyprctl notify 0 3000 0 \"Keyboard: " $3 "\"");
-	print layout;
-	fflush();
+eww update var_key_layout="English (US)"
+
+socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - \
+| stdbuf -o0 awk -F '>>|,' '
+/^activelayout>>/ {
+    pretty = $3
+    short = pretty
+
+    system("hyprctl notify 0 3000 0 \"Keyboard: " pretty "\"")
+    print short
+    fflush()
 }
-/^focusedmon>>/ {print $3}
+/^focusedmon>>/ {
+    print $3
+    fflush()
+}
 '

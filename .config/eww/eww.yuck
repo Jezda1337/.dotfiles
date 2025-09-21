@@ -70,7 +70,7 @@
 ;; (eventbox :cursor "pointer" :onclick "${eww} update bar_rev=true" :tooltip "button"
 ;;  (label :class "a_btn" :text "")))
 
-(deflisten var_key_layout :initial "en" "./scripts/get-key-layout")
+(deflisten var_key_layout :initial "English (US)" "./scripts/get-key-layout")
 (defwidget key_layout []
 	(eventbox :cursor "pointer" 
 		:onclick "hyprctl switchxkblayout current next" 
@@ -78,7 +78,7 @@
 		(label 
 			:width 30 
 			:class "key_layout_btn" 
-      :text "${var_key_layout} 󰥻"
+      :text "| ${var_key_layout} 󰥻 |"
 		)
 	)
 )
