@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Viber
+Command=Viber VoIP and messanger
+Exec=env FONTCONFIG_FILE=/etc/fonts/viber.conf /home/radoje/Downloads/viber.AppImage %u
+Icon=viber
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;P2P;
