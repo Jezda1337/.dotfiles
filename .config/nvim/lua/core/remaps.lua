@@ -21,6 +21,19 @@ map("n", "<C-w>f", function()
     end
 end)
 
+-- insert current timestamp
+map("i", "<C-t>", function()
+    local timestamp = os.date("%Y%m%d%H%M%S")
+    local current_line = vim.api.nvim_get_current_line()
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)[2]
+
+    local new_line = string.sub(current_line, 1, cursor_pos) ..
+        timestamp ..
+        string.sub(current_line, cursor_pos + 1)
+
+    vim.api.nvim_set_current_line(new_line)
+end)
+
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
 
