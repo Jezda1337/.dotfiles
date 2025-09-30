@@ -52,7 +52,8 @@ local options = {
     wildmode = "longest:full,full",
     wildoptions = "pum",
     guifont = "monospace:h17",
-    winborder = "rounded"
+    winborder = "rounded",
+    swapfile = false
 }
 
 for key, value in pairs(options) do
