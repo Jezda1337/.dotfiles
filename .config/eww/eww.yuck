@@ -40,8 +40,16 @@
 (defpoll time :interval "0.01s"
 	"date '+%H:%M:%S %b %d, %Y'")
 (defpoll PING_GW :interval "2s" "./scripts/ping_gw || echo error")
+(defpoll timer :interval "1s" "./scripts/timer print")
 (defwidget clock []
 	(box :space-evenly false :halign "end" :spacing 10
+    (eventbox :cursor "pointer"
+      (button
+        :onclick "./scripts/timer toggle"
+        :onrightclick "./scripts/timer reset"
+        (label :text "${timer} |")
+      )
+    )
     (box :spacing 10 :space-evenly false
       (label :class "ping_gw ${PING_GW}"
         :text PING_GW)

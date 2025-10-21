@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+TIMER_FILE="$HOME/Documents/timer.txt"
+STATE_FILE="/tmp/eww_timer_state"
+
+# Load saved time
+if [[ -f "$TIMER_FILE" ]]; then
+  elapsed=$(cat "$TIMER_FILE")
+else
+  elapsed=0
+fi
+
+# Load state (running or paused)
+if [[ -f "$STATE_FILE" ]]; then
+  state=$(cat "$STATE_FILE")
+else
+  state="paused"
+fi
+
+case "$1" in
+  toggle)
+    if [[ "$state" == "paused" ]]; then
+      echo "running" > "$STATE_FILE"
+      echo "$(date +%s)" > /tmp/eww_timer_start
+    else
+      start_time=$(cat /tmp/eww_timer_start)
+      now=$(date +%s)
+      diff=$((now - start_time))
+      elapsed=$((elapsed + diff))
+      echo "$elapsed" > "$TIMER_FILE"
+      echo "paused" > "$STATE_FILE"
+    fi
+    ;;
+  reset)
+    echo "0" > "$TIMER_FILE"
+    echo "paused" > "$STATE_FILE"
+    ;;
+  print)
+    if [[ "$state" == "running" ]]; then
+      start_time=$(cat /tmp/eww_timer_start)
+      now=$(date +%s)
+      diff=$((now - start_time))
+      total=$((elapsed + diff))
+    else
+      total=$elapsed
+    fi
+    printf "%02d:%02d:%02d\n" $((total/3600)) $(((total%3600)/60)) $((total%60))
+    ;;
+  *)
+    echo "Usage: $0 {toggle|reset|print}"
+    ;;
+esac
