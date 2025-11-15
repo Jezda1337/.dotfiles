@@ -1,17 +1,12 @@
-import = [
-	"~/.config/alacritty/theme.toml"
-]
-
-live_config_reload = true
 
 [font]
 size = 14
 
 [font.normal]
-# family = "JetBrainsMono Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 # family = "MartianMono Nerd Font"
-family = "0xProto"
+#family = "0xProto"
 
 [[keyboard.bindings]]
 action = "CreateNewWindow"
@@ -30,3 +25,7 @@ dynamic_padding = false
 dynamic_title = true
 decorations = "None"
 opacity = 0.5
+
+[general]
+
+live_config_reload = true

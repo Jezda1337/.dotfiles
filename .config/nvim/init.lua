@@ -1,9 +1,17 @@
 require("core")
 
-vim.g.netrw_bufsettings = "name nomod nu rnu nobl nowrap ro"
+
+-- jebo ga njgov plugin
+vim.keymap.set({ "n", "v" }, "<leader>tt", "<cmd>Checkmate toggle<CR>")
+
+vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"
+
+require("window_selector").setup_alternative()
 
 local function fzf_picker(find_cmd, vim_cmd)
     local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_option(buf, 'bufhidden', 'wipe')
+
     local width = math.floor(vim.o.columns * 0.6)
     local height = math.floor(vim.o.lines * 0.6)
     local row = math.floor((vim.o.lines - height) / 2)
@@ -20,15 +28,19 @@ local function fzf_picker(find_cmd, vim_cmd)
     })
 
     local tmpfile = "/tmp/fzf_result_" .. vim.fn.getpid()
-
     local cmd = string.format('%s | fzf > %s', find_cmd, tmpfile)
 
 
-    vim.fn.jobstart(cmd, {
-        on_exit = function()
-            vim.schedule(function()
-                vim.api.nvim_win_close(win, true)
+    vim.cmd('terminal ' .. cmd)
 
+    vim.api.nvim_create_autocmd('TermClose', {
+        buffer = buf,
+        once = true,
+        callback = function()
+            vim.schedule(function()
+                if vim.api.nvim_win_is_valid(win) then
+                    vim.api.nvim_win_close(win, true)
+                end
                 local file = io.open(tmpfile, "r")
                 if not file then return end
                 local selection = file:read("*l")
@@ -38,11 +50,11 @@ local function fzf_picker(find_cmd, vim_cmd)
                 if selection and selection ~= "" then
                     vim.cmd(vim_cmd .. " " .. vim.fn.fnameescape(selection))
                 end
+
+                vim.api.nvim_buf_delete(buf, { force = false })
             end)
         end,
-        term = true
     })
-
     vim.cmd("startinsert")
 end
 
@@ -63,9 +75,9 @@ end, { noremap = true })
 
 vim.cmd("colorscheme gruber-darker")
 
--- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
--- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
 
 local transparent_groups = {
     "Normal",
@@ -74,17 +86,17 @@ local transparent_groups = {
     "NonText",
     "SignColumn",
     "VertSplit",
-    "StatusLine",
+    -- "StatusLine",
     "EndOfBuffer",
     "FloatBorder",
     "WinSeparator",
 }
 
-for _, group in ipairs(transparent_groups) do
-    vim.api.nvim_set_hl(0, group, { bg = "none" })
-end
+-- for _, group in ipairs(transparent_groups) do
+--     vim.api.nvim_set_hl(0, group, { bg = "none" })
+-- end
 
-vim.api.nvim_set_hl(0, "StatusLine", { bg = "#282828" })
+-- vim.api.nvim_set_hl(0, "StatusLine", { bg = "#282828" })
 
 vim.lsp.enable({
     "ts_ls",
@@ -97,13 +109,14 @@ vim.lsp.enable({
     "html_ls",
     "gopls_ls",
     "tailwind_ls",
-    "html_css_ls",
+    -- "html_css_ls",
     "angular_ls",
-    "astro_ls"
+    "astro_ls",
+    "copilot",
+    "qmlls",
 })
 
-require("lsp").setup()
-
+-- require("lsp").setup()
 
 local console_log_macro = vim.api.nvim_replace_termcodes('yoconsole.log("")<Esc>bllhpla, <Esc>p<Esc>', true, true, true)
 vim.fn.setreg("l", console_log_macro)
@@ -137,10 +150,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function()
                     cancel_prev()
                     local info = vim.fn.complete_info({ 'selected' })
-                    local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp', 'completion_item')
+                    local completionItem = vim.tbl_get(vim.v.completed_item, 'user_data', 'nvim', 'lsp',
+                        'completion_item')
                     if not completionItem then return end
 
-                    local client = vim.lsp.get_client_by_id(event.data.client_id)
                     -- only call completionItem/resolve if supported
                     if client
                         and client.server_capabilities.completionProvider
@@ -165,6 +178,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
         local map = function(keys, func, desc)
             vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+        end
+
+        if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion) then
+            vim.opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy", "popup" }
+            vim.lsp.inline_completion.enable(true)
+
+            vim.keymap.set("i", "<Tab>", function()
+                if not vim.lsp.inline_completion.get() then
+                    return "<Tab>"
+                end
+            end, { expr = true, replace_keycodes = true, desc = "Get the current inline completion" })
         end
 
         vim.keymap.set("i", "<CR>", function()

@@ -23,7 +23,10 @@ alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
+alias igor='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/eventpage'
+
 export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin/:$HOME/bin/"
+export PATH="$PATH:/usr/lib/qt6/bin" # qmlls lsp
 #export npm_config_prefix="$HOME/.local"
 
 # bun
@@ -38,7 +41,7 @@ export NVM_DIR="$HOME/.nvm"
 alias ls="exa --no-user --icons --sort=ext --long --header --git"
 alias ls-t="exa --icons --long --tree --level=2"
 alias tx="tmux new -s $1"
-alias wow="WINEPREFIX=~/.wine-wow WINEESYNC=1 WINEFSYNC=1 DXVK_HUD=0 wine /home/radoje/Downloads/'World of Warcraft 3.3.5a'/Wow.exe"
+alias wow="WINEPREFIX=~/.wine-wow WINEESYNC=1 WINEFSYNC=1 DXVK_HUD=0 wine /home/radoje/Downloads/wow/'World of Warcraft 3.3.5a'/Wow.exe"
 
 # exports
 export BROWSER="$(which firefox)"

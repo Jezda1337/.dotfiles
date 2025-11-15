@@ -1,4 +1,6 @@
-return {}
+return {
+    { "j-hui/fidget.nvim", opts = {} },
+}
 -- return {
 --     {
 --         "williamboman/mason.nvim",
