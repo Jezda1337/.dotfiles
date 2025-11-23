@@ -1,4 +1,5 @@
 require("core")
+require("vim._extui").enable {}
 
 
 -- jebo ga njgov plugin
