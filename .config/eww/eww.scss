@@ -88,8 +88,25 @@
 }
 
 .ping_gw.online {
-  color: #28a745;
+  color: $flexoki-green-600;
 }
 .ping_gw.offline {
-  color: #fd7e14;
+  color: $flexoki-orange-600;
+}
+
+menu {
+  padding: 5px;
+  background: $flexoki-black;
+  color: #fff;
+  border-radius: 4px;
+
+  menuitem {
+    border-radius: 2px;
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  menuitem:hover {
+    background-color: $flexoki-paper;
+    color: $flexoki-black;
+  }
 }

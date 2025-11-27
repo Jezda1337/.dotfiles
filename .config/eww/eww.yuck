@@ -69,7 +69,7 @@
 
 (defpoll WEATHER :interval "30m" `curl https://wttr.in/Bajina-Basta?format=2`)
 (defwidget weather []
-	(box 
+	(box
 		(label :text "Бајина Башта ${WEATHER}")
 	)
 )
@@ -80,12 +80,12 @@
 
 (deflisten var_key_layout :initial "English (US)" "./scripts/get-key-layout")
 (defwidget key_layout []
-	(eventbox :cursor "pointer" 
-		:onclick "hyprctl switchxkblayout current next" 
+	(eventbox :cursor "pointer"
+		:onclick "hyprctl switchxkblayout current next"
 		:tooltip "${var_key_layout == "en" ? "English (US)" : "Serbian"}"
-		(label 
-			:width 30 
-			:class "key_layout_btn" 
+		(label
+			:width 30
+			:class "key_layout_btn"
       :text "| ${var_key_layout} 󰥻 |"
 		)
 	)
@@ -140,7 +140,7 @@
 (deflisten vol :initial 0 `./scripts/get-volume`)
 (defvar side_rev false)
 (defwidget sound []
-	(eventbox 
+	(eventbox
 		:onhover "eww update side_rev=true"
 		:onhoverlost "eww update side_rev=false"
     :cursor "pointer"
@@ -148,11 +148,11 @@
 			(button	:onclick "pamixer -t"
 				(label :text "${vol == "muted" ? " Muted" : vol == 0 ? " Muted" : " ${vol}%"}")
 			)
-			(revealer 
+			(revealer
 				:transition "slideleft"
 				:reveal side_rev
 				:duration "1000ms"
-				(scale 
+				(scale
 					:value vol
 					:min 0
 					:max 100
