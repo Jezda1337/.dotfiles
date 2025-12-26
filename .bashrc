@@ -25,7 +25,7 @@ PS1='[\u@\h \W]\$ '
 
 alias igor='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/eventpage'
 
-export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:$HOME/.local/share/nvim/mason/bin:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin/:$HOME/bin/"
+export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin/:$HOME/bin/"
 export PATH="$PATH:/usr/lib/qt6/bin" # qmlls lsp
 #export npm_config_prefix="$HOME/.local"
 
@@ -81,3 +81,5 @@ export PATH=/home/radoje/.opencode/bin:$PATH
 export PATH="$PATH:/home/radoje/.lmstudio/bin"
 # End of LM Studio CLI section
 
+# Amp CLI
+export PATH="/home/radoje/.amp/bin:$PATH"
