@@ -22,6 +22,7 @@ case "$1" in
     if [[ "$state" == "paused" ]]; then
       echo "running" > "$STATE_FILE"
       echo "$(date +%s)" > /tmp/eww_timer_start
+      eww update timer_state="on"
     else
       start_time=$(cat /tmp/eww_timer_start)
       now=$(date +%s)
@@ -29,9 +30,11 @@ case "$1" in
       elapsed=$((elapsed + diff))
       echo "$elapsed" > "$TIMER_FILE"
       echo "paused" > "$STATE_FILE"
+      eww update timer_state="paused"
     fi
     ;;
   reset)
+    eww update timer_state="off"
     echo "0" > "$TIMER_FILE"
     echo "paused" > "$STATE_FILE"
     ;;
@@ -41,6 +44,7 @@ case "$1" in
       now=$(date +%s)
       diff=$((now - start_time))
       total=$((elapsed + diff))
+      eww update timer_state="on"
     else
       total=$elapsed
     fi

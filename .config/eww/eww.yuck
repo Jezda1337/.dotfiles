@@ -41,15 +41,18 @@
 	"date '+%H:%M:%S %b %d, %Y'")
 (defpoll PING_GW :interval "2s" "./scripts/ping_gw || echo error")
 (defpoll timer :interval "1s" "./scripts/timer print")
+(defvar timer_state "off")
 (defwidget clock []
 	(box :space-evenly false :halign "end" :spacing 10
     (eventbox :cursor "pointer"
       (button
         :onclick "./scripts/timer toggle"
         :onrightclick "./scripts/timer reset"
-        (label :text "${timer} |")
+        :class "${timer_state == "on" ? "on" : timer_state == "paused" ? "paused" : "off"}"
+        (label :text "${timer}")
       )
     )
+    (label :text "|")
     (box :spacing 10 :space-evenly false
       (label :class "ping_gw ${PING_GW}"
         :text PING_GW)
