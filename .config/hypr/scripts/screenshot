@@ -14,12 +14,12 @@ fi
 if [ $1 == "monitor" ]; then
 	active_workspace_monitor=$(hyprctl -j activeworkspace | jq -r "(.monitor)")
 	screenshoot_filename="$(xdg-user-dir PICTURES)/screenshots/$(date +"%d-%m-%Y-%H%S")-$active_workspace_monitor.webp"
-	grim -o $active_workspace_monitor $screenshoot_filename
+	grim -s 2 -o $active_workspace_monitor $screenshoot_filename
 	wl-copy < $screenshoot_filename
 fi
 
 if [ $1 == "area" ]; then
 	screenshoot_filename="$(xdg-user-dir PICTURES)/screenshots/$(date +"%d-%m-%Y-%H%S")-area.webp"
-	grim -g "$(slurp -d)" $screenshoot_filename
+	grim -s 2 -g "$(slurp -d)" $screenshoot_filename
 	wl-copy < $screenshoot_filename
 fi
