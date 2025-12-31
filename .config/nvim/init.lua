@@ -627,3 +627,12 @@ end, {
     desc = "Send input to Amp (visual: include file/selection ref)",
 })
 map({ "n", "v" }, "<leader>sp", ":AmpPromptRefInput<CR>", {})
+
+vim.api.nvim_create_user_command("ActiveLSPClients", function()
+    local clients = vim.lsp.get_clients()
+    for i = 1, #clients do
+        print(string.format("%d. %s", i, clients[i].name))
+    end
+end, {
+    desc = "Print active LSP clients",
+})
