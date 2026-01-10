@@ -302,7 +302,7 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
 --     end,
 -- })
 
-local ignore_filetypes = { "checkhealth" }
+local ignore_filetypes = { "checkhealth", "netrw" }
 autocmd("FileType", {
     group = augroup("treesitter", { clear = true }),
     desc = "Enable treesitter highlighting and indentation",
@@ -387,7 +387,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
         -- exclude (disabled) code actions from lsp
-        map({ "n", "i" }, "gra", function()
+        map({ "n" }, "gra", function()
             vim.lsp.buf.code_action {
                 filter = function(x)
                     if x.disabled then
