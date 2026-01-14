@@ -6,6 +6,7 @@ vim.pack.add {
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/sourcegraph/amp.nvim" },
+    { src = "https://github.com/NickvanDyke/opencode.nvim" },
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
 
@@ -636,3 +637,32 @@ vim.api.nvim_create_user_command("ActiveLSPClients", function()
 end, {
     desc = "Print active LSP clients",
 })
+
+-- OpenCode keymaps
+vim.keymap.set({ "n", "x" }, "<A-a>", function()
+    require("opencode").ask("@this: ", { submit = true })
+end, { desc = "Ask opencode" })
+vim.keymap.set({ "n", "x" }, "<A-x>", function()
+    require("opencode").select()
+end, { desc = "Execute opencode action…" })
+vim.keymap.set({ "n", "t" }, "<A-.>", function()
+    require("opencode").toggle()
+end, { desc = "Toggle opencode" })
+
+vim.keymap.set({ "n", "x" }, "go", function()
+    return require("opencode").operator "@this "
+end, { expr = true, desc = "Add range to opencode" })
+vim.keymap.set("n", "goo", function()
+    return require("opencode").operator "@this " .. "_"
+end, { expr = true, desc = "Add line to opencode" })
+
+vim.keymap.set("n", "<S-A-u>", function()
+    require("opencode").command "session.half.page.up"
+end, { desc = "opencode half page up" })
+vim.keymap.set("n", "<S-A-d>", function()
+    require("opencode").command "session.half.page.down"
+end, { desc = "opencode half page down" })
+
+-- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
+vim.keymap.set("n", "+", "<C-a>", { desc = "Increment", noremap = true })
+vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
