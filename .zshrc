@@ -64,3 +64,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$PATH:/home/radoje/.lmstudio/bin"
 # End of LM Studio CLI section
 
+if uwsm check may-start && uwsm select; then
+	exec uwsm start default
+fi

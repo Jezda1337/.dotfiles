@@ -82,6 +82,7 @@ ts.install {
     "htmldjango",
     "templ",
     "astro",
+    "cpp",
 }
 require("conform").setup {
     formatters_by_ft = {
@@ -311,10 +312,15 @@ autocmd("FileType", {
         if vim.tbl_contains(ignore_filetypes, event.match) then
             return
         end
-        local lang = vim.treesitter.language.get_lang(event.match) or event.match
-        local buf = event.buf
-        pcall(vim.treesitter.start, buf, lang)
-        ts.install { lang }
+        local installed_langs = ts.get_installed()
+        for _, v in pairs(installed_langs) do
+            if event.match == v then
+                local lang = vim.treesitter.language.get_lang(event.match) or event.match
+                local buf = event.buf
+                pcall(vim.treesitter.start, buf, lang)
+                ts.install { lang }
+            end
+        end
     end,
 })
 
@@ -663,6 +669,12 @@ vim.keymap.set("n", "<S-A-d>", function()
     require("opencode").command "session.half.page.down"
 end, { desc = "opencode half page down" })
 
--- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
-vim.keymap.set("n", "+", "<C-a>", { desc = "Increment", noremap = true })
-vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
+-- listen for background change
+-- vim.api.nvim_create_autocmd("OptionSet", {
+--     pattern = "background",
+--     desc = "Auto switch colorscheme on background change",
+--     callback = function()
+--         print(vim.o.background)
+--         print "123"
+--     end,
+-- })
