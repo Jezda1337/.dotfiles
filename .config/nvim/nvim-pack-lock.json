@@ -20,13 +20,17 @@
       "rev": "44acfe887d4056f704ccc4f17513ed41c9e2b2e6",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
+    "nvim-tree-docs": {
+      "rev": "5db023d783da1e55339e5e25caaf72a59597e626",
+      "src": "https://github.com/nvim-treesitter/nvim-tree-docs"
+    },
     "nvim-treesitter": {
-      "rev": "4d9466677a5ceadef104eaa0fe08d60d91c4e9a7",
+      "rev": "dc42c209f3820bdfaae0956f15de29689aa6b451",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "opencode.nvim": {
-      "rev": "d080eb4e4f03cfdcb3c5eacc88cc4e17bd8c1980",
+      "rev": "6d00f3094af83748f94224647f62a215bca6a920",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "vim-wakatime": {

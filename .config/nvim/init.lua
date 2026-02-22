@@ -304,14 +304,10 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
 --     end,
 -- })
 
-local ignore_filetypes = { "checkhealth", "netrw" }
 autocmd("FileType", {
     group = augroup("treesitter", { clear = true }),
     desc = "Enable treesitter highlighting and indentation",
     callback = function(event)
-        if vim.tbl_contains(ignore_filetypes, event.match) then
-            return
-        end
         local installed_langs = ts.get_installed()
         for _, v in pairs(installed_langs) do
             if event.match == v then
@@ -671,8 +667,7 @@ end, { desc = "opencode half page down" })
 
 -- listen for background change
 -- vim.api.nvim_create_autocmd("OptionSet", {
---     pattern = "background",
---     desc = "Auto switch colorscheme on background change",
+--     pattern = "background", desc = "Auto switch colorscheme on background change",
 --     callback = function()
 --         print(vim.o.background)
 --         print "123"
