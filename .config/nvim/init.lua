@@ -307,15 +307,9 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
 autocmd("FileType", {
     group = augroup("treesitter", { clear = true }),
     desc = "Enable treesitter highlighting and indentation",
-    callback = function(event)
-        local installed_langs = ts.get_installed()
-        for _, v in pairs(installed_langs) do
-            if event.match == v then
-                local lang = vim.treesitter.language.get_lang(event.match) or event.match
-                local buf = event.buf
-                pcall(vim.treesitter.start, buf, lang)
-                ts.install { lang }
-            end
+    callback = function(args)
+        if vim.list_contains(ts.get_installed(), vim.treesitter.language.get_lang(args.match)) then
+            vim.treesitter.start(args.buf)
         end
     end,
 })
@@ -473,6 +467,31 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 -- git remaps
+map("n", "<leader>ls", function()
+    local fpath = vim.fn.expand "%:p"
+    local buf = vim.api.nvim_create_buf(false, true)
+
+    local width = math.floor(vim.o.columns * 0.9)
+    local height = math.floor(vim.o.lines * 0.9)
+    local row = math.floor((vim.o.lines - height) / 2)
+    local col = math.floor((vim.o.columns - width) / 2)
+
+    vim.api.nvim_open_win(buf, true, {
+        relative = "editor",
+        width = width,
+        height = height,
+        row = row,
+        col = col,
+        style = "minimal",
+        border = "none",
+    })
+
+    local cmd = "terminal lazygit -f " .. fpath
+    vim.cmd(cmd)
+
+    vim.api.nvim_feedkeys("i", "n", false)
+end, { desc = "Open file git history in floating terminal buff" })
+
 map("n", "]c", function()
     if vim.wo.diff then
         vim.cmd.normal { "]c", bang = true }
