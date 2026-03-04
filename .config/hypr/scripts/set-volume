@@ -9,14 +9,17 @@ get_volume() {
 
 inc_volume() {
 	pamixer -i 5
+    notify-send -h string:x-canonical-private-synchronous:volume -i /usr/share/icons/Papirus-Dark/48x48/devices/audio-speakers.svg $(get_volume)% -u normal
 }
 
 dec_volume() {
 	pamixer -d 5
+    notify-send -h string:x-canonical-private-synchronous:volume -i /usr/share/icons/Papirus-Dark/48x48/devices/audio-speakers.svg $(get_volume)% -u normal
 }
 
 toggle_mute() {
 	pamixer -t
+    notify-send -h string:x-canonical-private-synchronous:volume -i /usr/share/icons/Papirus-Dark/48x48/devices/audio-speakers.svg "Muted" -u normal
 }
 
 get_icon() {
