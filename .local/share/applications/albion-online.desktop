@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Value=1.0
+Type=Application
+Name=Albion Online
+GenericName=MMORPG
+Comment=Play Albion Online!
+Icon=/home/radoje/albiononline/AlbionOnline.xpm
+Exec=gamescope -f -h 1080 -w 2560 --force-composition -S fit -- /home/radoje/albiononline/game_x64/Albion-Online
+Categories=Game
+StartupWMClass=Albion-Online
+Path=/home/radoje/albiononline
