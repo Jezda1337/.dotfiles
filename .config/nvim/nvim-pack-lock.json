@@ -9,15 +9,19 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "7c4faa3540d0781a28588cafbd4dd187a28ac6e3",
+      "rev": "5310a7f3a97b6de629269f8935691627a076ae4b",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruber-darker.nvim": {
       "rev": "aba065c3a79b58cc3863d5c9db319255abd1258a",
       "src": "https://github.com/blazkowolf/gruber-darker.nvim"
     },
+    "gruber-darker.vim": {
+      "rev": "13084005e6aca58f54d45ed542861cfef03e769d",
+      "src": "https://github.com/ThunderBoltCODMYT/gruber-darker.vim"
+    },
     "nvim-lspconfig": {
-      "rev": "d8bf4c47385340ab2029402201d4d7c9f99f437a",
+      "rev": "1a6d69206749a646ef28bfb39460610b14baff40",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree-docs": {
@@ -25,12 +29,12 @@
       "src": "https://github.com/nvim-treesitter/nvim-tree-docs"
     },
     "nvim-treesitter": {
-      "rev": "5cb05e1b0fa3c469958a2b26f36b3fe930af221c",
+      "rev": "6620ae1c44dfa8623b22d0cbf873a9e8d073b849",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
     "opencode.nvim": {
-      "rev": "47f92ab676bf1c3d00a40100429c7b089f81a5fc",
+      "rev": "4f4ff2c2a4bd979bf8f20a90e44be1b86855cfea",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "vim-wakatime": {
