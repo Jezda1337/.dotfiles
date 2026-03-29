@@ -14,13 +14,16 @@ vim.opt.runtimepath:append(vim.env.HOME .. "/personal/nvim-html-css")
 
 -- colors
 vim.cmd [[colorscheme gruber-darker]]
-vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+-- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
+vim.api.nvim_set_hl(0, "NormalNC", { bg = "None" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
 -- vim.api.nvim_set_hl(0, "typescriptParens", { link = "GruberDarkerWisteria" })
 
 require("html-css").setup {
-    enable_on = { "html" },
+    enable_on = { "html", "htmlangular" },
     lsp = { enable = true },
     handlers = {
         definition = { bind = "gD" },
@@ -29,6 +32,13 @@ require("html-css").setup {
             wrap = true,
             position = "cursor",
         },
+    },
+    notify = true,
+    peek = {
+        enabled = true,
+        position = "cursor",
+        width = 0.3,
+        height = 0.2,
     },
     documentation = {
         auto_show = true,
@@ -41,7 +51,7 @@ require("html-css").setup {
 
 -- experimental feature
 require("vim._extui").enable {
-    enable = false,
+    enable = true,
 }
 require("amp").setup { auto_start = true, log_level = "info" }
 local ts = require "nvim-treesitter"
@@ -84,6 +94,15 @@ ts.install {
     "astro",
     "cpp",
 }
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     pattern = { "*.ts", "*.js", "*.jsx", "*.tsx", "*.astro" },
+--     callback = function()
+--         vim.lsp.buf.code_action {
+--             context = { only = { "source.organizeImports" }, diagnostics = {} },
+--             apply = true,
+--         }
+--     end,
+-- })
 require("conform").setup {
     formatters_by_ft = {
         lua = { "stylua" },
@@ -171,6 +190,7 @@ vim.o.sts = 4
 vim.o.et = true
 
 vim.o.wrap = false
+vim.o.filetype = "on"
 
 vim.opt.list = false
 vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
@@ -304,10 +324,21 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
 --     end,
 -- })
 
+autocmd("BufNewFile", {
+    group = augroup("filetype-detect-on-new", { clear = true }),
+    callback = function()
+        vim.schedule(function()
+            vim.cmd "filetype detect"
+        end)
+    end,
+})
+
 autocmd("FileType", {
     group = augroup("treesitter", { clear = true }),
+    pattern = "*",
     desc = "Enable treesitter highlighting and indentation",
     callback = function(args)
+        -- vim.print(args)
         if vim.list_contains(ts.get_installed(), vim.treesitter.language.get_lang(args.match)) then
             vim.treesitter.start(args.buf)
         end

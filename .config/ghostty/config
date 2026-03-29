@@ -1,6 +1,6 @@
 theme = iTerm2 Dark Background
 font-family = 0xProto
-font-size = 23.5
+font-size = 14
 
 shell-integration-features = no-cursor
 cursor-style = block
