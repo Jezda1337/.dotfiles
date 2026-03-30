@@ -16,10 +16,6 @@
       "rev": "aba065c3a79b58cc3863d5c9db319255abd1258a",
       "src": "https://github.com/blazkowolf/gruber-darker.nvim"
     },
-    "gruber-darker.vim": {
-      "rev": "13084005e6aca58f54d45ed542861cfef03e769d",
-      "src": "https://github.com/ThunderBoltCODMYT/gruber-darker.vim"
-    },
     "nvim-lspconfig": {
       "rev": "16812abf0e8d8175155f26143a8504e8253e92b0",
       "src": "https://github.com/neovim/nvim-lspconfig"

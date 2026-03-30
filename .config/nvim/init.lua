@@ -64,7 +64,6 @@ ts.install {
     "css",
     "scss",
     "prisma",
-    "astro",
     "tsx",
     "typescript",
     "vim",
@@ -113,7 +112,8 @@ require("conform").setup {
         css = { "prettierd", "prettier", stop_after_first = true },
         scss = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
-        astro = { "prettier", "prettierd", stop_after_first = true },
+        astro = { "prettierd", "prettier", stop_after_first = true },
+        xml = "xmlformatter",
         htmlangular = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettierd", "prettier", stop_after_first = true },
         typescript = { "prettierd", "prettier", stop_after_first = true },
@@ -263,15 +263,6 @@ local augroup = vim.api.nvim_create_augroup
 autocmd({ "BufReadPre", "BufNewFile" }, {
     once = true,
     callback = function()
-        -- trying to make my plugin work with this filetypes
-        -- vim.filetype.add {
-        --     extension = {
-        --         templ = "templ",
-        --     },
-        -- }
-        -- vim.lsp.config("html", {
-        --     filetypes = { "html", "templ", "htmldjango" },
-        -- })
         local servers = {
             "lua_ls",
             "ts_ls",
@@ -288,6 +279,9 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+        local ts_probe = vim.env.HOME
+            .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript/lib"
+
         for _, lsp in pairs(servers) do
             if lsp == "cssls" or lsp == "html" then
                 vim.lsp.config(lsp, { capabilities = capabilities })
@@ -301,6 +295,14 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
                     on_attach = function(client, bufnr)
                         client.server_capabilities.renameProvider = false
                     end,
+                })
+            elseif lsp == "astro" then
+                vim.lsp.config(lsp, {
+                    init_options = {
+                        typescript = {
+                            tsdk = ts_probe,
+                        },
+                    },
                 })
             else
                 vim.lsp.config(lsp, {})
