@@ -315,6 +315,17 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
     end,
 })
 
+autocmd({ "WinLeave" }, {
+    callback = function()
+        vim.opt_local.cursorline = false
+    end,
+})
+autocmd({ "WinEnter" }, {
+    callback = function()
+        vim.opt_local.cursorline = true
+    end,
+})
+
 -- autocmd("FileType", {
 --     pattern = "*",
 --     callback = function(args)
@@ -713,27 +724,27 @@ end, {
 })
 
 -- OpenCode keymaps
-vim.keymap.set({ "n", "x" }, "<A-a>", function()
+map({ "n", "x" }, "<A-a>", function()
     require("opencode").ask("@this: ", { submit = true })
 end, { desc = "Ask opencode" })
-vim.keymap.set({ "n", "x" }, "<A-x>", function()
+map({ "n", "x" }, "<A-x>", function()
     require("opencode").select()
 end, { desc = "Execute opencode action…" })
-vim.keymap.set({ "n", "t" }, "<A-.>", function()
+map({ "n", "t" }, "<A-.>", function()
     require("opencode").toggle()
 end, { desc = "Toggle opencode" })
 
-vim.keymap.set({ "n", "x" }, "go", function()
+map({ "n", "x" }, "go", function()
     return require("opencode").operator "@this "
 end, { expr = true, desc = "Add range to opencode" })
-vim.keymap.set("n", "goo", function()
+map("n", "goo", function()
     return require("opencode").operator "@this " .. "_"
 end, { expr = true, desc = "Add line to opencode" })
 
-vim.keymap.set("n", "<S-A-u>", function()
+map("n", "<S-A-u>", function()
     require("opencode").command "session.half.page.up"
 end, { desc = "opencode half page up" })
-vim.keymap.set("n", "<S-A-d>", function()
+map("n", "<S-A-d>", function()
     require("opencode").command "session.half.page.down"
 end, { desc = "opencode half page down" })
 
