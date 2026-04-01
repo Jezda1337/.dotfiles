@@ -50,9 +50,13 @@ require("html-css").setup {
 }
 
 -- experimental feature
-require("vim._extui").enable {
+-- require("vim._extui").enable {
+--     enable = true,
+-- }
+require("vim._core.ui2").enable {
     enable = true,
 }
+
 require("amp").setup { auto_start = true, log_level = "info" }
 local ts = require "nvim-treesitter"
 ts.install {
@@ -113,7 +117,6 @@ require("conform").setup {
         scss = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
         astro = { "prettierd", "prettier", stop_after_first = true },
-        xml = "xmlformatter",
         htmlangular = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettierd", "prettier", stop_after_first = true },
         typescript = { "prettierd", "prettier", stop_after_first = true },
@@ -498,6 +501,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
         }
     end,
 })
+
+-- incremental selection treesitter/lsp
+map({ "n", "x", "o" }, "<A-o>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+        require("vim.treesitter._select").select_parent(vim.v.count1)
+    else
+        vim.lsp.buf.selection_range(vim.v.count1)
+    end
+end, { desc = "Select parent treesitter node or outer incremental lsp selections" })
+
+map({ "n", "x", "o" }, "<A-i>", function()
+    if vim.treesitter.get_parser(nil, nil, { error = false }) then
+        require("vim.treesitter._select").select_child(vim.v.count1)
+    else
+        vim.lsp.buf.selection_range(-vim.v.count1)
+    end
+end, { desc = "Select child treesitter node or inner incremental lsp selections" })
 
 -- git remaps
 map("n", "<leader>ls", function()
