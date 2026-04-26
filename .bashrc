@@ -83,3 +83,4 @@ export PATH="$PATH:/home/radoje/.lmstudio/bin"
 
 # Amp CLI
 export PATH="/home/radoje/.amp/bin:$PATH"
+export PATH=$PATH:$HOME/.maestro/bin

@@ -7,13 +7,18 @@ vim.pack.add {
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/sourcegraph/amp.nvim" },
     { src = "https://github.com/NickvanDyke/opencode.nvim" },
+    { src = "https://github.com/zitrocode/carvion.nvim" },
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
 
 vim.opt.runtimepath:append(vim.env.HOME .. "/personal/nvim-html-css")
 
+vim.cmd "packadd nohlsearch"
+vim.cmd "packadd nvim.undotree"
+
 -- colors
 vim.cmd [[colorscheme gruber-darker]]
+-- vim.cmd [[ colorscheme carvion ]]
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
@@ -50,12 +55,12 @@ require("html-css").setup {
 }
 
 -- experimental feature
--- require("vim._extui").enable {
---     enable = true,
--- }
-require("vim._core.ui2").enable {
+require("vim._extui").enable {
     enable = true,
 }
+-- require("vim._core.ui2").enable {
+--     enable = true,
+-- }
 
 require("amp").setup { auto_start = true, log_level = "info" }
 local ts = require "nvim-treesitter"
@@ -242,7 +247,6 @@ vim.o.completeitemalign = "kind,abbr,menu"
 vim.o.pumheight = 7
 vim.o.pummaxwidth = 80
 -- autocomplete end
-vim.o.grepprg = "grep -inH"
 vim.o.wildmenu = true
 vim.o.wildmode = "longest:full,full"
 vim.o.wildoptions = "pum,fuzzy"
@@ -257,7 +261,10 @@ vim.opt.path:append "."
 
 -- helpful for :find command, :find command won't look for this dirs
 vim.opt.wildignore:append { "*/node_modules/*,*/.history/*,*/dist/*,*/.git/*" }
-vim.opt.grepprg = "rg --vimgrep --hidden --glob=!node_modules --glob=!.history --glob=!dist --glob=!.git"
+vim.opt.grepprg = "rg --vimgrep -S --hidden --glob=!node_modules --glob=!.history --glob=!dist --glob=!.git"
+vim.opt.grepformat = "%f:%l:%c:%m"
+
+-- vim.opt.makeprg = ""
 
 -- autocommands
 local autocmd = vim.api.nvim_create_autocmd
@@ -354,7 +361,6 @@ autocmd("FileType", {
     pattern = "*",
     desc = "Enable treesitter highlighting and indentation",
     callback = function(args)
-        -- vim.print(args)
         if vim.list_contains(ts.get_installed(), vim.treesitter.language.get_lang(args.match)) then
             vim.treesitter.start(args.buf)
         end
@@ -372,18 +378,18 @@ autocmd({ "BufEnter", "BufWinEnter" }, {
 })
 
 -- disable hlsearch automatically when your search done and enable on next searching without extra plugins
-local ns = vim.api.nvim_create_namespace "toggle_hlsearch"
-local function toggle_hlsearch(char)
-    if vim.fn.mode() == "n" then
-        local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
-        local new_hlsearch = vim.tbl_contains(keys, vim.fn.keytrans(char))
-
-        if vim.opt.hlsearch:get() ~= new_hlsearch then
-            vim.opt.hlsearch = new_hlsearch
-        end
-    end
-end
-vim.on_key(toggle_hlsearch, ns)
+-- local ns = vim.api.nvim_create_namespace "toggle_hlsearch"
+-- local function toggle_hlsearch(char)
+--     if vim.fn.mode() == "n" then
+--         local keys = { "<CR>", "n", "N", "*", "#", "?", "/" }
+--         local new_hlsearch = vim.tbl_contains(keys, vim.fn.keytrans(char))
+--
+--         if vim.opt.hlsearch:get() ~= new_hlsearch then
+--             vim.opt.hlsearch = new_hlsearch
+--         end
+--     end
+-- end
+-- vim.on_key(toggle_hlsearch, ns)
 
 autocmd("VimResized", {
     group = augroup("Resize", { clear = true }),
@@ -581,10 +587,10 @@ map("n", "<leader>hD", function()
 end)
 
 -- other remaps
--- toggle current buffer with the full-screen using :tabedit %
 map("n", "<leader>c", ":ccl <bar> lcl<CR>")
 
-map("n", "<C-e>", function()
+-- toggle current buffer with the full-screen using :tabedit %
+map("n", "<leader><cr>", function()
     local current_buf = vim.api.nvim_get_current_buf()
     local tabs = vim.api.nvim_list_tabpages()
     local pos = vim.api.nvim_win_get_cursor(0)
@@ -622,6 +628,16 @@ map("n", "-", ":Explore <CR>")
 
 -- grep word under the cursor
 map("n", "<leader>sw", ":grep <cword> . | copen <CR>")
+
+map("n", "<leader>ss", function()
+    vim.ui.input({ prompt = "grep > " }, function(input)
+        if not input or input == "" then
+            return
+        end
+        vim.cmd("silent grep! " .. input)
+        vim.cmd "botright copen"
+    end)
+end, { desc = "Grep with input prompt" })
 
 -- move block of code
 map("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo")
@@ -756,3 +772,41 @@ end, { desc = "opencode half page down" })
 --         print "123"
 --     end,
 -- })
+
+map("n", "<leader>u", require("undotree").open)
+
+local function fd_find(match, cmdcomplete)
+    local cmd = {
+        "fd",
+        match,
+        "--type",
+        "f",
+        "--hidden",
+        "--exclude",
+        ".git",
+        "--exclude",
+        "node_modules",
+        "--exclude",
+        "dist",
+    }
+
+    local ok, files_raw = pcall(vim.fn.systemlist, cmd)
+    if not ok then
+        print "yo mama"
+        return {}
+    end
+
+    local files = vim.fn.matchfuzzy(files_raw, match)
+    if cmdcomplete then
+        local matches = {}
+        for _, path in ipairs(files) do
+            table.insert(matches, vim.fs.basename(path))
+        end
+        return matches
+    else
+        return files
+    end
+end
+
+_G.fd_find = fd_find
+vim.o.findfunc = "v:lua.fd_find"

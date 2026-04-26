@@ -67,3 +67,4 @@ export PATH="$PATH:/home/radoje/.lmstudio/bin"
 if uwsm check may-start && uwsm select; then
 	exec uwsm start default
 fi
+export PATH=$PATH:$HOME/.maestro/bin
