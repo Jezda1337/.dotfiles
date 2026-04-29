@@ -24,8 +24,8 @@ alias ls="eza --no-user --icons --sort=ext --long --header --git"
 alias ls-t="eza --icons --long --tree --level=2"
 
 # exports
-export BROWSER="$(which firefox)"
-export EDITOR="$(which nvim)"
+export BROWSER="firefox"
+export EDITOR="nvim"
 export PATH=$PATH:/Users/radojejezdic/go/bin
 
 function yy() {

@@ -44,8 +44,8 @@ alias tx="tmux new -s $1"
 alias wow="WINEPREFIX=~/.wine-wow WINEESYNC=1 WINEFSYNC=1 DXVK_HUD=0 wine /home/radoje/Downloads/wow/'World of Warcraft 3.3.5a'/Wow.exe"
 
 # exports
-export BROWSER="$(which firefox)"
-export EDITOR="$(which nvim)"
+export BROWSER="firefox"
+export EDITOR="nvim"
 
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
