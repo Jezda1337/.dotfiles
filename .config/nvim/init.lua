@@ -11,7 +11,13 @@ vim.pack.add {
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
 
-vim.opt.runtimepath:append(vim.env.HOME .. "/personal/nvim-html-css")
+local sys_name = vim.uv.os_uname().sysname
+
+if sys_name == "Linux" then
+    vim.opt.runtimepath:append(vim.env.HOME .. "/personal/nvim-html-css")
+elseif sys_name == "Darwin" then
+    vim.opt.runtimepath:append(vim.env.HOME .. "/Desktop/github/nvim-html-css")
+end
 
 vim.cmd "packadd nohlsearch"
 vim.cmd "packadd nvim.undotree"
