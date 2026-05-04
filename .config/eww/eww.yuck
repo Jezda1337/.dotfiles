@@ -1,81 +1,73 @@
 (defvar icons "/usr/share/icons/Papirus/16x16/apps/")
 
 (defwidget main []
-	(centerbox :orientation "h"
-		(workspaces)
-		(window_w)
-		(clock)
-	))
+  (centerbox :orientation "h"
+     (workspaces)
+     (window_w)
+     (clock)))
 
 (deflisten workspaces :initial "[]" "./scripts/get-workspaces")
 (deflisten current_workspace :initial "1" "./scripts/get-active-workspace")
 (deflisten current_app :initial "[]" "./scripts/get-active-app")
 (defwidget workspaces []
-	(eventbox :onscroll "./scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
-		(box :space-evenly false :spacing 0
-			(box :space-evenly false :spacing 0
-				(label :text "${workspaces}${current_workspace}" :visible false)
-				(for workspace in workspaces
-					(eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-						(box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
-							(label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}" )
-						)
-					)
-				)
-			)
-			(image :style "margin-left: 10px;" :icon {current_app})
-			;;(image :path "${icons+current_app}.svg")
-			;;(label :text {current_app})
-		)
-	)
-)
+  (eventbox :onscroll "./scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+     (box :space-evenly false :spacing 0
+      (box :space-evenly false :spacing 0
+           (label :text "${workspaces}${current_workspace}" :visible false)
+           (for workspace in workspaces
+                 (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+                        (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
+                                (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}")))))
+      (image :style "margin-left: 10px;" :icon {current_app}))))
+
+;;(image :path "${icons+current_app}.svg")
+;;(label :text {current_app})
+
 
 (deflisten window-title :initial "..." "./scripts/get-window-title")
 (defwidget window_w []
-  (box
+  (box))
     ;;(label :text "${window-title}")
-  )
-)
+
+
 
 (defpoll time :interval "0.01s"
-	"date '+%H:%M:%S %b %d, %Y'")
+  "date '+%H:%M:%S %b %d, %Y'")
 (defpoll PING_GW :interval "2s" "./scripts/ping_gw || echo error")
 (defpoll timer :interval "1s" "./scripts/timer print")
 (defvar timer_state "off")
 (defwidget clock []
-	(box :space-evenly false :halign "end" :spacing 10
-    (eventbox :cursor "pointer"
-      (button
-        :onclick "./scripts/timer toggle"
-        :onrightclick "./scripts/timer reset"
-        :class "${timer_state == "on" ? "on" : timer_state == "paused" ? "paused" : "off"}"
-        (label :text "${timer}")
-      )
-    )
-    (label :text "|")
-    (box :spacing 10 :space-evenly false
-      (label :class "ping_gw ${PING_GW}"
-        :text PING_GW)
-      (label :text "|")
-    )
-		(eventbox :cursor "pointer"
-			(button :onclick "eww update bar_rev=true"
-				(label :text "${time}")
-			)
-		)
-		(key_layout)
-		(sound)
-		(macak)
-    (systray :icon-size 16 :spacing 6 :prepend-new true)
-	)
-)
+  (box :space-evenly false :halign "end" :spacing 10
+     (eventbox :cursor "pointer"
+       (button
+         :onclick "./scripts/timer toggle"
+         :onrightclick "./scripts/timer reset"
+         :class "${timer_state == "on" ? "on" : timer_state == "paused" ? "paused" : "off"}"
+         (label :text "${timer}")))
+
+
+     (label :text "|")
+     (box :spacing 10 :space-evenly false
+       (label :class "ping_gw ${PING_GW}"
+         :text PING_GW)
+       (label :text "|"))
+
+     (eventbox :cursor "pointer"
+      (button :onclick "eww update bar_rev=true"
+           (label :text "${time}")))
+     (key_layout)
+     (sound)
+     (macak)
+     (systray :icon-size 16 :spacing 6 :prepend-new true)))
+
+
 
 (defpoll WEATHER :interval "30m" `curl https://wttr.in/Bajina-Basta?format=2`)
 (defwidget weather []
-	(box
-		(label :text "Бајина Башта ${WEATHER}")
-	)
-)
+  (box
+     (label :text "Бајина Башта ${WEATHER}")))
+
+
 
 ;;(defwidget right_side_panel []
 ;; (eventbox :cursor "pointer" :onclick "${eww} update bar_rev=true" :tooltip "button"
@@ -83,99 +75,99 @@
 
 (deflisten var_key_layout :initial "English (US)" "./scripts/get-key-layout")
 (defwidget key_layout []
-	(eventbox :cursor "pointer"
-		:onclick "hyprctl switchxkblayout current next"
-		:tooltip "${var_key_layout == "en" ? "English (US)" : "Serbian"}"
-		(label
-			:width 30
-			:class "key_layout_btn"
-      :text "| ${var_key_layout} 󰥻 |"
-		)
-	)
-)
+  (eventbox :cursor "pointer"
+     :onclick "hyprctl switchxkblayout current next"
+     :tooltip "${var_key_layout == "en" ? "English (US)" : "Serbian"}"
+     (label
+      :width 30
+      :class "key_layout_btn"
+         :text "| ${var_key_layout} 󰥻 |")))
+
+
+
 
 (defwidget macak []
-	(eventbox :onclick "scripts/macak" :valign "center" :cursor "pointer"
-		(box :class "macak" :tooltip "Маћак" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")
-	)
-)
+  (eventbox :onclick "scripts/macak" :valign "center" :cursor "pointer"
+     (box :class "macak" :tooltip "Маћак" :style "background-image: url('/home/radoje/.dotfiles/.config/eww/macak')")))
+
+
 
 (defwindow main
   :monitor 0
   :geometry (geometry :x "0%"
-    :y "0"
-    :width "100%"
-    :height "15px"
-    :anchor "bottom center")
+             :y "0"
+             :width "100%"
+             :height "15px"
+             :anchor "bottom center")
   :stacking "fg"
   :exclusive true
-  (main)
-)
+  (main))
+
 
 (defvar bar_rev false)
 (defwindow bar
-	:monitor 0
-	:geometry (geometry
-		:x "0"
-		:y "0"
-		:width "0"
-		:height "100%"
-		:anchor "top right")
-	:stacking "fg"
-	:exclusive false
-	(eventbox
+  :monitor 0
+  :geometry (geometry
+             :x "0"
+             :y "0"
+             :width "0"
+             :height "100%"
+             :anchor "top right")
+  :stacking "fg"
+  :exclusive false
+  (eventbox
 ;;		:onhover "${eww} update bar_rev=true"
 ;;    :onhoverlost "${eww} update bar_rev=false"
-		(revealer
-			:transition "slideleft"
-			:reveal bar_rev
-			:duration "350ms"
-			:class "bar_box"
-			(box :valign "start"	:width 300
-				(button :width 30 :height 30 :onclick "eww update bar_rev=false" :halign "start"
-					(label :class "lbl" :text "")
-				)
-			)
-		)
-	)
-)
+     (revealer
+      :transition "slideleft"
+      :reveal bar_rev
+      :duration "350ms"
+      :class "bar_box"
+      (box :valign "start"  :width 300
+           (button :width 30 :height 30 :onclick "eww update bar_rev=false" :halign "start"
+                 (label :class "lbl" :text ""))))))
+
+
+
+
+
 
 (deflisten vol :initial 0 `./scripts/get-volume`)
 (defvar side_rev false)
 (defwidget sound []
-	(eventbox
-		:onhover "eww update side_rev=true"
-		:onhoverlost "eww update side_rev=false"
-    :cursor "pointer"
-		(box :space-evenly "false" :class "vol-controller"
-			(button	:onclick "pamixer -t"
-				(label :text "${vol == "muted" ? " Muted" : vol == 0 ? " Muted" : " ${vol}%"}")
-			)
-			(revealer
-				:transition "slideleft"
-				:reveal side_rev
-				:duration "1000ms"
-				(scale
-					:value vol
-					:min 0
-					:max 100
-					:width 110
-					:onchange "./scripts/set-volume {}"
-				)
-			)
-		)
-	)
-)
+  (eventbox
+     :onhover "eww update side_rev=true"
+     :onhoverlost "eww update side_rev=false"
+     :cursor "pointer"
+     (box :space-evenly "false" :class "vol-controller"
+      (button  :onclick "pamixer -t"
+           (label :text "${vol == "muted" ? " Muted" : vol == 0 ? " Muted" : " ${vol}%"}"))
+
+      (revealer
+           :transition "slideleft"
+           :reveal side_rev
+           :duration "1000ms"
+           (scale
+                 :value vol
+                 :min 0
+                 :max 100
+                 :width 110
+                 :onchange "./scripts/set-volume {}")))))
+
+
+
+
+
 
 
 ;; Generic notification widget
 (defwindow notify
     :monitor 0
     :geometry (geometry :x "0%"
-        :y "30px"
-        :width 300
-        :height 300
-        :anchor "bottom center")
+               :y "30px"
+               :width 300
+               :height 300
+               :anchor "bottom center")
     :stacking "fg"
     :exclusive false
     (notify_widget))
@@ -198,13 +190,8 @@
                 :spacing 10
                 (label
                     :class "notify_icon"
-                    :text notify_icon
-                )
+                    :text notify_icon)
+
                 (label
                     :class "notify_label"
-                    :text notify_text
-                )
-            )
-        )
-    )
-)
+                    :text notify_text)))))
