@@ -105,11 +105,20 @@ return {
             ","
         )
 
+        local sys_info = vim.uv.os_uname()
+        local sys_name = sys_info.sysname
+
+        if sys_name == "Linux" then
+            ts_probe = vim.env.HOME
+                .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript"
+            ng_probe = vim.env.HOME
+                .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/@angular"
+        elseif sys_name == "Darwin" then
+            ts_probe = vim.env.HOME .. "/.bun/install/global/node_modules/typescript"
+            ng_probe = vim.env.HOME .. "/.bun/install/global/node_modules/@angular"
+        end
+
         -- custom paths
-        ts_probe = vim.env.HOME
-            .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript"
-        ng_probe = vim.env.HOME
-            .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/@angular"
 
         local cmd = {
             "ngserver",
