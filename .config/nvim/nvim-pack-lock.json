@@ -21,7 +21,7 @@
       "src": "https://github.com/blazkowolf/gruber-darker.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "31026a13eefb20681124706a79fc1df6bf11ab27",
+      "rev": "451d4ef9abd4f0f08e379ef0d55d1c391b6125a7",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree-docs": {
@@ -34,7 +34,7 @@
       "version": "'main'"
     },
     "opencode.nvim": {
-      "rev": "f1f2c08debbf1203f7c747ddcfc236e8cb327e13",
+      "rev": "0dd88243b151b25e291e714d572d303a694b5f7c",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "parinfer-rust": {
@@ -42,7 +42,7 @@
       "src": "https://github.com/eraserhd/parinfer-rust"
     },
     "vim-wakatime": {
-      "rev": "5f458398a217735b908ae40d1c2851cc69e7d817",
+      "rev": "24495fb7cc9613eaf0ce45540fb8d096a30d08e9",
       "src": "https://github.com/wakatime/vim-wakatime"
     },
     "yuck.vim": {
