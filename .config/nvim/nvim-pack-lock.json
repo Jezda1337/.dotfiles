@@ -34,20 +34,12 @@
       "version": "'main'"
     },
     "opencode.nvim": {
-      "rev": "0dd88243b151b25e291e714d572d303a694b5f7c",
+      "rev": "a89f9b90e2709f7350743bf2d38e80bc4fd5379d",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
-    },
-    "parinfer-rust": {
-      "rev": "845bfbb9916687cba5b6bae088c9eab70dbb83a3",
-      "src": "https://github.com/eraserhd/parinfer-rust"
     },
     "vim-wakatime": {
       "rev": "24495fb7cc9613eaf0ce45540fb8d096a30d08e9",
       "src": "https://github.com/wakatime/vim-wakatime"
-    },
-    "yuck.vim": {
-      "rev": "9b5e0370f70cc30383e1dabd6c215475915fe5c3",
-      "src": "https://github.com/elkowar/yuck.vim"
     }
   }
 }

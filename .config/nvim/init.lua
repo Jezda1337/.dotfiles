@@ -784,6 +784,7 @@ map("n", "<leader>u", require("undotree").open)
 local function fd_find(match, cmdcomplete)
     local cmd = {
         "fd",
+        "--full-path",
         match,
         "--type",
         "f",
@@ -798,17 +799,17 @@ local function fd_find(match, cmdcomplete)
 
     local ok, files_raw = pcall(vim.fn.systemlist, cmd)
     if not ok then
-        print "yo mama"
         return {}
     end
 
     local files = vim.fn.matchfuzzy(files_raw, match)
     if cmdcomplete then
-        local matches = {}
-        for _, path in ipairs(files) do
-            table.insert(matches, vim.fs.basename(path))
-        end
-        return matches
+        return files
+        -- local matches = {}
+        -- for _, path in ipairs(files) do
+        --     table.insert(matches, vim.fs.basename(path))
+        -- end
+        -- return matches
     else
         return files
     end
