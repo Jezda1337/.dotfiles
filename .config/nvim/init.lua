@@ -542,6 +542,8 @@ map({ "n", "x", "o" }, "<A-i>", function()
     end
 end, { desc = "Select child treesitter node or inner incremental lsp selections" })
 
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+
 -- git remaps
 map("n", "<leader>ls", function()
     local fpath = vim.fn.expand "%:p"
