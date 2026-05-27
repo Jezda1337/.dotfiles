@@ -525,6 +525,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
+map("n", "<c-w>b", ":%bd|e#", { desc = "Delete all buffers but current one" })
+
 -- incremental selection treesitter/lsp
 map({ "n", "x", "o" }, "<A-o>", function()
     if vim.treesitter.get_parser(nil, nil, { error = false }) then
