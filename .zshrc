@@ -28,7 +28,7 @@ alias igor='eval "$(ssh-agent -s)" && ssh-add ~/Desktop/github/angular/eventpage
 # exports
 export BROWSER="firefox"
 export EDITOR="nvim"
-export PATH=$PATH:/Users/radojejezdic/go/bin
+export PATH=$PATH:/Users/radojejezdic/go/bin:$HOME/.local/bin
 
 function yy() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
