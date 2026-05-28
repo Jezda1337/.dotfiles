@@ -421,7 +421,7 @@ autocmd("RecordingLeave", {
 autocmd("TextYankPost", {
     group = augroup("highlight--text-on-yank", { clear = true }),
     callback = function()
-        (vim.hl or vim.highlight).on_yank()
+        vim.hl.hl_op()
     end,
 })
 
