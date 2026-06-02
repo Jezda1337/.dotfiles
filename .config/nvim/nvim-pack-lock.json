@@ -21,7 +21,7 @@
       "src": "https://github.com/blazkowolf/gruber-darker.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "a4ed4e761c400849e8c9f8bda33e5083f890268c",
+      "rev": "07dff35e7c95288861200b788ef32d6103f107f0",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree-docs": {
@@ -34,7 +34,7 @@
       "version": "'main'"
     },
     "opencode.nvim": {
-      "rev": "1f6442f4b0bb140ac3e87a37c53729a72605a1c3",
+      "rev": "6eabb12f1afba7c19f511c95ab356ed4fa5ec60f",
       "src": "https://github.com/NickvanDyke/opencode.nvim"
     },
     "vim-wakatime": {
