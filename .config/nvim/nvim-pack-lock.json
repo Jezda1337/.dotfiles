@@ -33,10 +33,6 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
-    "opencode.nvim": {
-      "rev": "248208f73d973736d8f59d9a2e7b7cf43b1179ba",
-      "src": "https://github.com/NickvanDyke/opencode.nvim"
-    },
     "vim-wakatime": {
       "rev": "2a856d0b7863dc34ffc80647cb52fbd1319fe144",
       "src": "https://github.com/wakatime/vim-wakatime"

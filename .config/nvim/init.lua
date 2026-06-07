@@ -6,7 +6,6 @@ vim.pack.add {
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/sourcegraph/amp.nvim" },
-    { src = "https://github.com/NickvanDyke/opencode.nvim" },
     { src = "https://github.com/zitrocode/carvion.nvim" },
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
@@ -748,31 +747,6 @@ vim.api.nvim_create_user_command("ActiveLSPClients", function()
 end, {
     desc = "Print active LSP clients",
 })
-
--- OpenCode keymaps
-map({ "n", "x" }, "<A-a>", function()
-    require("opencode").ask("@this: ", { submit = true })
-end, { desc = "Ask opencode" })
-map({ "n", "x" }, "<A-x>", function()
-    require("opencode").select()
-end, { desc = "Execute opencode action…" })
-map({ "n", "t" }, "<A-.>", function()
-    require("opencode").toggle()
-end, { desc = "Toggle opencode" })
-
-map({ "n", "x" }, "go", function()
-    return require("opencode").operator "@this "
-end, { expr = true, desc = "Add range to opencode" })
-map("n", "goo", function()
-    return require("opencode").operator "@this " .. "_"
-end, { expr = true, desc = "Add line to opencode" })
-
-map("n", "<S-A-u>", function()
-    require("opencode").command "session.half.page.up"
-end, { desc = "opencode half page up" })
-map("n", "<S-A-d>", function()
-    require("opencode").command "session.half.page.down"
-end, { desc = "opencode half page down" })
 
 -- listen for background change
 -- vim.api.nvim_create_autocmd("OptionSet", {
