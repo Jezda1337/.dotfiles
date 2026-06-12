@@ -6,7 +6,6 @@ vim.pack.add {
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/stevearc/conform.nvim" },
     { src = "https://github.com/sourcegraph/amp.nvim" },
-    { src = "https://github.com/zitrocode/carvion.nvim" },
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
 
@@ -23,7 +22,6 @@ vim.cmd "packadd nvim.undotree"
 
 -- colors
 vim.cmd [[colorscheme gruber-darker]]
--- vim.cmd [[ colorscheme carvion ]]
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })

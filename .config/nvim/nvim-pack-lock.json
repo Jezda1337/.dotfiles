@@ -1,12 +1,8 @@
 {
   "plugins": {
     "amp.nvim": {
-      "rev": "3b9ad5ef0328de1b35cc9bfa723a37db5daf9434",
+      "rev": "b851d97d8e8782e58343608d8de7d9eb3a88090f",
       "src": "https://github.com/sourcegraph/amp.nvim"
-    },
-    "carvion.nvim": {
-      "rev": "a5a120d535b83fec5b08efab2557effbc2f34602",
-      "src": "https://github.com/zitrocode/carvion.nvim"
     },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
