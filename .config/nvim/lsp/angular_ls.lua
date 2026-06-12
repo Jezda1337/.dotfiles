@@ -135,4 +135,12 @@ return {
 
     filetypes = { "typescript", "html", "typescriptreact", "htmlangular" },
     root_markers = { "angular.json", "nx.json" },
+    settings = {
+        angular = {
+            enableForWorkspaceTypeScriptVersions = false,
+        },
+    },
+    on_attach = function(client, bufnr)
+        client.server_capabilities.renameProvider = false
+    end,
 }

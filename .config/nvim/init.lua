@@ -298,17 +298,6 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
         for _, lsp in pairs(servers) do
             if lsp == "cssls" or lsp == "html" then
                 vim.lsp.config(lsp, { capabilities = capabilities })
-            elseif lsp == "angularls" then
-                vim.lsp.config(lsp, {
-                    settings = {
-                        angular = {
-                            enableForWorkspaceTypeScriptVersions = false,
-                        },
-                    },
-                    on_attach = function(client, bufnr)
-                        client.server_capabilities.renameProvider = false
-                    end,
-                })
             elseif lsp == "astro" then
                 vim.lsp.config(lsp, {
                     init_options = {
