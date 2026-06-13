@@ -19,6 +19,7 @@ end
 
 vim.cmd "packadd nohlsearch"
 vim.cmd "packadd nvim.undotree"
+vim.cmd "packadd cfilter"
 
 -- colors
 vim.cmd [[colorscheme gruber-darker]]
@@ -227,7 +228,9 @@ vim.o.undofile = true
 vim.o.hlsearch = true
 vim.o.incsearch = true
 vim.o.joinspaces = false
-vim.o.termguicolors = true
+if vim.fn.has "termguicolors" == 1 then
+    vim.o.termguicolors = true
+end
 vim.o.wrap = false
 vim.o.cursorline = true
 vim.o.cursorlineopt = "screenline,number"
@@ -264,7 +267,9 @@ vim.opt.path:append "."
 
 -- helpful for :find command, :find command won't look for this dirs
 vim.opt.wildignore:append { "*/node_modules/*,*/.history/*,*/dist/*,*/.git/*" }
-vim.opt.grepprg = "rg --vimgrep -S --hidden --glob=!node_modules --glob=!.history --glob=!dist --glob=!.git"
+-- vim.opt.grepprg = "rg --vimgrep -S --hidden --glob=!node_modules --glob=!.history --glob=!dist --glob=!.git"
+vim.o.grepprg =
+    "rg --smart-case --vimgrep --no-heading --follow --multiline --multiline-dotall --hidden --pcre2 --regexp" -- IMPORTANT: pipes should be escaped! e.g. `"text\.(Success\|Info)\("`
 vim.opt.grepformat = "%f:%l:%c:%m"
 
 -- vim.opt.makeprg = ""
