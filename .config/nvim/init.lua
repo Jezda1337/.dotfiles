@@ -60,7 +60,7 @@ require("html-css").setup {
 
 -- experimental feature
 require("vim._extui").enable {
-    enable = true,
+    enable = false,
 }
 -- require("vim._core.ui2").enable {
 --     enable = true,
@@ -236,7 +236,7 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = "screenline,number"
 vim.o.inccommand = "split" -- Preview substitutions live, as you type!
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 400
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.schedule(function()
@@ -542,6 +542,10 @@ map("n", "<leader>ls", function()
     local fpath = vim.fn.expand "%:p"
     local buf = vim.api.nvim_create_buf(false, true)
 
+    if buf == 0 then
+        return
+    end
+
     local width = math.floor(vim.o.columns * 0.9)
     local height = math.floor(vim.o.lines * 0.9)
     local row = math.floor((vim.o.lines - height) / 2)
@@ -563,29 +567,42 @@ map("n", "<leader>ls", function()
     vim.api.nvim_feedkeys("i", "n", false)
 end, { desc = "Open file git history in floating terminal buff" })
 
-map("n", "]c", function()
+map("n", "[c", function()
     if vim.wo.diff then
         vim.cmd.normal { "]c", bang = true }
     else
         gs.nav_hunk "next"
     end
 end, { desc = "Jump to next git [c]hange" })
-map("n", "[c", function()
+map("n", "]c", function()
     if vim.wo.diff then
         vim.cmd.normal { "[c", bang = true }
     else
         gs.nav_hunk "prev"
     end
 end, { desc = "Jump to previous git [c]hange" })
-map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
-map("n", "<leader>hb", function()
+map("n", "<leader>gg", gs.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
+map("n", "<leader>gB", gs.blame, { desc = "[T]oggle git show [b]lame line" })
+map("n", "<leader>gb", function()
     gs.blame_line { full = true }
 end, { desc = "git [b]lame line" })
-map("n", "<leader>hp", gs.preview_hunk, { desc = "[P]review git hunk in floating window" })
-map("n", "<leader>hi", gs.preview_hunk_inline, { desc = "[P]review git hunk inline" })
-map("n", "<leader>hD", function()
+map("n", "<leader>gp", gs.preview_hunk, { desc = "[P]review git hunk in floating window" })
+map("n", "<leader>gi", gs.preview_hunk_inline, { desc = "[P]review git hunk inline" })
+map("n", "<leader>gD", function()
     gs.diffthis "~"
 end)
+map("n", "<leader>gq", gs.setqflist, { desc = "git hunk [q]uickfix list (all changes in this file)" })
+map("n", "<leader>gQ", function()
+    gs.setqflist "all"
+end, { desc = "git hunk [Q]uickfix list (all files in repo)" })
+map("n", "<leader>gr", gs.reset_hunk, { desc = "git [r]eset hunk" })
+map("n", "<leader>gR", gs.reset_buffer, { desc = "git [r]eset hunk" })
+map("v", "<leader>gs", function()
+    gs.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+end, { desc = "git [s]tage hunk" })
+map("v", "<leader>gr", function()
+    gs.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+end, { desc = "git [r]eset hunk" })
 
 -- other remaps
 map("n", "<leader>c", ":ccl <bar> lcl<CR>")
@@ -630,7 +647,8 @@ map("n", "-", ":Explore <CR>")
 -- grep word under the cursor
 map("n", "<leader>sw", ":grep <cword> . | copen <CR>")
 
-map("n", "<leader>ss", function()
+-- better grep??
+map("n", "<leader>G", function()
     vim.ui.input({ prompt = "grep > " }, function(input)
         if not input or input == "" then
             return
@@ -652,6 +670,10 @@ map("n", "<A-D>", ":t.-1<CR>")
 map("n", "<leader>lg", function()
     local buf = vim.api.nvim_create_buf(false, true)
 
+    if buf == 0 then
+        return
+    end
+
     local width = math.floor(vim.o.columns * 0.9)
     local height = math.floor(vim.o.lines * 0.9)
     local row = math.floor((vim.o.lines - height) / 2)
@@ -667,7 +689,9 @@ map("n", "<leader>lg", function()
         border = "none",
     })
 
-    vim.cmd "terminal lazygit"
+    vim.cmd "autocmd! TermClose term://*lazygit lua vim.api.nvim_input('<CR>')"
+
+    vim.cmd { cmd = "terminal", args = { "lazygit" }, bang = false }
     vim.api.nvim_feedkeys("i", "n", false)
 end)
 

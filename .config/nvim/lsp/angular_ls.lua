@@ -140,6 +140,7 @@ return {
             enableForWorkspaceTypeScriptVersions = false,
         },
     },
+    workspace_required = true,
     on_attach = function(client, bufnr)
         client.server_capabilities.renameProvider = false
     end,

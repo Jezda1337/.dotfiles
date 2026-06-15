@@ -1,3 +1,5 @@
+quitOnTopLevelReturn: true
+
 gui:
   border: single
 os:
