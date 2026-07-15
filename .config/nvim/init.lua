@@ -237,6 +237,9 @@ local function map(mode, l, r, opts)
     vim.keymap.set(mode, l, r, opts)
 end
 
+map("n", "n", "nzz")
+map("n", "N", "Nzz")
+
 local console_log_macro = vim.api.nvim_replace_termcodes('yoconsole.log("")<Esc>bllhpla, <Esc>p<Esc>', true, true, true)
 vim.fn.setreg("l", console_log_macro)
 
