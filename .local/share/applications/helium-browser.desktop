@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Value=1.0
+Type=Application
+Name=Helium Browser
+GenericName=Browser
+Comment=Safe browser?
+Icon=/home/radoje/albiononline/AlbionOnline.xpm
+Exec=/home/radoje/Downloads/helium-0.13.5.1-x86_64.AppImage
+Categories=Browser
+StartupWMClass=Helium-Browser

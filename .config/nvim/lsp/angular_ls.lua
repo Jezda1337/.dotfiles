@@ -129,6 +129,7 @@ return {
             ng_probe,
             "--angularCoreVersion",
             get_angular_core_version(root_dir),
+            "--forceStrictTemplates",
         }
         return vim.lsp.rpc.start(cmd, dispatchers)
     end,
@@ -141,7 +142,5 @@ return {
         },
     },
     workspace_required = true,
-    on_attach = function(client, bufnr)
-        client.server_capabilities.renameProvider = false
-    end,
+    -- on_attach = function(client, bufnr) end,
 }

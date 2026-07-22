@@ -20,6 +20,7 @@ end
 vim.cmd "packadd nohlsearch"
 vim.cmd "packadd nvim.undotree"
 vim.cmd "packadd cfilter"
+vim.cmd "packadd nvim.difftool"
 
 -- colors
 vim.cmd [[colorscheme gruber-darker]]
@@ -61,64 +62,64 @@ require("html-css").setup {
 -- experimental feature
 require("vim._core.ui2").enable {
     enable = true,
-    msg = {
-        targets = {
-            [""] = "msg",
-            empty = "cmd",
-            bufwrite = "msg",
-            confirm = "cmd",
-            emsg = "pager",
-            echo = "msg",
-            echomsg = "msg",
-            echoerr = "pager",
-            completion = "cmd",
-            list_cmd = "pager",
-            lua_error = "pager",
-            lua_print = "msg",
-            progress = "pager",
-            rpc_error = "pager",
-            quickfix = "msg",
-            search_cmd = "cmd",
-            search_count = "cmd",
-            shell_cmd = "pager",
-            shell_err = "pager",
-            shell_out = "pager",
-            shell_ret = "msg",
-            undo = "msg",
-            verbose = "pager",
-            wildlist = "cmd",
-            wmsg = "msg",
-            typed_cmd = "cmd",
-        },
-        cmd = {
-            height = 0.5,
-        },
-        dialog = {
-            height = 0.5,
-        },
-        msg = {
-            height = 0.3,
-            timeout = 5000,
-        },
-        pager = {
-            height = 0.5,
-        },
-    },
+    -- msg = {
+    --     targets = {
+    --         [""] = "msg",
+    --         empty = "cmd",
+    --         bufwrite = "msg",
+    --         confirm = "cmd",
+    --         emsg = "pager",
+    --         echo = "msg",
+    --         echomsg = "msg",
+    --         echoerr = "pager",
+    --         completion = "pager",
+    --         list_cmd = "pager",
+    --         lua_error = "pager",
+    --         lua_print = "msg",
+    --         progress = "msg", -- vim.pack.update
+    --         rpc_error = "pager",
+    --         quickfix = "msg",
+    --         search_cmd = "cmd",
+    --         search_count = "cmd",
+    --         shell_cmd = "pager",
+    --         shell_err = "pager",
+    --         shell_out = "pager",
+    --         shell_ret = "msg",
+    --         undo = "msg",
+    --         verbose = "pager",
+    --         wildlist = "cmd",
+    --         wmsg = "msg",
+    --         typed_cmd = "cmd",
+    --     },
+    --     cmd = {
+    --         height = 0.5,
+    --     },
+    --     dialog = {
+    --         height = 0.5,
+    --     },
+    --     msg = {
+    --         height = 0.3,
+    --         timeout = 5000,
+    --     },
+    --     pager = {
+    --         height = 0.5,
+    --     },
+    -- },
 }
 
-vim.api.nvim_create_autocmd("LspProgress", {
-    callback = function(ev)
-        local value = ev.data.params.value
-        vim.api.nvim_echo({ { value.message or "done" } }, false, {
-            id = "lsp." .. ev.data.client_id,
-            kind = "progress",
-            source = "vim.lsp",
-            title = value.title,
-            status = value.kind ~= "end" and "running" or "success",
-            percent = value.percentage,
-        })
-    end,
-})
+-- vim.api.nvim_create_autocmd("LspProgress", {
+--     callback = function(ev)
+--         local value = ev.data.params.value
+--         vim.api.nvim_echo({ { value.message or "done" } }, false, {
+--             id = "lsp." .. ev.data.client_id,
+--             kind = "progress",
+--             source = "vim.lsp",
+--             title = value.title,
+--             status = value.kind ~= "end" and "running" or "success",
+--             percent = value.percentage,
+--         })
+--     end,
+-- })
 
 require("amp").setup { auto_start = true, log_level = "info" }
 local ts = require "nvim-treesitter"
@@ -146,7 +147,6 @@ ts.install {
     "jsdoc",
     "luadoc",
     "regex",
-    "tmux",
     "toml",
     "yaml",
     "xml",
@@ -592,8 +592,6 @@ map({ "n", "x", "o" }, "<A-i>", function()
     end
 end, { desc = "Select child treesitter node or inner incremental lsp selections" })
 
-map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
 -- git remaps
 map("n", "<leader>ls", function()
     local fpath = vim.fn.expand "%:p"
@@ -731,20 +729,20 @@ map("n", "<leader>lg", function()
         return
     end
 
-    local width = math.floor(vim.o.columns * 0.9)
-    local height = math.floor(vim.o.lines * 0.9)
-    local row = math.floor((vim.o.lines - height) / 2)
-    local col = math.floor((vim.o.columns - width) / 2)
+    -- local width = math.floor(vim.o.columns * 0.9)
+    -- local height = math.floor(vim.o.lines * 0.9)
+    -- local row = math.floor((vim.o.lines - height) / 2)
+    -- local col = math.floor((vim.o.columns - width) / 2)
 
-    vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        width = width,
-        height = height,
-        row = row,
-        col = col,
-        style = "minimal",
-        border = "none",
-    })
+    -- vim.api.nvim_open_win(buf, true, {
+    --     relative = "editor",
+    --     width = width,
+    --     height = height,
+    --     row = row,
+    --     col = col,
+    --     style = "minimal",
+    --     border = "none",
+    -- })
 
     vim.cmd "autocmd! TermClose term://*lazygit lua vim.api.nvim_input('<CR>')"
 
@@ -868,3 +866,70 @@ end
 
 _G.fd_find = fd_find
 vim.o.findfunc = "v:lua.fd_find"
+
+-- --- @return vim.lsp.rpc.Client
+-- local function cmd_fn(dispatchers)
+--     local closing = false
+--     local request_id = 0
+--     ---@type vim.lsp.rpc.Client
+--     local srv = {}
+--
+--     function srv.request(method, params, callback)
+--         if method == "initialize" then
+--             callback(nil, {
+--                 capabilities = {
+--                     completionProvider = {
+--                         triggerCharacters = { '"', "'", " " },
+--                         resolveProvider = true,
+--                     },
+--                     hoverProvider = true,
+--                 },
+--             }, request_id)
+--         elseif method == "textDocument/hover" then
+--         elseif method == "textDocument/completion" then
+--             callback(nil, {
+--                 items = {
+--                     {
+--                         label = "hi mom",
+--                         kind = 21,
+--                         insertText = "yoyo mama",
+--                     },
+--                     {
+--                         label = "hi mom1",
+--                         kind = 21,
+--                         insertText = "yoyo mama1",
+--                     },
+--                 },
+--             }, request_id)
+--         elseif method == "shutdown" then
+--             callback(nil, nil, request_id)
+--         end
+--         request_id = request_id + 1
+--         return true, request_id
+--     end
+--     function srv.notify(method, params)
+--         if method == "exit" then
+--             dispatchers.on_exit(0, 15)
+--         end
+--         return false
+--     end
+--     function srv.is_closing()
+--         return closing
+--     end
+--     function srv.terminate()
+--         closing = true
+--     end
+--
+--     return srv
+-- end
+
+-- Define a config for the server, then enable it...
+-- vim.lsp.config["my-server"] = {
+--     cmd = cmd_fn,
+--     filetypes = { "lua", "html", "htmlangular" },
+--     root_markers = { ".git", "package.json", ".nvim.lua" },
+-- }
+-- vim.lsp.enable "my-server"
+
+-- ...or call start() directly.
+-- vim.lsp.start({ cmd = cmd_fn, name = "my-server", root_dir = vim.uv.cwd() }, { attach = true })
