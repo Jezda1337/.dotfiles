@@ -62,49 +62,49 @@ require("html-css").setup {
 -- experimental feature
 require("vim._core.ui2").enable {
     enable = true,
-    -- msg = {
-    --     targets = {
-    --         [""] = "msg",
-    --         empty = "cmd",
-    --         bufwrite = "msg",
-    --         confirm = "cmd",
-    --         emsg = "pager",
-    --         echo = "msg",
-    --         echomsg = "msg",
-    --         echoerr = "pager",
-    --         completion = "pager",
-    --         list_cmd = "pager",
-    --         lua_error = "pager",
-    --         lua_print = "msg",
-    --         progress = "msg", -- vim.pack.update
-    --         rpc_error = "pager",
-    --         quickfix = "msg",
-    --         search_cmd = "cmd",
-    --         search_count = "cmd",
-    --         shell_cmd = "pager",
-    --         shell_err = "pager",
-    --         shell_out = "pager",
-    --         shell_ret = "msg",
-    --         undo = "msg",
-    --         verbose = "pager",
-    --         wildlist = "cmd",
-    --         wmsg = "msg",
-    --         typed_cmd = "cmd",
-    --     },
-    --     cmd = {
-    --         height = 0.5,
-    --     },
-    --     dialog = {
-    --         height = 0.5,
-    --     },
-    --     msg = {
-    --         height = 0.3,
-    --         timeout = 5000,
-    --     },
-    --     pager = {
-    --         height = 0.5,
-    --     },
-    -- },
+    msg = {
+        targets = {
+            [""] = "msg",
+            empty = "cmd",
+            bufwrite = "msg",
+            confirm = "cmd",
+            emsg = "pager",
+            echo = "msg",
+            echomsg = "msg",
+            echoerr = "pager",
+            completion = "pager",
+            list_cmd = "pager",
+            lua_error = "pager",
+            lua_print = "msg",
+            progress = "msg", -- vim.pack.update
+            rpc_error = "pager",
+            quickfix = "msg",
+            search_cmd = "cmd",
+            search_count = "cmd",
+            shell_cmd = "pager",
+            shell_err = "pager",
+            shell_out = "pager",
+            shell_ret = "msg",
+            undo = "msg",
+            verbose = "pager",
+            wildlist = "cmd",
+            wmsg = "msg",
+            typed_cmd = "cmd",
+        },
+        cmd = {
+            height = 0.5,
+        },
+        dialog = {
+            height = 0.5,
+        },
+        msg = {
+            height = 0.3,
+            timeout = 5000,
+        },
+        pager = {
+            height = 0.5,
+        },
+    },
 }
 
 -- vim.api.nvim_create_autocmd("LspProgress", {
@@ -316,7 +316,7 @@ vim.o.wildoptions = "pum,fuzzy"
 vim.o.winborder = "single"
 vim.o.ex = true
 vim.g.have_nerd_font = true
-vim.o.statusline = "%t%h%m%r%=%c,%l/%L %P"
+vim.o.statusline = "%F%h%m%r%=%c,%l/%L %P"
 vim.o.ruler = false
 
 vim.opt.path:append "**"
@@ -325,9 +325,11 @@ vim.opt.path:append "."
 -- helpful for :find command, :find command won't look for this dirs
 vim.opt.wildignore:append { "*/node_modules/*,*/.history/*,*/dist/*,*/.git/*" }
 -- vim.opt.grepprg = "rg --vimgrep -S --hidden --glob=!node_modules --glob=!.history --glob=!dist --glob=!.git"
-vim.o.grepprg =
-    "rg --smart-case --vimgrep --no-heading --follow --multiline --multiline-dotall --hidden --pcre2 --regexp" -- IMPORTANT: pipes should be escaped! e.g. `"text\.(Success\|Info)\("`
-vim.opt.grepformat = "%f:%l:%c:%m"
+if vim.fn.executable "rg" == 1 then
+    -- Flags passed in the command line (like -i or -w) merge cleanly with these defaults
+    vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+    vim.opt.grepformat = "%f:%l:%c:%m"
+end
 
 -- vim.opt.makeprg = ""
 
@@ -346,9 +348,8 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
             "gopls",
             "cssls",
             "pyright",
-            "angular_ls",
             "astro",
-            -- "tsgo",
+            "tsgo",
         }
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -365,6 +366,15 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
                     init_options = {
                         typescript = {
                             tsdk = ts_probe,
+                        },
+                    },
+                })
+            elseif lsp == "ts_ls" then
+                vim.lsp.config(lsp, {
+                    init_options = {
+                        maxTsServerMemory = 2048,
+                        preferences = {
+                            includeCompletionsForModuleExports = false, -- disables scanning all node_modules for auto-imports
                         },
                     },
                 })
@@ -729,20 +739,20 @@ map("n", "<leader>lg", function()
         return
     end
 
-    -- local width = math.floor(vim.o.columns * 0.9)
-    -- local height = math.floor(vim.o.lines * 0.9)
-    -- local row = math.floor((vim.o.lines - height) / 2)
-    -- local col = math.floor((vim.o.columns - width) / 2)
+    local width = math.floor(vim.o.columns * 1) -- 0.9
+    local height = math.floor(vim.o.lines * 1) -- 0.9
+    local row = math.floor((vim.o.lines - height) / 2)
+    local col = math.floor((vim.o.columns - width) / 2)
 
-    -- vim.api.nvim_open_win(buf, true, {
-    --     relative = "editor",
-    --     width = width,
-    --     height = height,
-    --     row = row,
-    --     col = col,
-    --     style = "minimal",
-    --     border = "none",
-    -- })
+    vim.api.nvim_open_win(buf, true, {
+        relative = "editor",
+        width = width,
+        height = height,
+        row = row,
+        col = col,
+        style = "minimal",
+        border = "none",
+    })
 
     vim.cmd "autocmd! TermClose term://*lazygit lua vim.api.nvim_input('<CR>')"
 
@@ -830,11 +840,9 @@ end, {
 
 map("n", "<leader>u", require("undotree").open)
 
-local function fd_find(match, cmdcomplete)
+local function fd_find(match, _)
     local cmd = {
         "fd",
-        "--full-path",
-        match,
         "--type",
         "f",
         "--hidden",
@@ -847,21 +855,16 @@ local function fd_find(match, cmdcomplete)
     }
 
     local ok, files_raw = pcall(vim.fn.systemlist, cmd)
-    if not ok then
+    if not ok or #files_raw == 0 then
         return {}
     end
 
-    local files = vim.fn.matchfuzzy(files_raw, match)
-    if cmdcomplete then
-        return files
-        -- local matches = {}
-        -- for _, path in ipairs(files) do
-        --     table.insert(matches, vim.fs.basename(path))
-        -- end
-        -- return matches
-    else
-        return files
+    -- If user typed a query, fuzzy-match it; otherwise return raw list for tab-completion
+    if match and match ~= "" then
+        return vim.fn.matchfuzzy(files_raw, match)
     end
+
+    return files_raw
 end
 
 _G.fd_find = fd_find
