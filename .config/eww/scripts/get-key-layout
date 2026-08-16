@@ -27,7 +27,8 @@ socat -u UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket
     pretty = $3
     short = pretty
 
-    system("hyprctl notify 0 3000 0 \"Keyboard: " pretty "\"")
+    # system("hyprctl notify 0 3000 0 \"Keyboard: " pretty "\"")
+    system("notify-send -h string:x-canonical-private-synchronous:keyboard-layout -i /usr/share/icons/Papirus-Dark/48x48/devices/gnome-dev-keyboard.svg \"Keyborad: " pretty "\" -u normal")
     print short
     fflush()
 }
