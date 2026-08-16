@@ -8,12 +8,16 @@ function clamp {
 
 direction=$1
 current=$2
-if test "$direction" = "down"; then
-	target=$(clamp 1 10 $(($current + 1)))
-	echo "jumping to $target"
-	hyprctl dispatch workspace $target
-elif test "$direction" = "up"; then
-	target=$(clamp 1 10 $(($current - 1)))
-	echo "jumping to $target"
-	hyprctl dispatch workspace $target
+
+if [[ "$direction" == "down" ]]; then
+    delta=1
+elif [[ "$direction" == "up" ]]; then
+    delta=-1
+else
+    exit 0
 fi
+
+target=$(clamp 1 10 $((current + delta)))
+
+echo "jumping to $target"
+hyprctl dispatch "hl.dsp.focus({ workspace = $target })"

@@ -15,7 +15,7 @@
       (box :space-evenly false :spacing 0
            (label :text "${workspaces}${current_workspace}" :visible false)
            (for workspace in workspaces
-                 (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+                 (eventbox :onclick "hyprctl dispatch 'hl.dsp.focus({ workspace = ${workspace.id} })'"
                         (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
                                 (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}")))))
       (image :style "margin-left: 10px;" :icon {current_app}))))

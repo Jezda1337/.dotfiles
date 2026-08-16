@@ -5,7 +5,6 @@ vim.pack.add {
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
     { src = "https://github.com/stevearc/conform.nvim" },
-    { src = "https://github.com/sourcegraph/amp.nvim" },
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
 
@@ -63,34 +62,34 @@ require("html-css").setup {
 require("vim._core.ui2").enable {
     enable = true,
     msg = {
-        targets = {
-            [""] = "msg",
-            empty = "cmd",
-            bufwrite = "msg",
-            confirm = "cmd",
-            emsg = "pager",
-            echo = "msg",
-            echomsg = "msg",
-            echoerr = "pager",
-            completion = "pager",
-            list_cmd = "pager",
-            lua_error = "pager",
-            lua_print = "msg",
-            progress = "msg", -- vim.pack.update
-            rpc_error = "pager",
-            quickfix = "msg",
-            search_cmd = "cmd",
-            search_count = "cmd",
-            shell_cmd = "pager",
-            shell_err = "pager",
-            shell_out = "pager",
-            shell_ret = "msg",
-            undo = "msg",
-            verbose = "pager",
-            wildlist = "cmd",
-            wmsg = "msg",
-            typed_cmd = "cmd",
-        },
+        -- targets = {
+        --     [""] = "msg",
+        --     empty = "cmd",
+        --     bufwrite = "msg",
+        --     confirm = "cmd",
+        --     emsg = "pager",
+        --     echo = "msg",
+        --     echomsg = "msg",
+        --     echoerr = "pager",
+        --     completion = "pager",
+        --     list_cmd = "pager",
+        --     lua_error = "pager",
+        --     lua_print = "msg",
+        --     progress = "msg", -- vim.pack.update
+        --     rpc_error = "pager",
+        --     quickfix = "msg",
+        --     search_cmd = "cmd",
+        --     search_count = "cmd",
+        --     shell_cmd = "pager",
+        --     shell_err = "pager",
+        --     shell_out = "pager",
+        --     shell_ret = "msg",
+        --     undo = "msg",
+        --     verbose = "pager",
+        --     wildlist = "cmd",
+        --     wmsg = "msg",
+        --     typed_cmd = "cmd",
+        -- },
         cmd = {
             height = 0.5,
         },
@@ -121,7 +120,6 @@ require("vim._core.ui2").enable {
 --     end,
 -- })
 
-require("amp").setup { auto_start = true, log_level = "info" }
 local ts = require "nvim-treesitter"
 ts.install {
     "lua",
@@ -273,8 +271,11 @@ vim.o.iskeyword = "@,48-57,_,192-255,-"
 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.bo.omnifunc = "v:lua.vim.treesitter.query.omnifunc"
 
 vim.g.autoformat = true
+
+vim.o.equalalways = false
 
 vim.o.cmdheight = 0
 vim.o.background = "dark"
@@ -349,7 +350,7 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
             "cssls",
             "pyright",
             "astro",
-            "tsgo",
+            -- "tsgo",
         }
 
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -372,6 +373,10 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
             elseif lsp == "ts_ls" then
                 vim.lsp.config(lsp, {
                     init_options = {
+                        tsserver = {
+                            path = vim.env.HOME
+                                .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript/lib",
+                        },
                         maxTsServerMemory = 2048,
                         preferences = {
                             includeCompletionsForModuleExports = false, -- disables scanning all node_modules for auto-imports
@@ -428,6 +433,17 @@ autocmd("FileType", {
         if vim.list_contains(ts.get_installed(), vim.treesitter.language.get_lang(args.match)) then
             vim.treesitter.start(args.buf)
         end
+    end,
+})
+
+autocmd("FileType", {
+    group = augroup("javascript", { clear = true }),
+    pattern = "javascript",
+    desc = "Set tab spacing to 2 in js",
+    callback = function(args)
+        vim.o.sw = 2
+        vim.o.ts = 2
+        vim.o.sts = 2
     end,
 })
 
@@ -759,66 +775,6 @@ map("n", "<leader>lg", function()
     vim.cmd { cmd = "terminal", args = { "lazygit" }, bang = false }
     vim.api.nvim_feedkeys("i", "n", false)
 end)
-
--- Send a quick message to the agent
-vim.api.nvim_create_user_command("AmpSend", function(opts)
-    local message = opts.args
-    if message == "" then
-        print "Please provide a message to send"
-        return
-    end
-
-    local amp_message = require "amp.message"
-    amp_message.send_message(message)
-end, {
-    nargs = "*",
-    desc = "Send a message to Amp",
-})
-
--- amp helpful stuff
-vim.api.nvim_create_user_command("AmpPromptRefInput", function(opts)
-    local amp_message = require "amp.message"
-
-    -- Visual mode: include file + selection reference
-    if opts.range > 0 then
-        local bufname = vim.api.nvim_buf_get_name(0)
-        if bufname == "" then
-            vim.notify("Current buffer has no filename", vim.log.levels.WARN)
-            return
-        end
-
-        local relative_path = vim.fn.fnamemodify(bufname, ":.")
-        local ref = "@" .. relative_path
-
-        if opts.line1 ~= opts.line2 then
-            ref = ref .. "#L" .. opts.line1 .. "-" .. opts.line2
-        else
-            ref = ref .. "#L" .. opts.line1
-        end
-
-        vim.ui.input({ prompt = "Amp prompt: " }, function(input)
-            if not input or input == "" then
-                return
-            end
-
-            amp_message.send_to_prompt(ref .. "\n\n" .. input)
-        end)
-
-        return
-    end
-
-    vim.ui.input({ prompt = "Amp prompt: " }, function(input)
-        if not input or input == "" then
-            return
-        end
-
-        amp_message.send_to_prompt(input)
-    end)
-end, {
-    range = true,
-    desc = "Send input to Amp (visual: include file/selection ref)",
-})
-map({ "n", "v" }, "<leader>sp", ":AmpPromptRefInput<CR>", {})
 
 vim.api.nvim_create_user_command("ActiveLSPClients", function()
     local clients = vim.lsp.get_clients()

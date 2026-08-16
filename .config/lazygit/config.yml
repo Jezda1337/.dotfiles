@@ -1,7 +1,9 @@
 quitOnTopLevelReturn: true
-
 gui:
   border: single
 os:
   editCommand: 'nvim'
   editCommandTemplate: '{{editor}} +{{line}} {{filename}}'
+git:
+  diffRenderers:
+    - command: delta --dark --paging=never

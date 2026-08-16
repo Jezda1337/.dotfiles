@@ -1,10 +1,11 @@
-# My PC: 1440p at 15.6 inch
 [global]
+    animation_type = slide
+    animation_direction = right
     follow = keyboard
     width = (300, 1500)
     height = 950
-    origin = top-center
-    offset = 0x20
+    origin = top-right
+    offset = 0x0
     scale = 0
     notification_limit = 10
     progress_bar = true
@@ -20,8 +21,8 @@
     padding = 15
     horizontal_padding = 15
     text_icon_padding = 0
-    frame_width = 3
-    frame_color = "#aaaaaa"
+    frame_width = 1
+    frame_color = "#ffffff"
     gap_size = 0
     separator_color = frame
     sort = yes
@@ -53,7 +54,7 @@
     always_run_script = true
     title = Dunst
     class = Dunst
-    corner_radius = 6
+    corner_radius = 0
     ignore_dbusclose = false
     force_xwayland = false
     force_xinerama = false
@@ -73,7 +74,7 @@
 		icon = "~/.config/dunst/icons/bell_icon.png"
 
 [urgency_normal]
-    background = "#2b2b2b"
+    background = "#000000"
     foreground = "#ffffff"
     highlight = "#eee"
     timeout = 3
