@@ -9,11 +9,11 @@
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "gruber-darker.nvim": {
-      "rev": "83d99c0eb0fa2513fa5268d097194801fad26660",
+      "rev": "50fa4e583099729fcaaadc73a5afb74f7a91a625",
       "src": "https://github.com/blazkowolf/gruber-darker.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "51dbf5359da86721662c87ca10eb73add973737b",
+      "rev": "615d7b2712efb2f530a83a9d0466acafba6b1d6f",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree-docs": {
@@ -21,7 +21,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-tree-docs"
     },
     "nvim-treesitter": {
-      "rev": "074aa4422bf029908338e855d0c0f71470a971bb",
+      "rev": "0d0969030ad955b510d7c8012b40252a25c12a6d",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },

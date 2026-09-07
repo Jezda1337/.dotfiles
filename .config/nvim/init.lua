@@ -90,19 +90,10 @@ require("vim._core.ui2").enable {
         --     wmsg = "msg",
         --     typed_cmd = "cmd",
         -- },
-        cmd = {
-            height = 0.5,
-        },
-        dialog = {
-            height = 0.5,
-        },
-        msg = {
-            height = 0.3,
-            timeout = 5000,
-        },
-        pager = {
-            height = 0.5,
-        },
+    },
+    messagesopt = {
+        height = 0.3,
+        timeout = 5000,
     },
 }
 
@@ -250,6 +241,7 @@ vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"
 
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
+vim.o.autoread = true
 
 vim.o.sw = 4
 vim.o.ts = 4
@@ -319,6 +311,9 @@ vim.o.ex = true
 vim.g.have_nerd_font = true
 vim.o.statusline = "%F%h%m%r%=%c,%l/%L %P"
 vim.o.ruler = false
+
+-- vim.o.scrolloff = 10
+-- vim.o.scrolloffpad = 99
 
 vim.opt.path:append "**"
 vim.opt.path:append "."
@@ -600,6 +595,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 map("n", "<c-w>b", ":%bd|e#", { desc = "Delete all buffers but current one" })
+
+-- conflict with tmux mappings
+map("n", "<A-l>", ':call nvim_buf_clear_namespace(0, nvim_create_namespace("nvim.multicursor"), 0, -1)<cr>')
 
 -- incremental selection treesitter/lsp
 map({ "n", "x", "o" }, "<A-o>", function()

@@ -1,4 +1,5 @@
-theme = iTerm2 Dark Background
+# theme = iTerm2 Dark Background
+theme = gruber-darker
 font-family = 0xProto
 font-size = 14
 
