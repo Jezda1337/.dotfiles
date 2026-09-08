@@ -24,6 +24,7 @@ PS1='[\u@\h \W]\$ '
 . "$HOME/.cargo/env"
 
 alias igor='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/eventpage'
+alias radoje33='eval "$(ssh-agent -s)" && ssh-add ~/.ssh/radoje33'
 
 export PATH="$PATH:/home/radoje/pkgs/alacritty/target/release:/home/radoje/pkgs/grim/build:/home/radoje/pkgs/yazi/target/release:/home/radoje/go/bin:$HOME/pkgs/eww/target/release/:$HOME/.local/bin/:$HOME/bin/"
 export PATH="$PATH:/usr/lib/qt6/bin" # qmlls lsp
