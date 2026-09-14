@@ -26,10 +26,10 @@ vim.cmd [[colorscheme gruber-darker]]
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = "None" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
--- vim.api.nvim_set_hl(0, "typescriptParens", { link = "GruberDarkerWisteria" })
+
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
+-- vim.api.nvim_set_hl(0, "NormalNC", { bg = "None" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "None" })
 
 require("html-css").setup {
     enable_on = { "html", "htmlangular" },
