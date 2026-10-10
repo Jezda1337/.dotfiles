@@ -328,3 +328,12 @@ hl.window_rule({
 		class = "^(hyprland-share-picker|xdg-desktop-portal-hyprland)$",
 	},
 })
+
+hl.window_rule({
+	name = "floating FEH image viewer",
+	float = true,
+	center = true,
+	match = {
+		class = "^(feh)$",
+	},
+})

@@ -13,7 +13,7 @@
       "src": "https://github.com/blazkowolf/gruber-darker.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "910f0c4d46aa186641518395bc7e6fffb4d23baf",
+      "rev": "c59fc922f718fa055f69f5f3bc888f23211571eb",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-tree-docs": {

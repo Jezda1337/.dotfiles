@@ -724,7 +724,7 @@ map("n", "gd", ":vsplit | lua vim.lsp.buf.definition() <CR>")
 map("n", "-", ":Explore <CR>")
 
 -- grep word under the cursor
-map("n", "<leader>sw", ":grep <cword> . | copen <CR>")
+map("n", "<leader>sw", ":silent grep! <cword> . | copen <CR>")
 
 -- better grep??
 map("n", "<leader>G", function()
