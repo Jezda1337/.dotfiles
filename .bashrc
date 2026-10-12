@@ -64,24 +64,12 @@ function gc() {
 }
 
 # pnpm
-export PNPM_HOME="/home/radoje/.local/share/pnpm"
+export PNPM_HOME='/home/radoje/.local/share/pnpm'
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
 # opencode
 export PATH=/home/radoje/.opencode/bin:$PATH
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/radoje/.lmstudio/bin"
-# End of LM Studio CLI section
-
-# Amp CLI
-export PATH="/home/radoje/.amp/bin:$PATH"
-export PATH=$PATH:$HOME/.maestro/bin
