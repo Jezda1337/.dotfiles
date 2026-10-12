@@ -175,7 +175,8 @@ require("conform").setup {
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         markdown = { "prettierd", "prettier", stop_after_first = true },
         go = { "gofmt", "goimports", stop_after_first = false },
-        python = { "black", "isort", stop_after_first = true },
+        -- python = { "black", "isort", stop_after_first = true },
+        python = { "ruff_format", "ruff_organize_imports" },
         ["_"] = { "trim_whitespace", "trim_newlines" },
     },
     format_on_save = {
@@ -343,8 +344,10 @@ autocmd({ "BufReadPre", "BufNewFile" }, {
             "angular_ls",
             "gopls",
             "cssls",
-            "pyright",
+            -- "pyright",
             "astro",
+            "ruff",
+            "basedpyright",
             -- "tsgo",
         }
 
