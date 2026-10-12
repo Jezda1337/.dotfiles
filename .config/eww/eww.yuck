@@ -18,7 +18,7 @@
                  (eventbox :onclick "hyprctl dispatch 'hl.dsp.focus({ workspace = ${workspace.id} })'"
                         (box :class "workspace-entry ${workspace.windows > 0 ? "occupied" : "empty"}"
                                 (label :text "${workspace.id}" :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""}")))))
-      (image :style "margin-left: 10px;" :icon {current_app}))))
+      (image :style "margin-left: 10px;" :path icons :icon current_app))))
 
 ;;(image :path "${icons+current_app}.svg")
 ;;(label :text {current_app})
