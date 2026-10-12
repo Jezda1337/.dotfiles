@@ -1,6 +1,10 @@
+@theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"
+
 configuration {
   font: "Ubuntu 14";
   show-icons: true;
 }
 
-@theme "/usr/share/rofi/themes/gruvbox-dark-hard.rasi"
+window {
+    width: 25%;
+}
