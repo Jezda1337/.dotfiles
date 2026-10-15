@@ -333,20 +333,16 @@ autocmd("FileType", {
     end,
 })
 
-local ng_ts = vim.fn.glob(
-    "~/.nvm/versions/node/*/lib/node_modules/@angular/language-server/node_modules/typescript/lib",
-    false,
-    true
-)[1]
+local ts_path = vim.fn.glob(vim.env.HOME .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/-server/node_modules/typescript", true, true)[1]
 
 vim.lsp.config("ts_ls", {
     init_options = {
-        tsserver = { path = ng_ts },
+        tsserver = { path = ts_path},
         maxTsServerMemory = 2048,
         preferences = { includeCompletionsForModuleExports = false },
     },
 })
-vim.lsp.config("astro", { init_options = { typescript = { tsdk = ng_ts } } })
+vim.lsp.config("astro", { init_options = { typescript = { tsdk = ts_path } } })
 
 vim.lsp.enable { "lua_ls", "ts_ls", "html", "angular_ls", "gopls", "cssls", "astro", "ruff", "basedpyright" }
 
