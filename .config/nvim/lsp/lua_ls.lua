@@ -2,13 +2,11 @@
 return {
     cmd = { "lua-language-server" },
     filetypes = { "lua" },
-    root_markers = { ".luarc.json", ".luarc.jsonc" },
-    -- NOTE: These will be merged with the configuration file.
+    root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
     settings = {
         Lua = {
             completion = { callSnippet = "Replace" },
-            -- Using stylua for formatting.
-            format = { enable = false },
+            format = { enable = true },
             hint = {
                 enable = true,
                 arrayIndex = "Disable",

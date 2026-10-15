@@ -8,6 +8,37 @@ vim.pack.add {
     -- { src = "https://github.com/jezda1337/nvim-html-css" },
 }
 
+
+local sl = "%F%h%m%r%=%c,%l/%L %P"
+
+local function float_term(cmd, scale)
+    scale = scale or 0.9
+    local width = math.floor(vim.o.columns * scale)
+    local height = math.floor(vim.o.lines * scale)
+    local buf = vim.api.nvim_create_buf(false, true)
+
+    vim.api.nvim_open_win(buf, true, {
+        relative = "editor",
+        width = width,
+        height = height,
+        row = math.floor((vim.o.lines - height) / 2),
+        col = math.floor((vim.o.columns - width) / 2),
+        style = "minimal",
+        border = "none",
+    })
+
+    vim.fn.jobstart(cmd, {
+        term = true,
+        on_exit = function()
+            if vim.api.nvim_buf_is_valid(buf) then
+                vim.api.nvim_buf_delete(buf, { force = true })
+            end
+            vim.cmd.checktime()
+        end,
+    })
+    vim.cmd.startinsert()
+end
+
 local sys_name = vim.uv.os_uname().sysname
 
 if sys_name == "Linux" then
@@ -160,27 +191,18 @@ ts.install {
 -- })
 require("conform").setup {
     formatters_by_ft = {
-        lua = { "stylua" },
-        -- stop_after_first = Only run the first available formatter in the list
         javascript = { "prettierd", "prettier", stop_after_first = true },
-        javascriptreact = { "prettier", "prettier", stop_after_first = true },
+        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+        typescript = { "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         vue = { "prettierd", "prettier", stop_after_first = true },
-        css = { "prettierd", "prettier", stop_after_first = true },
-        scss = { "prettierd", "prettier", stop_after_first = true },
-        html = { "prettierd", "prettier", stop_after_first = true },
         astro = { "prettierd", "prettier", stop_after_first = true },
         htmlangular = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         markdown = { "prettierd", "prettier", stop_after_first = true },
-        go = { "gofmt", "goimports", stop_after_first = false },
-        -- python = { "black", "isort", stop_after_first = true },
-        python = { "ruff_format", "ruff_organize_imports" },
-        ["_"] = { "trim_whitespace", "trim_newlines" },
+        lua = { "stylua" },
     },
-    format_on_save = {
-        timeout_ms = 500,
+    default_format_opts = {
         lsp_format = "fallback",
     },
 }
@@ -190,29 +212,16 @@ local hover = vim.lsp.buf.hover
 vim.lsp.buf.hover = function()
     return hover {
         max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
+        max_width = math.floor(vim.o.columns * 0.8),
     }
 end
-
--- Override the virtual text diagnostic handler so that the most severe diagnostic is shown first.
-local show_handler = assert(vim.diagnostic.handlers.virtual_text.show)
-local hide_handler = vim.diagnostic.handlers.virtual_text.hide
-vim.diagnostic.handlers.virtual_text = {
-    show = function(ns, bufnr, diagnostics, opts)
-        table.sort(diagnostics, function(diag1, diag2)
-            return diag1.severity > diag2.severity
-        end)
-        return show_handler(ns, bufnr, diagnostics, opts)
-    end,
-    hide = hide_handler,
-}
 
 local signature_help = vim.lsp.buf.signature_help
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.signature_help = function()
     return signature_help {
         max_height = math.floor(vim.o.lines * 0.5),
-        max_width = math.floor(vim.o.columns * 0.4),
+        max_width = math.floor(vim.o.columns * 0.8),
     }
 end
 
@@ -242,47 +251,32 @@ vim.g.netrw_bufsettings = "noma nomod nu nobl nowrap ro rnu"
 
 vim.g.mapleader = ";"
 vim.g.maplocalleader = ";"
-vim.o.autoread = true
 
 vim.o.sw = 4
 vim.o.ts = 4
 vim.o.sts = 4
 vim.o.et = true
 
-vim.o.wrap = false
-vim.o.filetype = "on"
-
-vim.opt.list = false
-vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
+-- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
 
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes"
 vim.o.mouse = "a"
-vim.o.iskeyword = "@,48-57,_,192-255,-"
+vim.o.iskeyword = "@,48-57,_,192-255"
 
-vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-vim.bo.omnifunc = "v:lua.vim.treesitter.query.omnifunc"
-
-vim.g.autoformat = true
+-- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
 
 vim.o.equalalways = false
 
 vim.o.cmdheight = 0
 vim.o.background = "dark"
-vim.o.backup = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.undofile = true
-vim.o.hlsearch = true
-vim.o.incsearch = true
-vim.o.joinspaces = false
-if vim.fn.has "termguicolors" == 1 then
-    vim.o.termguicolors = true
-end
-vim.o.wrap = false
 vim.o.cursorline = true
 vim.o.cursorlineopt = "screenline,number"
 vim.o.inccommand = "split" -- Preview substitutions live, as you type!
@@ -304,13 +298,11 @@ vim.o.completeitemalign = "kind,abbr,menu"
 vim.o.pumheight = 7
 vim.o.pummaxwidth = 80
 -- autocomplete end
-vim.o.wildmenu = true
 vim.o.wildmode = "longest:full,full"
 vim.o.wildoptions = "pum,fuzzy"
 vim.o.winborder = "single"
 vim.o.ex = true
-vim.g.have_nerd_font = true
-vim.o.statusline = "%F%h%m%r%=%c,%l/%L %P"
+vim.o.statusline = sl
 vim.o.ruler = false
 
 -- vim.o.scrolloff = 10
@@ -321,11 +313,10 @@ vim.opt.path:append "."
 
 -- helpful for :find command, :find command won't look for this dirs
 vim.opt.wildignore:append { "*/node_modules/*,*/.history/*,*/dist/*,*/.git/*" }
--- vim.opt.grepprg = "rg --vimgrep -S --hidden --glob=!node_modules --glob=!.history --glob=!dist --glob=!.git"
+
 if vim.fn.executable "rg" == 1 then
-    -- Flags passed in the command line (like -i or -w) merge cleanly with these defaults
-    vim.opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-    vim.opt.grepformat = "%f:%l:%c:%m"
+    vim.o.grepprg = "rg --vimgrep --smart-case --hidden --glob=!.git"
+    vim.o.grepformat = "%f:%l:%c:%m"
 end
 
 -- vim.opt.makeprg = ""
@@ -334,60 +325,30 @@ end
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
-autocmd({ "BufReadPre", "BufNewFile" }, {
-    once = true,
+autocmd("FileType", {
+    pattern = "go",
     callback = function()
-        local servers = {
-            "lua_ls",
-            "ts_ls",
-            "html",
-            "angular_ls",
-            "gopls",
-            "cssls",
-            -- "pyright",
-            "astro",
-            "ruff",
-            "basedpyright",
-            -- "tsgo",
-        }
-
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-        local ts_probe = vim.env.HOME
-            .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript/lib"
-
-        for _, lsp in pairs(servers) do
-            if lsp == "cssls" or lsp == "html" then
-                vim.lsp.config(lsp, { capabilities = capabilities })
-            elseif lsp == "astro" then
-                vim.lsp.config(lsp, {
-                    init_options = {
-                        typescript = {
-                            tsdk = ts_probe,
-                        },
-                    },
-                })
-            elseif lsp == "ts_ls" then
-                vim.lsp.config(lsp, {
-                    init_options = {
-                        tsserver = {
-                            path = vim.env.HOME
-                                .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript/lib",
-                        },
-                        maxTsServerMemory = 2048,
-                        preferences = {
-                            includeCompletionsForModuleExports = false, -- disables scanning all node_modules for auto-imports
-                        },
-                    },
-                })
-            else
-                vim.lsp.config(lsp, {})
-            end
-            vim.lsp.enable { lsp }
-        end
+        vim.cmd [[iabbrev <buffer> iferr if err != nil {<CR>return err<CR>}]]
+        vim.cmd [[iabbrev <buffer> ctxx ctx context.Context]]
     end,
 })
+
+local ng_ts = vim.fn.glob(
+    "~/.nvm/versions/node/*/lib/node_modules/@angular/language-server/node_modules/typescript/lib",
+    false,
+    true
+)[1]
+
+vim.lsp.config("ts_ls", {
+    init_options = {
+        tsserver = { path = ng_ts },
+        maxTsServerMemory = 2048,
+        preferences = { includeCompletionsForModuleExports = false },
+    },
+})
+vim.lsp.config("astro", { init_options = { typescript = { tsdk = ng_ts } } })
+
+vim.lsp.enable { "lua_ls", "ts_ls", "html", "angular_ls", "gopls", "cssls", "astro", "ruff", "basedpyright" }
 
 autocmd({ "WinLeave" }, {
     callback = function()
@@ -414,14 +375,20 @@ autocmd({ "WinEnter" }, {
 --     end,
 -- })
 
-autocmd("BufNewFile", {
-    group = augroup("filetype-detect-on-new", { clear = true }),
+autocmd("FileType", {
+    pattern = { "css", "scss", "html", "htmlangular" },
     callback = function()
-        vim.schedule(function()
-            vim.cmd "filetype detect"
-        end)
+        vim.opt_local.iskeyword:append "-"
     end,
 })
+-- autocmd("BufNewFile", {
+--     group = augroup("filetype-detect-on-new", { clear = true }),
+--     callback = function()
+--         vim.schedule(function()
+--             vim.cmd "filetype detect"
+--         end)
+--     end,
+-- })
 
 autocmd("FileType", {
     group = augroup("treesitter", { clear = true }),
@@ -430,6 +397,7 @@ autocmd("FileType", {
     callback = function(args)
         if vim.list_contains(ts.get_installed(), vim.treesitter.language.get_lang(args.match)) then
             vim.treesitter.start(args.buf)
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
     end,
 })
@@ -439,19 +407,19 @@ autocmd("FileType", {
     pattern = "javascript",
     desc = "Set tab spacing to 2 in js",
     callback = function(args)
-        vim.o.sw = 2
-        vim.o.ts = 2
-        vim.o.sts = 2
+        vim.opt_local.sw = 2
+        vim.opt_local.ts = 2
+        vim.opt_local.sts = 2
     end,
 })
 
 -- fix problem with css and ** * { ** }
 -- vim.cmd([[autocmd FileType * set formatoptions-=ro]])
-autocmd({ "BufEnter", "BufWinEnter" }, {
+autocmd("FileType", {
     group = augroup("CSS", { clear = true }),
-    pattern = { "*.css", "*.scss", "*.less", "*.sass" },
+    pattern = { "css", "scss", "less", "sass" },
     callback = function()
-        vim.cmd "set formatoptions-=ro"
+        vim.opt_local.formatoptions:remove { "r", "o" }
     end,
 })
 
@@ -477,15 +445,13 @@ autocmd("VimResized", {
 -- since I have cmdheight=0 I cannot see recording status on macro, this event solves
 -- that problem by adding 󰑊 at the middle of the status line while I'm recording a macro.
 autocmd("RecordingEnter", {
-    group = augroup("RecordingEnter", { clear = true }),
     callback = function()
-        vim.opt.statusline = "%t%h%m%r%=󰑊%=%c,%l/%L %P"
+        vim.o.statusline = sl:gsub("%%=", "%%=󰑊%%=", 1)
     end,
 })
 autocmd("RecordingLeave", {
-    group = augroup("RecordingLeave", { clear = true }),
     callback = function()
-        vim.opt.statusline = "%t%h%m%r%=%c,%l/%L %P"
+        vim.o.statusline = sl
     end,
 })
 
@@ -497,17 +463,14 @@ autocmd("TextYankPost", {
     end,
 })
 
----@param client vim.lsp.Client
----@param method vim.lsp.protocol.Method
----@param bufnr? integer some lsp support methods only in specific files
----@return boolean
-local function client_supports_method(client, method, bufnr)
-    if vim.fn.has "nvim-0.11" == 1 then
-        return client:supports_method(method, bufnr)
-    else
-        return client.supports_method(method, { bufnr = bufnr })
-    end
-end
+vim.diagnostic.config {
+    virtual_text = false,
+    underline = true,
+    float = {
+        max_width = math.floor(vim.o.columns * 0.8),
+        max_height = math.floor(vim.o.lines * 0.5),
+    },
+}
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
@@ -524,10 +487,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     return true
                 end,
             }
-        end, {})
+        end, { buffer = event.buf })
 
         -- ENABLE BUILT-IN LSP COMPLETION
-        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_completion, event.buf) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion, event.buf) then
             local lsp_kind = vim.lsp.protocol.CompletionItemKind
             local icons = require "icons"
             vim.lsp.completion.enable(true, client.id, event.buf, {
@@ -558,10 +521,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         -- HIGHLIGHTS
-        if
-            client
-            and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
-        then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
             local highlight_group = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -578,24 +538,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
 
         -- INLAY HINTS
-        if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+        if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map("n", "<leader>lh", function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }, {
                     bufnr = event.buf,
                 })
-            end)
+            end, { buffer = event.buf })
         end
-
-        vim.diagnostic.config {
-            virtual_text = false,
-            underline = true,
-            float = {
-                max_width = math.floor(vim.o.columns * 0.40),
-                max_height = math.floor(vim.o.lines * 0.50),
-            },
-        }
     end,
 })
+
+map("n", "<leader>oi", function()
+    vim.lsp.buf.code_action { context = { only = { "source.organizeImports" } }, apply = true }
+end, { desc = "Organize imports" })
 
 map("n", "<c-w>b", ":%bd|e#", { desc = "Delete all buffers but current one" })
 
@@ -620,35 +575,6 @@ map({ "n", "x", "o" }, "<A-i>", function()
 end, { desc = "Select child treesitter node or inner incremental lsp selections" })
 
 -- git remaps
-map("n", "<leader>ls", function()
-    local fpath = vim.fn.expand "%:p"
-    local buf = vim.api.nvim_create_buf(false, true)
-
-    if buf == 0 then
-        return
-    end
-
-    local width = math.floor(vim.o.columns * 0.9)
-    local height = math.floor(vim.o.lines * 0.9)
-    local row = math.floor((vim.o.lines - height) / 2)
-    local col = math.floor((vim.o.columns - width) / 2)
-
-    vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        width = width,
-        height = height,
-        row = row,
-        col = col,
-        style = "minimal",
-        border = "none",
-    })
-
-    local cmd = "terminal lazygit -f " .. fpath
-    vim.cmd(cmd)
-
-    vim.api.nvim_feedkeys("i", "n", false)
-end, { desc = "Open file git history in floating terminal buff" })
-
 map("n", "[c", function()
     if vim.wo.diff then
         vim.cmd.normal { "]c", bang = true }
@@ -735,8 +661,8 @@ map("n", "<leader>G", function()
         if not input or input == "" then
             return
         end
-        vim.cmd("silent grep! " .. input)
-        vim.cmd "botright copen"
+        vim.cmd("silent grep! " .. vim.fn.escape(input, "|%#"))
+        vim.cmd "botright cwindow"
     end)
 end, { desc = "Grep with input prompt" })
 
@@ -750,32 +676,12 @@ map("n", "<A-D>", ":t.-1<CR>")
 
 -- open lazygit in floating buffer <term>
 map("n", "<leader>lg", function()
-    local buf = vim.api.nvim_create_buf(false, true)
+    float_term({ "lazygit" }, 1)
+end, { desc = "Lazygit" })
 
-    if buf == 0 then
-        return
-    end
-
-    local width = math.floor(vim.o.columns * 1) -- 0.9
-    local height = math.floor(vim.o.lines * 1) -- 0.9
-    local row = math.floor((vim.o.lines - height) / 2)
-    local col = math.floor((vim.o.columns - width) / 2)
-
-    vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        width = width,
-        height = height,
-        row = row,
-        col = col,
-        style = "minimal",
-        border = "none",
-    })
-
-    vim.cmd "autocmd! TermClose term://*lazygit lua vim.api.nvim_input('<CR>')"
-
-    vim.cmd { cmd = "terminal", args = { "lazygit" }, bang = false }
-    vim.api.nvim_feedkeys("i", "n", false)
-end)
+map("n", "<leader>ls", function()
+    float_term { "lazygit", "-f", vim.fn.expand "%:p" }
+end, { desc = "Lazygit file history" })
 
 vim.api.nvim_create_user_command("ActiveLSPClients", function()
     local clients = vim.lsp.get_clients()
@@ -797,35 +703,42 @@ end, {
 
 map("n", "<leader>u", require("undotree").open)
 
-local function fd_find(match, _)
-    local cmd = {
-        "fd",
-        "--type",
-        "f",
-        "--hidden",
-        "--exclude",
-        ".git",
-        "--exclude",
-        "node_modules",
-        "--exclude",
-        "dist",
-    }
+local files_cache
 
-    local ok, files_raw = pcall(vim.fn.systemlist, cmd)
-    if not ok or #files_raw == 0 then
-        return {}
+local function fd_find(arg, _)
+    if not files_cache then
+        files_cache = vim.fn.systemlist {
+            "fd",
+            "--type",
+            "f",
+            "--hidden",
+            "--exclude",
+            ".git",
+            "--exclude",
+            "node_modules",
+            "--exclude",
+            "dist",
+        }
+        if vim.v.shell_error ~= 0 then
+            files_cache = {}
+        end
     end
 
-    -- If user typed a query, fuzzy-match it; otherwise return raw list for tab-completion
-    if match and match ~= "" then
-        return vim.fn.matchfuzzy(files_raw, match)
+    if arg == "" then
+        return files_cache
     end
-
-    return files_raw
+    return vim.fn.matchfuzzy(files_cache, arg)
 end
 
 _G.fd_find = fd_find
 vim.o.findfunc = "v:lua.fd_find"
+
+vim.api.nvim_create_autocmd("CmdlineEnter", {
+    pattern = ":",
+    callback = function()
+        files_cache = nil
+    end,
+})
 
 -- --- @return vim.lsp.rpc.Client
 -- local function cmd_fn(dispatchers)
