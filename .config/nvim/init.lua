@@ -256,7 +256,7 @@ vim.o.sw = 4
 vim.o.ts = 4
 vim.o.sts = 4
 vim.o.et = true
-
+vim.o.wrap = false
 -- vim.opt.listchars = { space = "⋅", trail = "⋅", tab = "  ↦" }
 
 vim.wo.number = true
@@ -333,7 +333,7 @@ autocmd("FileType", {
     end,
 })
 
-local ts_path = vim.fn.glob(vim.env.HOME .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/-server/node_modules/typescript", true, true)[1]
+local ts_path = vim.fn.glob(vim.env.HOME .. "/.nvm/versions/node/v24.0.2/lib/node_modules/@angular/language-server/node_modules/typescript", true, true)[1]
 
 vim.lsp.config("ts_ls", {
     init_options = {
