@@ -57,6 +57,9 @@ vim.cmd [[colorscheme gruber-darker]]
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "#181818" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+vim.api.nvim_set_hl(0, "PmenuSel", { fg = "#ffdd33", bg = "#453d41" })
+-- vim.api.nvim_set_hl(0, "PmenuKind", { fg = "#9e95c7" })
+vim.api.nvim_set_hl(0, "PmenuKindSel", { fg = "#95a99f", bg = "#453d41" })
 
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "None" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "None" })
