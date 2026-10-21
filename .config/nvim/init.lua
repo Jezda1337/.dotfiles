@@ -271,6 +271,7 @@ vim.o.iskeyword = "@,48-57,_,192-255"
 -- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 vim.o.foldlevel = 99
 
 vim.o.equalalways = false
